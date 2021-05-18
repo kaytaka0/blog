@@ -1,6 +1,6 @@
 # hugo server --minify --themesDir ... --baseURL=http://0.0.0.0:1313/theme/hugo-book/
 
-baseURL = 'https://takashimakazuki.github.io/'
+baseURL = 'https://takashimakazuki.github.io/ktakashima_page/'
 title = 'k-taka'
 theme = 'book'
 

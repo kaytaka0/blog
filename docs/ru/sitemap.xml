@@ -2,55 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://takashimakazuki.github.io/ru/categories/</loc>
+    <loc>https://takashimakazuki.github.io/ktakashima_page/ru/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://takashimakazuki.github.io/categories/"
+                href="https://takashimakazuki.github.io/ktakashima_page/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://takashimakazuki.github.io/zh/categories/"
+                href="https://takashimakazuki.github.io/ktakashima_page/zh/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"
-                href="https://takashimakazuki.github.io/ru/categories/"
+                href="https://takashimakazuki.github.io/ktakashima_page/ru/categories/"
                 />
   </url><url>
-    <loc>https://takashimakazuki.github.io/ru/</loc>
+    <loc>https://takashimakazuki.github.io/ktakashima_page/ru/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://takashimakazuki.github.io/"
+                href="https://takashimakazuki.github.io/ktakashima_page/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://takashimakazuki.github.io/zh/"
+                href="https://takashimakazuki.github.io/ktakashima_page/zh/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"
-                href="https://takashimakazuki.github.io/ru/"
+                href="https://takashimakazuki.github.io/ktakashima_page/ru/"
                 />
   </url><url>
-    <loc>https://takashimakazuki.github.io/ru/tags/</loc>
+    <loc>https://takashimakazuki.github.io/ktakashima_page/ru/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://takashimakazuki.github.io/tags/"
+                href="https://takashimakazuki.github.io/ktakashima_page/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://takashimakazuki.github.io/zh/tags/"
+                href="https://takashimakazuki.github.io/ktakashima_page/zh/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"
-                href="https://takashimakazuki.github.io/ru/tags/"
+                href="https://takashimakazuki.github.io/ktakashima_page/ru/tags/"
                 />
   </url>
 </urlset>
