@@ -2,55 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://takashimakazuki.github.io/blog/zh/categories/</loc>
+    <loc>https://takashimakazuki.github.io/zh/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://takashimakazuki.github.io/blog/categories/"
+                href="https://takashimakazuki.github.io/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"
-                href="https://takashimakazuki.github.io/blog/ru/categories/"
+                href="https://takashimakazuki.github.io/ru/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://takashimakazuki.github.io/blog/zh/categories/"
+                href="https://takashimakazuki.github.io/zh/categories/"
                 />
   </url><url>
-    <loc>https://takashimakazuki.github.io/blog/zh/</loc>
+    <loc>https://takashimakazuki.github.io/zh/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://takashimakazuki.github.io/blog/"
+                href="https://takashimakazuki.github.io/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"
-                href="https://takashimakazuki.github.io/blog/ru/"
+                href="https://takashimakazuki.github.io/ru/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://takashimakazuki.github.io/blog/zh/"
+                href="https://takashimakazuki.github.io/zh/"
                 />
   </url><url>
-    <loc>https://takashimakazuki.github.io/blog/zh/tags/</loc>
+    <loc>https://takashimakazuki.github.io/zh/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://takashimakazuki.github.io/blog/tags/"
+                href="https://takashimakazuki.github.io/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"
-                href="https://takashimakazuki.github.io/blog/ru/tags/"
+                href="https://takashimakazuki.github.io/ru/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://takashimakazuki.github.io/blog/zh/tags/"
+                href="https://takashimakazuki.github.io/zh/tags/"
                 />
   </url>
 </urlset>
