@@ -2,55 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://takashimakazuki.github.io/blog/zh/categories/</loc>
+    <loc>https://blog.kazapps.info/zh/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://takashimakazuki.github.io/blog/categories/"
+                href="https://blog.kazapps.info/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"
-                href="https://takashimakazuki.github.io/blog/ru/categories/"
+                href="https://blog.kazapps.info/ru/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://takashimakazuki.github.io/blog/zh/categories/"
+                href="https://blog.kazapps.info/zh/categories/"
                 />
   </url><url>
-    <loc>https://takashimakazuki.github.io/blog/zh/</loc>
+    <loc>https://blog.kazapps.info/zh/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://takashimakazuki.github.io/blog/"
+                href="https://blog.kazapps.info/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"
-                href="https://takashimakazuki.github.io/blog/ru/"
+                href="https://blog.kazapps.info/ru/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://takashimakazuki.github.io/blog/zh/"
+                href="https://blog.kazapps.info/zh/"
                 />
   </url><url>
-    <loc>https://takashimakazuki.github.io/blog/zh/tags/</loc>
+    <loc>https://blog.kazapps.info/zh/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://takashimakazuki.github.io/blog/tags/"
+                href="https://blog.kazapps.info/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"
-                href="https://takashimakazuki.github.io/blog/ru/tags/"
+                href="https://blog.kazapps.info/ru/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://takashimakazuki.github.io/blog/zh/tags/"
+                href="https://blog.kazapps.info/zh/tags/"
                 />
   </url>
 </urlset>
