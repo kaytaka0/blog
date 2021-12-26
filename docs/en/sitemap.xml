@@ -3,13 +3,10 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.kazapps.info/docs/posts/</loc>
-  </url><url>
-    <loc>https://blog.kazapps.info/docs/posts/dpdk-ec2/</loc>
-  </url><url>
-    <loc>https://blog.kazapps.info/docs/about/</loc>
-    <lastmod>2021-05-19T01:06:09+09:00</lastmod>
+    <lastmod>2021-12-26T18:42:15+09:00</lastmod>
   </url><url>
     <loc>https://blog.kazapps.info/docs/posts/ovs/</loc>
+    <lastmod>2021-12-26T18:42:15+09:00</lastmod>
   </url><url>
     <loc>https://blog.kazapps.info/categories/</loc>
     <xhtml:link
@@ -29,10 +26,10 @@
                 />
   </url><url>
     <loc>https://blog.kazapps.info/docs/</loc>
-    <lastmod>2021-05-19T01:06:09+09:00</lastmod>
+    <lastmod>2021-12-26T18:42:15+09:00</lastmod>
   </url><url>
     <loc>https://blog.kazapps.info/</loc>
-    <lastmod>2021-05-19T01:06:09+09:00</lastmod>
+    <lastmod>2021-12-26T18:42:15+09:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"

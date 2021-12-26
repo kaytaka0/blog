@@ -6,28 +6,14 @@
     <description>Recent content on k-taka</description>
     <generator>Hugo -- gohugo.io</generator><atom:link href="https://blog.kazapps.info/docs/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>EC2でDPDK動作環境を作る</title>
-      <link>https://blog.kazapps.info/docs/posts/dpdk-ec2/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.kazapps.info/docs/posts/dpdk-ec2/</guid>
-      <description>EC2でDPDK動作環境を作る dpdkを利用したアプリケーションを作る機会があったので，勉強用の環境を作ってみた．
-EC2の起動  Ubuntuインスタンスの作成  2コア Ubuntu Server 20.04 LTS (HVM), SSD Volume Type t2.large vCPU:4, Memory: 8GB   ネットワークインタフェースの作成 ネットワークインタフェースのアタッチ  ネットワークインタフェースの作成 デフォルトの場合，EC2作成時にはネットワークインタフェースは1つアタッチされている． 今回はネットワークインタフェースが2つ必要なため，追加を行う． こちらの複数の IPv4 アドレスの使用でEC2インスタンスにネットワークインタフェースを追加する方法があった．
-作成したEC2環境の確認 インスタンス上でipコマンドを使用して,ネットワークインタフェースが2個あることを確認しておく．
-ubuntu@ip-172-xx-xx-xxx:~$ ip a 1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever inet6 ::1/128 scope host valid_lft forever preferred_lft forever 2: eth0: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu 9001 qdisc fq_codel state UP group default qlen 1000 link/ether 06:5c:26:35:0f:a9 brd ff:ff:ff:ff:ff:ff inet 172.</description>
-    </item>
-    
-    <item>
-      <title>OVS</title>
+      <title>Open vSwitchとDocker でネットワークの勉強</title>
       <link>https://blog.kazapps.info/docs/posts/ovs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://blog.kazapps.info/docs/posts/ovs/</guid>
       <description>Open vSwitch と Docker でネットワークの勉強 マスタリングTCP/IPを一通り読んだので，実際にIPv4ネットワークがどのように動作しているのか手を動かしながら確認したいと思いました． 本記事で作成するネットワークでは，仮想ルータ４台に手作業でルーティングテーブルを設定することで，それぞれに対してパケットを送受信できることを目指しました． 今回はルーティングテーブルの手動設定を初めて体験したいという軽い気持ちで始めたため，ルータ+L2スイッチの実機を用意することは考えずに，仮想環境で実行します．
 環境  Apple M1 Mac(ホストマシン) UTM: VM(仮想マシン)を立ち上げるソフトウェア  Linux上で動作検証したかったため   Ubuntu 18.04 Server Docker  CentOS7 on dockerのルーティングテーブルを用いてルーティングを行う   Open vSwitch  オープンソースの仮想スイッチソフトウェア    ネットワーク構成図 今回作成したいネットワーク構成図
-Githubリポジトリ OVSのブリッジ作成スクリプトとDockerfile
-https://github.com/takashimakazuki/ovs-network
-詰まった点  vyOSを使いたかったがARMマシンに対応したDockerコンテナの作成方法がわからなかったため断念→CentOSのコンテナを利用 CentOSをルータとして動作させるためにip_forward機能を有効にする必要があった  docker run --sysctl net.ipv4.ip_forward=1    </description>
+静的ルーティングの設定 docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0 # router1-&amp;gt;router4(10.0.3.2) docker exec router2 ip route add 10.0.4.0/24 via 10.0.3.2 dev eth1 # router2-&amp;gt;router3(10.0.4.1) docker exec router3 ip route add 10.</description>
     </item>
     
   </channel>
