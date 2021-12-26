@@ -24,7 +24,7 @@ title: "Open vSwitchとDocker でネットワークの勉強"
 ## ネットワーク構成図
 今回作成したいネットワーク構成図
 
-![network](/ovs-network.png)
+![network](/img/ovs-network.png)
 
 
 ## 静的ルーティングの設定
