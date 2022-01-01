@@ -28,6 +28,13 @@ title: "Open vSwitchとDocker でネットワークの勉強"
 
 
 ## 静的ルーティングの設定
+Dockerコンテナ内でルーティングテーブルの設定を行う．
+
+```bash
+ip route add [ネットワーク部の指定] via [転送先IPの指定] dev [デバイス名]
+```
+
+
 ```bash
 docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0  # router1->router4(10.0.3.2)
 docker exec router2 ip route add 10.0.4.0/24 via 10.0.3.2 dev eth1  # router2->router3(10.0.4.1)
