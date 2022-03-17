@@ -5,23 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Open vSwitch と Docker でネットワークの勉強 #  マスタリングTCP/IPを一通り読んだので，実際にIPv4ネットワークがどのように動作しているのか手を動かしながら確認したいと思いました． 本記事で作成するネットワークでは，仮想ルータ４台に手作業でルーティングテーブルを設定することで，それぞれに対してパケットを送受信できることを目指しました． 今回はルーティングテーブルの手動設定を初めて体験したいという軽い気持ちで始めたため，ルータ&#43;L2スイッチの実機を用意することは考えずに，仮想環境で実行します．
 環境 #   Apple M1 Mac(ホストマシン) UTM: VM(仮想マシン)を立ち上げるソフトウェア  Linux上で動作検証したかったため   Ubuntu 18.04 Server Docker  CentOS7 on dockerのルーティングテーブルを用いてルーティングを行う   Open vSwitch  オープンソースの仮想スイッチソフトウェア    ネットワーク構成図 #  今回作成したいネットワーク構成図
- 静的ルーティングの設定 #  docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0 # router1-&gt;router4(10.0.3.2) docker exec router2 ip route add 10.0.4.0/24 via 10.0.3.2 dev eth1 # router2-&gt;router3(10.">
+ 静的ルーティングの設定 #  Dockerコンテナ内でルーティングテーブルの設定を行う．
+ip route add [ネットワーク部の指定] via [転送先IPの指定] dev [デバイス名] docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0 # router1-&gt;router4(10.0.3.2) docker exec router2 ip route add 10.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="Open vSwitchとDocker でネットワークの勉強" />
 <meta property="og:description" content="Open vSwitch と Docker でネットワークの勉強 #  マスタリングTCP/IPを一通り読んだので，実際にIPv4ネットワークがどのように動作しているのか手を動かしながら確認したいと思いました． 本記事で作成するネットワークでは，仮想ルータ４台に手作業でルーティングテーブルを設定することで，それぞれに対してパケットを送受信できることを目指しました． 今回はルーティングテーブルの手動設定を初めて体験したいという軽い気持ちで始めたため，ルータ&#43;L2スイッチの実機を用意することは考えずに，仮想環境で実行します．
 環境 #   Apple M1 Mac(ホストマシン) UTM: VM(仮想マシン)を立ち上げるソフトウェア  Linux上で動作検証したかったため   Ubuntu 18.04 Server Docker  CentOS7 on dockerのルーティングテーブルを用いてルーティングを行う   Open vSwitch  オープンソースの仮想スイッチソフトウェア    ネットワーク構成図 #  今回作成したいネットワーク構成図
- 静的ルーティングの設定 #  docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0 # router1-&gt;router4(10.0.3.2) docker exec router2 ip route add 10.0.4.0/24 via 10.0.3.2 dev eth1 # router2-&gt;router3(10." />
+ 静的ルーティングの設定 #  Dockerコンテナ内でルーティングテーブルの設定を行う．
+ip route add [ネットワーク部の指定] via [転送先IPの指定] dev [デバイス名] docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0 # router1-&gt;router4(10.0.3.2) docker exec router2 ip route add 10." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.kazapps.info/docs/posts/ovs/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2021-12-26T18:42:15&#43;09:00" />
+<meta property="article:modified_time" content="2022-01-01T23:32:06&#43;09:00" />
 
 <title>Open vSwitchとDocker でネットワークの勉強 | k-taka</title>
 <link rel="manifest" href="https://blog.kazapps.info/manifest.json">
 <link rel="icon" href="https://blog.kazapps.info/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="https://blog.kazapps.info/book.min.46181bc93375ba932026e753b37c40e6ff8bb16a9ef770c78bcc663e4577b1ba.css" integrity="sha256-RhgbyTN1upMgJudTs3xA5v&#43;LsWqe93DHi8xmPkV3sbo=" crossorigin="anonymous">
   <script defer src="https://blog.kazapps.info/flexsearch.min.js"></script>
-  <script defer src="https://blog.kazapps.info/en.search.min.0d9c8370f133e91aec191e34529a8ca159d70caccb88dabcac8f76da4b4b473e.js" integrity="sha256-DZyDcPEz6RrsGR40UpqMoVnXDKzLiNq8rI922ktLRz4=" crossorigin="anonymous"></script>
+  <script defer src="https://blog.kazapps.info/en.search.min.1ef0e2a9216531826d305377b79e3ce34006f3b8d7a01a56a45f613a7077e8f4.js" integrity="sha256-HvDiqSFlMYJtMFN3t54840AG87jXoBpWpF9hOnB36PQ=" crossorigin="anonymous"></script>
 
   <script defer src="https://blog.kazapps.info/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
 <!--
@@ -272,7 +274,9 @@ https://github.com/alex-shpak/hugo-book
   静的ルーティングの設定
   <a class="anchor" href="#%e9%9d%99%e7%9a%84%e3%83%ab%e3%83%bc%e3%83%86%e3%82%a3%e3%83%b3%e3%82%b0%e3%81%ae%e8%a8%ad%e5%ae%9a">#</a>
 </h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0  <span style="color:#75715e"># router1-&gt;router4(10.0.3.2)</span>
+<p>Dockerコンテナ内でルーティングテーブルの設定を行う．</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ip route add <span style="color:#f92672">[</span>ネットワーク部の指定<span style="color:#f92672">]</span> via <span style="color:#f92672">[</span>転送先IPの指定<span style="color:#f92672">]</span> dev <span style="color:#f92672">[</span>デバイス名<span style="color:#f92672">]</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0  <span style="color:#75715e"># router1-&gt;router4(10.0.3.2)</span>
 docker exec router2 ip route add 10.0.4.0/24 via 10.0.3.2 dev eth1  <span style="color:#75715e"># router2-&gt;router3(10.0.4.1)</span>
 docker exec router3 ip route add 10.0.1.0/24 via 10.0.2.1 dev eth0  <span style="color:#75715e"># router3-&gt;router2(10.0.1.2)</span>
 docker exec router4 ip route add 10.0.2.0/24 via 10.0.4.1 dev eth1  <span style="color:#75715e"># router4-&gt;router1(10.0.2.1)</span>
@@ -308,9 +312,9 @@ docker exec router4 ip route add 10.0.1.0/24 via 10.0.3.1 dev eth0
   <div class="flex flex-wrap justify-between">
 
 
-  <div><a class="flex align-center" href="https://github.com/alex-shpak/hugo-book/commit/30c680f875141721867a9c604129a116ec492aee" title='Last modified by takashimakazuki | December 26, 2021' target="_blank" rel="noopener">
+  <div><a class="flex align-center" href="https://github.com/alex-shpak/hugo-book/commit/2c0cb19327aa87efe36e35f5b2ab0a70e669947f" title='Last modified by takashimakazuki | January 1, 2022' target="_blank" rel="noopener">
       <img src="https://blog.kazapps.info/svg/calendar.svg" class="book-icon" alt="Calendar" />
-      <span>December 26, 2021</span>
+      <span>January 1, 2022</span>
     </a>
   </div>
 
