@@ -17,9 +17,9 @@
   <link rel="alternate" hreflang="zh" href="https://blog.kazapps.info/zh/tags/" title="Tags">
 <link rel="stylesheet" href="https://blog.kazapps.info/book.min.46181bc93375ba932026e753b37c40e6ff8bb16a9ef770c78bcc663e4577b1ba.css" integrity="sha256-RhgbyTN1upMgJudTs3xA5v&#43;LsWqe93DHi8xmPkV3sbo=" crossorigin="anonymous">
   <script defer src="https://blog.kazapps.info/flexsearch.min.js"></script>
-  <script defer src="https://blog.kazapps.info/ru.search.min.0c4e4acc12b65c3412581b2bfa455c2a78adef95ac22eda3254f085391b1cfaf.js" integrity="sha256-DE5KzBK2XDQSWBsr&#43;kVcKnit75WsIu2jJU8IU5Gxz68=" crossorigin="anonymous"></script>
+  <script defer src="https://blog.kazapps.info/ru.search.min.5f0597266a8394e940f5c30694bb79cd4a0dfc8538756c9dea44cfef886e46c3.js" integrity="sha256-XwWXJmqDlOlA9cMGlLt5zUoN/IU4dWyd6kTP74huRsM=" crossorigin="anonymous"></script>
 
-  <script defer src="https://blog.kazapps.info/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+  <script defer src="https://blog.kazapps.info/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js" integrity="sha256-dKi7B/C&#43;6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://blog.kazapps.info/ru/tags/index.xml" title="k-taka" />
 <!--
 Made with Book Theme
@@ -143,7 +143,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var a=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>(function(){var menu=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
 
 
  
@@ -223,7 +223,8 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
+  <script>(function(){function select(element){const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(element);selection.removeAllRanges();selection.addRange(range);}
+document.querySelectorAll("pre code").forEach(code=>{code.addEventListener("click",function(event){select(code.parentElement);if(navigator.clipboard){navigator.clipboard.writeText(code.parentElement.textContent);}});});})();</script>
 
 
  

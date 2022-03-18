@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
   <url>
-    <loc>https://blog.kazapps.info/docs/posts/</loc>
-    <lastmod>2021-12-26T18:42:15+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.kazapps.info/docs/posts/ovs/</loc>
-    <lastmod>2022-01-01T23:32:06+09:00</lastmod>
-  </url><url>
+    <loc>https://blog.kazapps.info/posts/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.kazapps.info/posts/get_gcp_domain/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.kazapps.info/posts/ovs/</loc>
+  </url>
+  
+  <url>
     <loc>https://blog.kazapps.info/categories/</loc>
     <xhtml:link
                 rel="alternate"
@@ -24,10 +31,9 @@
                 hreflang="en"
                 href="https://blog.kazapps.info/categories/"
                 />
-  </url><url>
-    <loc>https://blog.kazapps.info/docs/</loc>
-    <lastmod>2022-01-01T23:32:06+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://blog.kazapps.info/</loc>
     <lastmod>2021-12-26T18:42:15+09:00</lastmod>
     <xhtml:link
@@ -45,7 +51,9 @@
                 hreflang="en"
                 href="https://blog.kazapps.info/"
                 />
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://blog.kazapps.info/tags/</loc>
     <xhtml:link
                 rel="alternate"
@@ -63,4 +71,5 @@
                 href="https://blog.kazapps.info/tags/"
                 />
   </url>
+  
 </urlset>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.83.1" />
+	<meta name="generator" content="Hugo 0.79.0" />
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -18,9 +18,9 @@
   <link rel="alternate" hreflang="ru" href="https://blog.kazapps.info/ru/" title="k-taka">
 <link rel="stylesheet" href="https://blog.kazapps.info/book.min.46181bc93375ba932026e753b37c40e6ff8bb16a9ef770c78bcc663e4577b1ba.css" integrity="sha256-RhgbyTN1upMgJudTs3xA5v&#43;LsWqe93DHi8xmPkV3sbo=" crossorigin="anonymous">
   <script defer src="https://blog.kazapps.info/flexsearch.min.js"></script>
-  <script defer src="https://blog.kazapps.info/zh.search.min.e494c4726840e251e8fd2658f20dff2f64835aefc55b321283cff3171186d2c0.js" integrity="sha256-5JTEcmhA4lHo/SZY8g3/L2SDWu/FWzISg8/zFxGG0sA=" crossorigin="anonymous"></script>
+  <script defer src="https://blog.kazapps.info/zh.search.min.8cc84e764e76110e6dd74230f5f736e39e24a88a817dbfc8d18c4ad6927a2e23.js" integrity="sha256-jMhOdk52EQ5t10Iw9fc2454kqIqBfb/I0YxK1pJ6LiM=" crossorigin="anonymous"></script>
 
-  <script defer src="https://blog.kazapps.info/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+  <script defer src="https://blog.kazapps.info/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js" integrity="sha256-dKi7B/C&#43;6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://blog.kazapps.info/zh/index.xml" title="k-taka" />
 <!--
 Made with Book Theme
@@ -144,7 +144,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var a=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>(function(){var menu=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
 
 
  
@@ -200,7 +200,8 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
+  <script>(function(){function select(element){const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(element);selection.removeAllRanges();selection.addRange(range);}
+document.querySelectorAll("pre code").forEach(code=>{code.addEventListener("click",function(event){select(code.parentElement);if(navigator.clipboard){navigator.clipboard.writeText(code.parentElement.textContent);}});});})();</script>
 
 
  

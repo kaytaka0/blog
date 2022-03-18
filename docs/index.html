@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.83.1" />
+	<meta name="generator" content="Hugo 0.79.0" />
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="プロフィール #  ">
+<meta name="description" content="  posts   Open vSwitchとDocker でネットワークの勉強  Google Domainsで取得したドメインの更新    ">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="Introduction" />
 <meta property="og:description" content="" />
@@ -18,9 +18,9 @@
   <link rel="alternate" hreflang="zh" href="https://blog.kazapps.info/zh/" title="k-taka">
 <link rel="stylesheet" href="https://blog.kazapps.info/book.min.46181bc93375ba932026e753b37c40e6ff8bb16a9ef770c78bcc663e4577b1ba.css" integrity="sha256-RhgbyTN1upMgJudTs3xA5v&#43;LsWqe93DHi8xmPkV3sbo=" crossorigin="anonymous">
   <script defer src="https://blog.kazapps.info/flexsearch.min.js"></script>
-  <script defer src="https://blog.kazapps.info/en.search.min.1ef0e2a9216531826d305377b79e3ce34006f3b8d7a01a56a45f613a7077e8f4.js" integrity="sha256-HvDiqSFlMYJtMFN3t54840AG87jXoBpWpF9hOnB36PQ=" crossorigin="anonymous"></script>
+  <script defer src="https://blog.kazapps.info/en.search.min.7715cf6213b6d7b98d150448412b2c4f1f2d724bcfd9894cca90a1f2923ae8b6.js" integrity="sha256-dxXPYhO217mNFQRIQSssTx8tckvP2YlMypCh8pI66LY=" crossorigin="anonymous"></script>
 
-  <script defer src="https://blog.kazapps.info/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+  <script defer src="https://blog.kazapps.info/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js" integrity="sha256-dKi7B/C&#43;6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://blog.kazapps.info/index.xml" title="k-taka" />
 <!--
 Made with Book Theme
@@ -108,43 +108,6 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  
-  <ul>
-    
-      
-        <li class="book-section-flat" >
-          
-  
-  
-
-  
-    <span>Posts</span>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="https://blog.kazapps.info/docs/posts/ovs/" class="">Open vSwitchとDocker でネットワークの勉強</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-  </ul>
-
-
 
 
 
@@ -181,7 +144,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var a=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>(function(){var menu=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
 
 
  
@@ -210,11 +173,7 @@ https://github.com/alex-shpak/hugo-book
   <aside class="hidden clearfix">
     
   
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#プロフィール">プロフィール</a></li>
-  </ul>
-</nav>
+<nav id="TableOfContents"></nav>
 
 
 
@@ -225,10 +184,17 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="プロフィール">
-  プロフィール
-  <a class="anchor" href="#%e3%83%97%e3%83%ad%e3%83%95%e3%82%a3%e3%83%bc%e3%83%ab">#</a>
-</h1>
+  <article class="markdown"><ul>
+<li>
+  <a href="https://blog.kazapps.info/posts/">posts</a>
+<ul>
+<li>
+  <a href="https://blog.kazapps.info/posts/ovs/">Open vSwitchとDocker でネットワークの勉強</a></li>
+<li>
+  <a href="https://blog.kazapps.info/posts/get_gcp_domain/">Google Domainsで取得したドメインの更新</a></li>
+</ul>
+</li>
+</ul>
 </article>
  
       
@@ -258,7 +224,8 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
+  <script>(function(){function select(element){const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(element);selection.removeAllRanges();selection.addRange(range);}
+document.querySelectorAll("pre code").forEach(code=>{code.addEventListener("click",function(event){select(code.parentElement);if(navigator.clipboard){navigator.clipboard.writeText(code.parentElement.textContent);}});});})();</script>
 
 
  
@@ -281,11 +248,7 @@ https://github.com/alex-shpak/hugo-book
       <div class="book-toc-content">
         
   
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#プロフィール">プロフィール</a></li>
-  </ul>
-</nav>
+<nav id="TableOfContents"></nav>
 
 
  
