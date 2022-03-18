@@ -3,41 +3,43 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="2/28 #  開発環境の構築
+<meta name="description" content="ゼロからのOS自作入門　作業記録 #  内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。
+2/28 第1章 #  開発環境の構築
 自作OSの開発に利用した環境
  ThinkCentre M720s Small Ubuntu 20.04 Focal Fossa  動作確認は、仮想マシンのqemuを使用する。 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。 qemuで「Hello, workd」を表示できた。
  C言語で同じ動作をするEFIファイルを作成する。 Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)
-3/1 #  EDKⅡを利用してアプリケーション開発ができるようにする。 まずはEDKでのハローワールドから始める。
+3/1　第2章 #  EDKⅡを利用してアプリケーション開発ができるようにする。 まずはEDKでのハローワールドから始める。
 EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット
 ２章を読んだのみで実装は進まなかった。
-3/4 #  EDKでハローワールド KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)
+3/4 第2章 #  EDKでハローワールド KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)
 実行結果：edkでハローワールド(めっちゃ誤字している) 今後このアプリケーションをブートローダとして拡張していく
 まずはメモリマップの取得を行う。
 edkで用意されている機能gBS-&gt;GetMemoryMapを使用する。
 EFI_STATUS GetMemoryMap( IN OUT UINTN *MemoryMapSize, IN OUT EFI_MEMORY_DSCRIPTOR *Memorymap, OUT UINTN *MapKey, OUT UINTN *DescriptorSize, OUT UINT32 *DescriptorVersion );  MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ） MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ MapKey：メモリマップを識別するための値を書き込む変数を指定する DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数 DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）  メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。 memorymap">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="" />
-<meta property="og:description" content="2/28 #  開発環境の構築
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="OS自作本　進捗0x01" />
+<meta property="og:description" content="ゼロからのOS自作入門　作業記録 #  内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。
+2/28 第1章 #  開発環境の構築
 自作OSの開発に利用した環境
  ThinkCentre M720s Small Ubuntu 20.04 Focal Fossa  動作確認は、仮想マシンのqemuを使用する。 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。 qemuで「Hello, workd」を表示できた。
  C言語で同じ動作をするEFIファイルを作成する。 Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)
-3/1 #  EDKⅡを利用してアプリケーション開発ができるようにする。 まずはEDKでのハローワールドから始める。
+3/1　第2章 #  EDKⅡを利用してアプリケーション開発ができるようにする。 まずはEDKでのハローワールドから始める。
 EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット
 ２章を読んだのみで実装は進まなかった。
-3/4 #  EDKでハローワールド KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)
+3/4 第2章 #  EDKでハローワールド KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)
 実行結果：edkでハローワールド(めっちゃ誤字している) 今後このアプリケーションをブートローダとして拡張していく
 まずはメモリマップの取得を行う。
 edkで用意されている機能gBS-&gt;GetMemoryMapを使用する。
 EFI_STATUS GetMemoryMap( IN OUT UINTN *MemoryMapSize, IN OUT EFI_MEMORY_DSCRIPTOR *Memorymap, OUT UINTN *MapKey, OUT UINTN *DescriptorSize, OUT UINT32 *DescriptorVersion );  MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ） MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ MapKey：メモリマップを識別するための値を書き込む変数を指定する DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数 DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）  メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。 memorymap" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.kazapps.info/posts/kos-01-07/" />
-
-<title>Kos 01 07 | k-taka</title>
+<meta property="article:modified_time" content="2022-03-19T00:39:26+09:00" />
+<title>OS自作本　進捗0x01 | k-taka</title>
 <link rel="manifest" href="https://blog.kazapps.info/manifest.json">
 <link rel="icon" href="https://blog.kazapps.info/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="https://blog.kazapps.info/book.min.46181bc93375ba932026e753b37c40e6ff8bb16a9ef770c78bcc663e4577b1ba.css" integrity="sha256-RhgbyTN1upMgJudTs3xA5v&#43;LsWqe93DHi8xmPkV3sbo=" crossorigin="anonymous">
   <script defer src="https://blog.kazapps.info/flexsearch.min.js"></script>
-  <script defer src="https://blog.kazapps.info/en.search.min.7548f74a1bedef9bc5e0d3ae8e8fa1e65ab0ae5a8dde2dd6daad47433d9fb32d.js" integrity="sha256-dUj3Shvt75vF4NOujo&#43;h5lqwrlqN3i3W2q1HQz2fsy0=" crossorigin="anonymous"></script>
+  <script defer src="https://blog.kazapps.info/en.search.min.bb04df8942f27885f62f9cecea232be46879c49a11ad561acd0805190f5f79a4.js" integrity="sha256-uwTfiULyeIX2L5zs6iMr5Gh5xJoRrVYazQgFGQ9feaQ=" crossorigin="anonymous"></script>
 
   <script defer src="https://blog.kazapps.info/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js" integrity="sha256-dKi7B/C&#43;6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ=" crossorigin="anonymous"></script>
 <!--
@@ -173,7 +175,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="https://blog.kazapps.info/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>Kos 01 07</strong>
+  <strong>OS自作本　進捗0x01</strong>
 
   <label for="toc-control">
     
@@ -189,16 +191,16 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#ゼロからのos自作入門作業記録">ゼロからのOS自作入門　作業記録</a>
       <ul>
-        <li><a href="#228">2/28</a></li>
-        <li><a href="#31">3/1</a></li>
-        <li><a href="#34">3/4</a></li>
-        <li><a href="#35">3/5</a></li>
-        <li><a href="#38">3/8</a></li>
-        <li><a href="#39">3/9</a></li>
-        <li><a href="#311">3/11</a></li>
-        <li><a href="#318">3/18</a></li>
+        <li><a href="#228-第1章">2/28 第1章</a></li>
+        <li><a href="#31第2章">3/1　第2章</a></li>
+        <li><a href="#34-第2章">3/4 第2章</a></li>
+        <li><a href="#35-第3章">3/5 第3章</a></li>
+        <li><a href="#38-第4章">3/8 第4章</a></li>
+        <li><a href="#39-第5章">3/9 第5章</a></li>
+        <li><a href="#311-第6章">3/11 第6章</a></li>
+        <li><a href="#318-第7章">3/18 第7章</a></li>
       </ul>
     </li>
   </ul>
@@ -215,7 +217,7 @@ https://github.com/alex-shpak/hugo-book
       
 <article class="markdown">
   <h1>
-    <a href="https://blog.kazapps.info/posts/kos-01-07/">Kos 01 07</a>
+    <a href="https://blog.kazapps.info/posts/kos-01-07/">OS自作本　進捗0x01</a>
   </h1>
   
 
@@ -226,9 +228,14 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-<h2 id="228">
-  2/28
-  <a class="anchor" href="#228">#</a>
+<h1 id="ゼロからのos自作入門作業記録">
+  ゼロからのOS自作入門　作業記録
+  <a class="anchor" href="#%e3%82%bc%e3%83%ad%e3%81%8b%e3%82%89%e3%81%aeos%e8%87%aa%e4%bd%9c%e5%85%a5%e9%96%80%e4%bd%9c%e6%a5%ad%e8%a8%98%e9%8c%b2">#</a>
+</h1>
+<p>内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。</p>
+<h2 id="228-第1章">
+  2/28 第1章
+  <a class="anchor" href="#228-%e7%ac%ac1%e7%ab%a0">#</a>
 </h2>
 <p>開発環境の構築</p>
 <p>自作OSの開発に利用した環境</p>
@@ -240,27 +247,27 @@ https://github.com/alex-shpak/hugo-book
 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。
 qemuで「Hello, workd」を表示できた。</p>
 <p>
-  <img src="../img/kos/kos-d1-hello-world.png" alt="hello-woeld" /></p>
+  <img src="https://blog.kazapps.info/img/kos/kos-d1-hello-world.png" alt="hello-world" /></p>
 <p>C言語で同じ動作をするEFIファイルを作成する。
 Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)</p>
-<h2 id="31">
-  3/1
-  <a class="anchor" href="#31">#</a>
+<h2 id="31第2章">
+  3/1　第2章
+  <a class="anchor" href="#31%e7%ac%ac2%e7%ab%a0">#</a>
 </h2>
 <p>EDKⅡを利用してアプリケーション開発ができるようにする。
 まずはEDKでのハローワールドから始める。</p>
 <p>EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット</p>
 <p>２章を読んだのみで実装は進まなかった。</p>
-<h2 id="34">
-  3/4
-  <a class="anchor" href="#34">#</a>
+<h2 id="34-第2章">
+  3/4 第2章
+  <a class="anchor" href="#34-%e7%ac%ac2%e7%ab%a0">#</a>
 </h2>
 <p>EDKでハローワールド
 KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う
 →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)</p>
 <p>実行結果：edkでハローワールド(めっちゃ誤字している)
 
-  <img src="../img/kos/kos-d2-edk-hello.png" alt="edk-hello" /></p>
+  <img src="https://blog.kazapps.info/img/kos/kos-d2-edk-hello.png" alt="edk-hello" /></p>
 <p>今後このアプリケーションをブートローダとして拡張していく</p>
 <p>まずはメモリマップの取得を行う。</p>
 <p>edkで用意されている機能<code>gBS-&gt;GetMemoryMap</code>を使用する。</p>
@@ -291,9 +298,9 @@ KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４
 7, 7, EfiConventionalMemory, 01400000, 3AB36, F
 ...
 </code></pre><p>第二章おわり！</p>
-<h2 id="35">
-  3/5
-  <a class="anchor" href="#35">#</a>
+<h2 id="35-第3章">
+  3/5 第3章
+  <a class="anchor" href="#35-%e7%ac%ac3%e7%ab%a0">#</a>
 </h2>
 <p>第３章レジスタ</p>
 <p>QEMUモニタの使い方(GDBと同じか？) 
@@ -341,7 +348,7 @@ error: unknown target triple <span style="color:#e6db74">&#39;X86_64---elf&#39;<
 <li>
 <p>kernelのロード＋起動成功
 
-  <img src="../img/kos/kos-day03-kernel.png" alt="kernel-load" /></p>
+  <img src="https://blog.kazapps.info/img/kos/kos-day03-kernel.png" alt="kernel-load" /></p>
 </li>
 <li>
 <p>画面の色をいじっていく</p>
@@ -363,16 +370,16 @@ error: unknown target triple <span style="color:#e6db74">&#39;X86_64---elf&#39;<
     );
 </code></pre></div><p>UEFIでピクセル色指定をした結果
 
-  <img src="../img/kos/kos-day03-uefi-color.png" alt="uefi color" /></p>
+  <img src="https://blog.kazapps.info/img/kos/kos-day03-uefi-color.png" alt="uefi color" /></p>
 <ul>
 <li>次にカーネルでピクセルを描く+エラー処理</li>
 <li>gBSの各関数の戻り値(EFI_STATUS型)をチェックしてエラーの場合には、メッセージ表示＋hltを行う。</li>
 </ul>
 <p>
-  <img src="../img/kos/kos-day03-uefi-color.png" alt="kernel color" /></p>
-<h2 id="38">
-  3/8
-  <a class="anchor" href="#38">#</a>
+  <img src="https://blog.kazapps.info/img/kos/kos-day03-uefi-color.png" alt="kernel color" /></p>
+<h2 id="38-第4章">
+  3/8 第4章
+  <a class="anchor" href="#38-%e7%ac%ac4%e7%ab%a0">#</a>
 </h2>
 <p>第４章 make入門</p>
 <ul>
@@ -380,7 +387,7 @@ error: unknown target triple <span style="color:#e6db74">&#39;X86_64---elf&#39;<
 <li>なぜか黄色が表示される。。。</li>
 </ul>
 <p>
-  <img src="../img/kos/kos-day04-bug.png" alt="" /></p>
+  <img src="https://blog.kazapps.info/img/kos/kos-day04-bug.png" alt="bug" /></p>
 <ul>
 <li>原因はフレームバッファにred要素を書いていなかったことだった。<code>p[2] = c.r</code>の記述がない。</li>
 </ul>
@@ -395,38 +402,47 @@ error: unknown target triple <span style="color:#e6db74">&#39;X86_64---elf&#39;<
 <p>これでピクセルの描画を楽に記述できるようになった。</p>
 </li>
 <li>
-<p>ローダの改良</p>
+<p>カーネルローダの改良</p>
 <ul>
-<li>カーネルの読み込み処理で、メモリ上に確保するメモリサイズを計算する処理が間違っている。</li>
+<li>カーネルの読み込み処理で、メモリ上に確保するメモリサイズを計算する処理が実は間違っているので修正する必要がある。</li>
 <li>kernel.elfの情報 (ELFプログラムヘッダのLOAD部分) を見て、正しいサイズのメモリを確保するように修正する。</li>
 </ul>
 </li>
 <li>
-<p>書き換えたがなぜか以下のエラーが出てkernelが実行されない。</p>
+<p>上記について書き換えたが、なぜか以下のエラーが出てkernelが実行されない。</p>
 </li>
 </ul>
 <pre><code>failed to allocate pages: Not Found
-</code></pre><p>= 取得しようとしているページ数が大きすぎた</p>
+</code></pre><ul>
+<li>原因：上記は取得しようとしているページ数が大きすぎたことで発生したエラー
 <ul>
-<li>num_pagesの計算で<code>0xfff</code>を乗算しているのがミス</li>
+<li>num_pagesの計算で、カーネルのサイズに<code>0xfff</code>を乗算しているのがミス（以下のコード部分）</li>
+<li>本来は、カーネルのサイズに<code>0xfff</code>を加算する</li>
+<li>ちなみに、この部分はカーネルをメモリ上に配置するために、カーネルサイズをページ単位(0x1000)で計算している。0xfffを加算する理由は、カーネルサイズを0x1000で割った際に必要なページ数を正しく計算するため。つまり以下を計算するためである。</li>
+<li><code>カーネルの配置に必要なページ数 = ceil(カーネルサイズ(bytes) / 0x1000)</code></li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">UINTN num_pages <span style="color:#f92672">=</span> (kernel_last_addr <span style="color:#f92672">-</span> kernel_first_addr <span style="color:#f92672">*</span> <span style="color:#ae81ff">0xfff</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">0x1000</span>;
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// 誤→&#34;* 0xfff&#34; 
+</span><span style="color:#75715e">// 正→&#34;+ 0xfff&#34;
+</span><span style="color:#75715e">// 
+</span><span style="color:#75715e"></span>UINTN num_pages <span style="color:#f92672">=</span> (kernel_last_addr <span style="color:#f92672">-</span> kernel_first_addr <span style="color:#f92672">*</span> <span style="color:#ae81ff">0xfff</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">0x1000</span>; 
     status <span style="color:#f92672">=</span> gBS<span style="color:#f92672">-&gt;</span>AllocatePages(
         AllocateAddress,
         EfiLoaderData,
         num_pages,
         <span style="color:#f92672">&amp;</span>kernel_first_addr
     );
-</code></pre></div><h2 id="39">
-  3/9
-  <a class="anchor" href="#39">#</a>
+</code></pre></div><h2 id="39-第5章">
+  3/9 第5章
+  <a class="anchor" href="#39-%e7%ac%ac5%e7%ab%a0">#</a>
 </h2>
 <p>第５章　文字表示とコンソールクラス</p>
 <ul>
 <li>
 <p>ピクセルの描画はできるようになっているので、それを用いて文字を描画する
 
-  <img src="../img/kos/kos-day05-print-font-a.png" alt="font A" /></p>
+  <img src="https://blog.kazapps.info/img/kos/kos-day05-print-font-a.png" alt="font A" /></p>
 </li>
 <li>
 <p>参照とポインタの使い分け</p>
@@ -450,17 +466,17 @@ hankaku.o: ELF 64-bit LSB relocatable, x86-64, version <span style="color:#ae81f
 <li>
 <p>ASCII文字列を一通り利用できるようになった。
 
-  <img src="../img/kos/kos-day05-ascii.png" alt="ASCII" /></p>
+  <img src="https://blog.kazapps.info/img/kos/kos-day05-ascii.png" alt="ASCII" /></p>
 </li>
 <li>
 <p>文字の折返し、スクロールなどを行うconsoleクラスの実装　完了
 
-  <img src="../img/kos/kos-day05-console.png" alt="console" /></p>
+  <img src="https://blog.kazapps.info/img/kos/kos-day05-console.png" alt="console" /></p>
 </li>
 </ul>
-<h2 id="311">
-  3/11
-  <a class="anchor" href="#311">#</a>
+<h2 id="311-第6章">
+  3/11 第6章
+  <a class="anchor" href="#311-%e7%ac%ac6%e7%ab%a0">#</a>
 </h2>
 <p>第6章 マウス入力とPCIe</p>
 <ul>
@@ -530,7 +546,7 @@ source $HOME/osbook/devenv/buildenv.sh
 <li>PCIデバイスの探索+表示に成功</li>
 </ul>
 <p>
-  <img src="../img/kos/kos-day06-pci-devices.png" alt="pci devices" /></p>
+  <img src="https://blog.kazapps.info/img/kos/kos-day06-pci-devices.png" alt="pci devices" /></p>
 <ul>
 <li>
 <p>ポーリングでマウス入力を読み取る</p>
@@ -565,12 +581,12 @@ make: *** <span style="color:#f92672">[</span>Makefile:25: kernel.elf<span style
 <li>
 <p>カーソルを動かすことに成功した。デバッグにかなり長い時間(4時間ほど)かかってしまった。。
 
-  <img src="../img/kos/kos-day06-cursor.png" alt="cursor" /></p>
+  <img src="https://blog.kazapps.info/img/kos/kos-day06-cursor.png" alt="cursor" /></p>
 </li>
 </ul>
-<h2 id="318">
-  3/18
-  <a class="anchor" href="#318">#</a>
+<h2 id="318-第7章">
+  3/18 第7章
+  <a class="anchor" href="#318-%e7%ac%ac7%e7%ab%a0">#</a>
 </h2>
 <p>第7章 割り込みハンドラ</p>
 <ul>
@@ -612,6 +628,12 @@ make: *** <span style="color:#f92672">[</span>Makefile:25: kernel.elf<span style
   <div class="flex flex-wrap justify-between">
 
 
+  <div><a class="flex align-center" href="https://github.com/alex-shpak/hugo-book/commit/7be7c940bd34131c5cd2c33918396c7075976255" title='Last modified by k-takashima | March 19, 2022' target="_blank" rel="noopener">
+      <img src="https://blog.kazapps.info/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>March 19, 2022</span>
+    </a>
+  </div>
+
 
 
   <div>
@@ -652,16 +674,16 @@ document.querySelectorAll("pre code").forEach(code=>{code.addEventListener("clic
   
 <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#ゼロからのos自作入門作業記録">ゼロからのOS自作入門　作業記録</a>
       <ul>
-        <li><a href="#228">2/28</a></li>
-        <li><a href="#31">3/1</a></li>
-        <li><a href="#34">3/4</a></li>
-        <li><a href="#35">3/5</a></li>
-        <li><a href="#38">3/8</a></li>
-        <li><a href="#39">3/9</a></li>
-        <li><a href="#311">3/11</a></li>
-        <li><a href="#318">3/18</a></li>
+        <li><a href="#228-第1章">2/28 第1章</a></li>
+        <li><a href="#31第2章">3/1　第2章</a></li>
+        <li><a href="#34-第2章">3/4 第2章</a></li>
+        <li><a href="#35-第3章">3/5 第3章</a></li>
+        <li><a href="#38-第4章">3/8 第4章</a></li>
+        <li><a href="#39-第5章">3/9 第5章</a></li>
+        <li><a href="#311-第6章">3/11 第6章</a></li>
+        <li><a href="#318-第7章">3/18 第7章</a></li>
       </ul>
     </li>
   </ul>

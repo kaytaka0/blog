@@ -15,7 +15,7 @@
 <link rel="icon" href="https://blog.kazapps.info/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="https://blog.kazapps.info/book.min.46181bc93375ba932026e753b37c40e6ff8bb16a9ef770c78bcc663e4577b1ba.css" integrity="sha256-RhgbyTN1upMgJudTs3xA5v&#43;LsWqe93DHi8xmPkV3sbo=" crossorigin="anonymous">
   <script defer src="https://blog.kazapps.info/flexsearch.min.js"></script>
-  <script defer src="https://blog.kazapps.info/en.search.min.7548f74a1bedef9bc5e0d3ae8e8fa1e65ab0ae5a8dde2dd6daad47433d9fb32d.js" integrity="sha256-dUj3Shvt75vF4NOujo&#43;h5lqwrlqN3i3W2q1HQz2fsy0=" crossorigin="anonymous"></script>
+  <script defer src="https://blog.kazapps.info/en.search.min.bb04df8942f27885f62f9cecea232be46879c49a11ad561acd0805190f5f79a4.js" integrity="sha256-uwTfiULyeIX2L5zs6iMr5Gh5xJoRrVYazQgFGQ9feaQ=" crossorigin="anonymous"></script>
 
   <script defer src="https://blog.kazapps.info/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js" integrity="sha256-dKi7B/C&#43;6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ=" crossorigin="anonymous"></script>
 <link rel="alternate" type="application/rss+xml" href="https://blog.kazapps.info/posts/index.xml" title="k-taka" />
@@ -200,37 +200,6 @@ https://github.com/alex-shpak/hugo-book
   
   <article class="markdown book-post">
     <h2>
-      <a href="https://blog.kazapps.info/posts/kos-01-07/">Kos 01 07</a>
-    </h2>
-    
-
-
-  
-
-  
-
-
-
-
-    <p>2/28 #  開発環境の構築
-自作OSの開発に利用した環境
- ThinkCentre M720s Small Ubuntu 20.04 Focal Fossa  動作確認は、仮想マシンのqemuを使用する。 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。 qemuで「Hello, workd」を表示できた。
- C言語で同じ動作をするEFIファイルを作成する。 Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)
-3/1 #  EDKⅡを利用してアプリケーション開発ができるようにする。 まずはEDKでのハローワールドから始める。
-EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット
-２章を読んだのみで実装は進まなかった。
-3/4 #  EDKでハローワールド KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)
-実行結果：edkでハローワールド(めっちゃ誤字している) 今後このアプリケーションをブートローダとして拡張していく
-まずはメモリマップの取得を行う。
-edkで用意されている機能gBS-&gt;GetMemoryMapを使用する。
-EFI_STATUS GetMemoryMap( IN OUT UINTN *MemoryMapSize, IN OUT EFI_MEMORY_DSCRIPTOR *Memorymap, OUT UINTN *MapKey, OUT UINTN *DescriptorSize, OUT UINT32 *DescriptorVersion );  MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ） MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ MapKey：メモリマップを識別するための値を書き込む変数を指定する DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数 DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）  メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。 memorymap
-        <a href="https://blog.kazapps.info/posts/kos-01-07/">...</a>
-      
-    </p>
-  </article>
-  
-  <article class="markdown book-post">
-    <h2>
       <a href="https://blog.kazapps.info/posts/get_gcp_domain/">Google Domainsで取得したドメインの更新</a>
     </h2>
     
@@ -277,6 +246,38 @@ Google Domainsでは,年額￥850から独自ドメインを取得すること�
  静的ルーティングの設定 #  Dockerコンテナ内でルーティングテーブルの設定を行う．
 ip route add [ネットワーク部の指定] via [転送先IPの指定] dev [デバイス名] docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0 # router1-&gt;router4(10.0.3.2) docker exec router2 ip route add 10.
         <a href="https://blog.kazapps.info/posts/ovs/">...</a>
+      
+    </p>
+  </article>
+  
+  <article class="markdown book-post">
+    <h2>
+      <a href="https://blog.kazapps.info/posts/kos-01-07/">OS自作本　進捗0x01</a>
+    </h2>
+    
+
+
+  
+
+  
+
+
+
+
+    <p>ゼロからのOS自作入門　作業記録 #  内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。
+2/28 第1章 #  開発環境の構築
+自作OSの開発に利用した環境
+ ThinkCentre M720s Small Ubuntu 20.04 Focal Fossa  動作確認は、仮想マシンのqemuを使用する。 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。 qemuで「Hello, workd」を表示できた。
+ C言語で同じ動作をするEFIファイルを作成する。 Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)
+3/1　第2章 #  EDKⅡを利用してアプリケーション開発ができるようにする。 まずはEDKでのハローワールドから始める。
+EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット
+２章を読んだのみで実装は進まなかった。
+3/4 第2章 #  EDKでハローワールド KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)
+実行結果：edkでハローワールド(めっちゃ誤字している) 今後このアプリケーションをブートローダとして拡張していく
+まずはメモリマップの取得を行う。
+edkで用意されている機能gBS-&gt;GetMemoryMapを使用する。
+EFI_STATUS GetMemoryMap( IN OUT UINTN *MemoryMapSize, IN OUT EFI_MEMORY_DSCRIPTOR *Memorymap, OUT UINTN *MapKey, OUT UINTN *DescriptorSize, OUT UINT32 *DescriptorVersion );  MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ） MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ MapKey：メモリマップを識別するための値を書き込む変数を指定する DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数 DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）  メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。 memorymap
+        <a href="https://blog.kazapps.info/posts/kos-01-07/">...</a>
       
     </p>
   </article>
