@@ -15,13 +15,13 @@ ip route add [ネットワーク部の指定] via [転送先IPの指定] dev [�
 ip route add [ネットワーク部の指定] via [転送先IPの指定] dev [デバイス名] docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0 # router1-&gt;router4(10.0.3.2) docker exec router2 ip route add 10." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.kazapps.info/posts/ovs/" />
-
+<meta property="article:modified_time" content="2022-03-18T18:13:15+09:00" />
 <title>Open vSwitchとDocker でネットワークの勉強 | k-taka</title>
 <link rel="manifest" href="https://blog.kazapps.info/manifest.json">
 <link rel="icon" href="https://blog.kazapps.info/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="https://blog.kazapps.info/book.min.46181bc93375ba932026e753b37c40e6ff8bb16a9ef770c78bcc663e4577b1ba.css" integrity="sha256-RhgbyTN1upMgJudTs3xA5v&#43;LsWqe93DHi8xmPkV3sbo=" crossorigin="anonymous">
   <script defer src="https://blog.kazapps.info/flexsearch.min.js"></script>
-  <script defer src="https://blog.kazapps.info/en.search.min.7715cf6213b6d7b98d150448412b2c4f1f2d724bcfd9894cca90a1f2923ae8b6.js" integrity="sha256-dxXPYhO217mNFQRIQSssTx8tckvP2YlMypCh8pI66LY=" crossorigin="anonymous"></script>
+  <script defer src="https://blog.kazapps.info/en.search.min.7548f74a1bedef9bc5e0d3ae8e8fa1e65ab0ae5a8dde2dd6daad47433d9fb32d.js" integrity="sha256-dUj3Shvt75vF4NOujo&#43;h5lqwrlqN3i3W2q1HQz2fsy0=" crossorigin="anonymous"></script>
 
   <script defer src="https://blog.kazapps.info/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js" integrity="sha256-dKi7B/C&#43;6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ=" crossorigin="anonymous"></script>
 <!--
@@ -285,6 +285,12 @@ docker exec router4 ip route add 10.0.1.0/24 via 10.0.3.1 dev eth0
         
   <div class="flex flex-wrap justify-between">
 
+
+  <div><a class="flex align-center" href="https://github.com/alex-shpak/hugo-book/commit/31f6364621221779c31a7427ea6f5aa86b605432" title='Last modified by k-takashima | March 18, 2022' target="_blank" rel="noopener">
+      <img src="https://blog.kazapps.info/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>March 18, 2022</span>
+    </a>
+  </div>
 
 
 
