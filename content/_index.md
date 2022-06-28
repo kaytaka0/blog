@@ -3,6 +3,7 @@ title: Introduction
 type: docs
 ---
 
+## ページ一覧
 
 - [posts]({{< relref "/posts/" >}})
   - [Open vSwitchとDocker でネットワークの勉強]({{< relref "/posts/ovs" >}})
@@ -13,11 +14,11 @@ type: docs
 
 
 
-## ブログ筆者 (k-taka) について
+## ブログ筆者について
 こんにちは，k-takaです．
 
 
-### 大学と大学院関連
+## 大学と大学院関連
 学部は大阪大学工学部電子情報工学科を卒業しました．
 
 
