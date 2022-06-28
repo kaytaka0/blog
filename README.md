@@ -1,4 +1,8 @@
-# webサイト
+# Blog執筆用リポジトリ
+
+Hugo+hugo-book(theme)+Github Pagesによるブログサイト構成
+
+## 記事の投稿までの手順
 
 1. `content/docs/posts/`以下に追加する記事のmarkdownファイルを追加
 1. `hugo server`コマンドを利用してローカル環境で記事の確認を行う
@@ -7,6 +11,12 @@
 1. github actionsでmainブランチの内容が自動的にデプロイされる
 
 
+## ディレクトリ構成
+
 - content/: 記事ファイル
 - docs/: ビルドファイルの出力ディレクトリ
 - static/: 静的ファイル置き場，画像はstatic/img/以下に格納する
+
+## TODO
+- html等のビルドをGithub Actionsによって実行する
+- OGPの自動生成機能の実装

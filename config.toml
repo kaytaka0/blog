@@ -2,7 +2,7 @@
 
 baseURL = 'https://blog.kazapps.info/'
 title = 'k-taka'
-theme = 'hugo-book'
+theme = 'book'
 
 # Github Pagesでデプロイを行うため、/publicではなく、/docs以下にhtmlを生成する
 publishDir = "docs"

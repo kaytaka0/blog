@@ -26,6 +26,19 @@ Google Domainsでは,年額￥850から独自ドメインを取得すること�
     </item>
     
     <item>
+      <title>Linux namespaces&#43;cgroupによる簡易コンテナの自作</title>
+      <link>https://blog.kazapps.info/posts/mini-container/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.kazapps.info/posts/mini-container/</guid>
+      <description>Linux namespaces+cgroupによる簡易コンテナの自作 #  最近，仮想化技術 (VMM, NFV, コンテナ等) について勉強をはじめました． 仮想化に関連する技術の中でも，普段から開発，実験でよく利用しているDocker (コンテナ型仮想化) について，理解を深めるために，簡易なコンテナの実装を行いました． 今回実装する上で，参考にした記事がこちらです．
+ 「【Go言語】自作コンテナ沼。スクラッチでミニDockerを作ろう - カミナシ開発者ブログ」
+コンテナを実現するために使用される基礎技術のみに絞って実装，解説を行なっており，コンテナ技術の本質部分を理解するための非常に良いチュートリアルだと感じました． これをきっかけに自作コンテナ沼にハマっていきたいと思います．
+実装した機能 #  簡易コンテナということで，実装した機能は非常に単純です． コンテナを作成し，作成したコンテナ内で指定したコマンドを実行するというものになります． プログラム内でやっていることは以下です．
+ Linux namespace機能を用いた実行環境の隔離。つまりコンテナ化を行う。 chrootによってファイルシステムを分離 cgroupを使ってコンテナが使える計算リソースを制限する コンテナプロセス内でのコマンド実行  </description>
+    </item>
+    
+    <item>
       <title>Open vSwitchとDocker でネットワークの勉強</title>
       <link>https://blog.kazapps.info/posts/ovs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -56,6 +69,29 @@ EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット
 まずはメモリマップの取得を行う。
 edkで用意されている機能gBS-&amp;gt;GetMemoryMapを使用する。
 EFI_STATUS GetMemoryMap( IN OUT UINTN *MemoryMapSize, IN OUT EFI_MEMORY_DSCRIPTOR *Memorymap, OUT UINTN *MapKey, OUT UINTN *DescriptorSize, OUT UINT32 *DescriptorVersion );  MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ） MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ MapKey：メモリマップを識別するための値を書き込む変数を指定する DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数 DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）  メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。 memorymap</description>
+    </item>
+    
+    <item>
+      <title>Tenable CTF 2022 Writeup &#39;Olden Ring&#39;[pwn]</title>
+      <link>https://blog.kazapps.info/posts/tenable-pwnable/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.kazapps.info/posts/tenable-pwnable/</guid>
+      <description>Tenable CTF 2022 Writeup &amp;lsquo;Olden Ring&amp;rsquo;[pwn] #  この記事では，CTF (Capture the Flag) オンライン大会の Tenable CTF 2022で取り組んだ問題の解説をおこないます．
+Tenable CTFには，研究室のメンバー3名でチームを作って挑戦しました． 私が取り組んだ問題は，pwnの&amp;rsquo;Olden Ring&amp;rsquo;です． ポイントは100ptsと一番低い分類にあたるので，pwn初心者問題だと思われます．
+問題 #  netcatで接続するためのリモートサーバのIP,ポート番号の情報と，oldenというファイルが添付されている．
+fileコマンドでファイルの内容を調べたところ，64bitのELFバイナリファイルであることはわかりました．
+解説 #  ファイルを実行してみる（または，netcatでリモートサーバに接続してみる）と，どうやらコマンドラインのゲームらしいです．（問題名から察するに，ELDEN RING風のゲームなのかも？？） いくつかの説明文とともに，コマンドラインで入力が求められるというものでした．
+バイナリファイルをGhidraを使ってデコンパイルした結果，main関数の他にdefeat_frog_guys関数，boss_fight関数があることがわかります．
+その他の関数として，どの関数からも呼び出されていないzip_to_end関数があり，flag.txtの内容を出力する処理を行なっています． つまり，最終的にこの関数を実行することができれば，フラグを取得できるはず．
+脆弱性を探す上で，ユーザからの入力を受け付けている関数の使い方に誤りがないかをチェックしていきました． すると，fgets関数がバッファサイズを指定して使われていることがわかります．ユーザ入力の格納先はlocal_418 (Ghidraのデコンパイル時に自動生成された変数名) という変数でした．
+fgets((char *)&amp;amp;local_418, 0x400, stdin); 変数local_418はローカル変数なので，BOFできればmain関数のreturnアドレス書き換えが可能です． しかし，どうやらこの変数local_418のバッファサイズは0x400はあるようで，fgetsによってBOFできそうには見えませんでした．
+main関数内で，変数local_418から0x400バイト分0で埋めることによって初期化しているため，バッファサイズが0x400バイトあることは想定されているようです．
+memset(&amp;amp;local_418, 0, 0x400); 変数local_418が利用されている箇所を中心に，他の処理をチェックしてみます．
+defeat_frog_guysという関数の引数として変数local_418 (ユーザ文字列のバッファ) が利用されているため，
+// local_418が利用されている！ defeat_frog_guys(&amp;amp;local_418, local_14); このdefeat_frog_guys関数では，memcpy等を用いて，データのコピーが行われているようでした． コピーの流れが複雑なため，ソースコードから挙動を理解するのに時間がかかると判断したため，ここからはGDBによってプログラムを実行させながら挙動を把握していきました．
+ユーザが入力した文字列は，defeat_frog_guys関数のスタックフレーム内にコピーされているようでした． そこで，ためしに&amp;rsquo;AAAAA&amp;hellip;&amp;lsquo;という長さ0x400の文字列を入力したところ，Segmentation faultが発生し，BOFが発生したことを確認できました！ defeat_frog_guys関数のスタックがBOF可能ということがわかったので，あとはdefeat_frog_guys→mainに戻る際のreturnアドレスを書き換えて，zip_to_end関数の先頭アドレスにすれば完了です．
+ zip_to_end関数のアドレス：0x4012b6（ASLR，PIE等のセキュリティ機構はオフになっているのでアドレスは固定でした） returnアドレス書き換えのためのパディングの長さ：0x3f3バイト ２回目のfgetsで入力する数値：199  ２回目のfgetsで入力する数値によって，コピーされる場所が何バイトかずれたりするようで，上記の2と3については， 何度か入力する数値，パディングの長さを変えてGDBを実行しました． GDBではプログラム実行中にブレークポイントを設置して，プログラムのある時点でのスタックの内容を表示することができるため，この機能を使うことでパディングの長さを調整しました． 使用したGDBのコマンドは主に以下のようなものです．</description>
     </item>
     
   </channel>
