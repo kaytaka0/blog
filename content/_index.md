@@ -9,6 +9,7 @@ type: docs
   - [Google Domainsで取得したドメインの更新]({{< relref "/posts/get_gcp_domain" >}})
   - [OS自作本　進捗0x01]({{< relref "/posts/kos-01-07" >}})
   - [Tenable CTF 2022 Writeup 'Olden Ring'[pwn]]({{< relref "/posts/tenable-pwnable" >}})
+  - [Linux namespaces+cgroupによる簡易コンテナの自作]({{ < relref "posts/mini-container" >}})
 
 
 
