@@ -59,3 +59,4 @@ https://github.com/takashimakazuki/ovs-network
 - vyOSを使いたかったがARMマシンに対応したDockerコンテナの作成方法がわからなかったため断念→CentOSのコンテナを利用
 - CentOSをルータとして動作させるために`ip_forward`機能を有効にする必要があった
   - `docker run --sysctl net.ipv4.ip_forward=1`
+- router1とrouter4の間でpingによる疎通確認をするためには，ICMPパケットの往路 (router1->router4) と復路 (router4->router1) の両方のルーティングルールを設定する必要がある．これを片方だけルールを設定して疎通確認をしようとしたため，pingが通らずに頭を抱えていた．
