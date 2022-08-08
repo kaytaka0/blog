@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>k-taka</title>
+    <link>https://blog.kazapps.info/docs/posts/</link>
+    <description>Recent content on k-taka</description>
+    <generator>Hugo -- gohugo.io</generator><atom:link href="https://blog.kazapps.info/docs/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Open vSwitchとDocker でネットワークの勉強</title>
+      <link>https://blog.kazapps.info/docs/posts/ovs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.kazapps.info/docs/posts/ovs/</guid>
+      <description>Open vSwitch と Docker でネットワークの勉強 #  マスタリングTCP/IPを一通り読んだので，実際にIPv4ネットワークがどのように動作しているのか手を動かしながら確認したいと思いました． 本記事で作成するネットワークでは，仮想ルータ４台に手作業でルーティングテーブルを設定することで，それぞれに対してパケットを送受信できることを目指しました． 今回はルーティングテーブルの手動設定を初めて体験したいという軽い気持ちで始めたため，ルータ+L2スイッチの実機を用意することは考えずに，仮想環境で実行します．
+環境 #   Apple M1 Mac(ホストマシン) UTM: VM(仮想マシン)を立ち上げるソフトウェア  Linux上で動作検証したかったため   Ubuntu 18.04 Server Docker  CentOS7 on dockerのルーティングテーブルを用いてルーティングを行う   Open vSwitch  オープンソースの仮想スイッチソフトウェア    ネットワーク構成図 #  今回作成したいネットワーク構成図
+ 静的ルーティングの設定 #  Dockerコンテナ内でルーティングテーブルの設定を行う．
+ip route add [ネットワーク部の指定] via [転送先IPの指定] dev [デバイス名] docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0 # router1-&amp;gt;router4(10.0.3.2) docker exec router2 ip route add 10.</description>
+    </item>
+    
+  </channel>
+</rss>
