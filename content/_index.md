@@ -36,5 +36,5 @@ type: docs
 - CTF (Capture the Flag) : バイナリハッキングのpwnカテゴリは特に楽しい
 - 仮想化技術: コンテナ，SDN (Software Defined Network)，KVM
 - Accelerator: 今取り組んでいる研究に関連しているため，ハードウェアデバイスの DPU (Data Processing Unit)，FPGAなどを調べています
-- Webシステム開発: DDD，サーバサイドKotlin
+- Webシステム開発: DDD (Domain-Driven Design)，サーバサイドKotlin
 - 自作〇〇系: 自作OS本をもとにOS作成中
