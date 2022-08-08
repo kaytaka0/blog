@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: 自己紹介
 type: docs
 ---
 
@@ -30,3 +30,11 @@ type: docs
 主に利用していた技術は，frontendとしてTypeScript+Angular，backendとしてPython+Djangoなどがあげられます．
 - 株式会社いい生活 夏インターン (2021)  
 不動産情報のAPIを用いてwebアプリケーションの制作を行いました．(5日間のチーム開発)
+
+## 興味のあること
+
+- CTF (Capture the Flag) : バイナリハッキングのpwnカテゴリは特に楽しい
+- 仮想化技術: コンテナ，SDN (Software Defined Network)，KVM
+- Accelerator: 今取り組んでいる研究に関連しているため，ハードウェアデバイスの DPU (Data Processing Unit)，FPGAなどを調べています
+- Webシステム開発: DDD，サーバサイドKotlin
+- 自作〇〇系: 自作OS本をもとにOS作成中
