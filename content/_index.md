@@ -11,6 +11,7 @@ type: docs
   - [OS自作本　進捗0x01]({{< relref "/posts/kos-01-07" >}})
   - [Tenable CTF 2022 Writeup 'Olden Ring'[pwn]]({{< relref "/posts/tenable-pwnable" >}})
   - [Linux namespaces+cgroupによる簡易コンテナの自作]({{< relref "/posts/mini-container" >}})
+  - [SECCON CTF 2022 Writeup 'koncha'[pwn]]({{< relref "/posts/seccon2022/index" >}})
 
 
 
@@ -30,6 +31,8 @@ type: docs
 主に利用していた技術は，frontendとしてTypeScript+Angular，backendとしてPython+Djangoなどがあげられます．
 - 株式会社いい生活 夏インターン (2021)  
 不動産情報のAPIを用いてwebアプリケーションの制作を行いました．(5日間のチーム開発)
+- Sansan株式会社 就業インターン (2022)
+Sansanさんのクラウド請求書受領サービスの「Bill One」の開発チームで2週間開発に参加しました．
 
 ## 興味のあること
 
