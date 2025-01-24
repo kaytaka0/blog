@@ -2,74 +2,77 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.kazapps.info/posts/</loc>
+    <loc>http://localhost:1313/posts/</loc>
     <lastmod>2022-03-18T18:13:15+09:00</lastmod>
   </url><url>
-    <loc>https://blog.kazapps.info/posts/get_gcp_domain/</loc>
+    <loc>http://localhost:1313/posts/get_gcp_domain/</loc>
     <lastmod>2022-03-18T18:13:15+09:00</lastmod>
   </url><url>
-    <loc>https://blog.kazapps.info/posts/mini-container/</loc>
+    <loc>http://localhost:1313/posts/mini-container/</loc>
     <lastmod>2022-06-28T22:15:44+09:00</lastmod>
   </url><url>
-    <loc>https://blog.kazapps.info/posts/ovs/</loc>
-    <lastmod>2022-03-18T18:13:15+09:00</lastmod>
+    <loc>http://localhost:1313/posts/ovs/</loc>
+    <lastmod>2022-07-15T22:18:13+09:00</lastmod>
   </url><url>
-    <loc>https://blog.kazapps.info/posts/kos-01-07/</loc>
-    <lastmod>2022-03-19T00:39:26+09:00</lastmod>
+    <loc>http://localhost:1313/posts/kos-01-07/</loc>
+    <lastmod>2022-08-08T23:52:57+09:00</lastmod>
   </url><url>
-    <loc>https://blog.kazapps.info/posts/tenable-pwnable/</loc>
+    <loc>http://localhost:1313/posts/seccon2022/</loc>
+    <lastmod>2022-11-16T02:44:16+09:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/tenable-pwnable/</loc>
     <lastmod>2022-06-28T22:02:16+09:00</lastmod>
   </url><url>
-    <loc>https://blog.kazapps.info/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"
-                href="https://blog.kazapps.info/ru/categories/"
+                href="http://localhost:1313/ru/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://blog.kazapps.info/zh/categories/"
+                href="http://localhost:1313/zh/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://blog.kazapps.info/categories/"
+                href="http://localhost:1313/categories/"
                 />
   </url><url>
-    <loc>https://blog.kazapps.info/</loc>
-    <lastmod>2022-06-29T01:58:56+09:00</lastmod>
+    <loc>http://localhost:1313/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"
-                href="https://blog.kazapps.info/ru/"
+                href="http://localhost:1313/ru/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://blog.kazapps.info/zh/"
+                href="http://localhost:1313/zh/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://blog.kazapps.info/"
+                href="http://localhost:1313/tags/"
                 />
   </url><url>
-    <loc>https://blog.kazapps.info/tags/</loc>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2022-11-16T02:44:16+09:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="ru"
-                href="https://blog.kazapps.info/ru/tags/"
+                href="http://localhost:1313/ru/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://blog.kazapps.info/zh/tags/"
+                href="http://localhost:1313/zh/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://blog.kazapps.info/tags/"
+                href="http://localhost:1313/"
                 />
   </url>
 </urlset>

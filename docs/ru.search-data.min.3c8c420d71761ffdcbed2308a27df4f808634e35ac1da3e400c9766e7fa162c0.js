@@ -1,1 +1,0 @@
-'use strict';(function(){const a={split:/[^a-zа-яё0-9\w]/gi};a.doc={id:'id',field:['title','content'],store:['title','href','section']};const b=FlexSearch.create('balance',a);window.bookSearchIndex=b})()

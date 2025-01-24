@@ -2,19 +2,19 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <sitemap>
-    <loc>https://blog.kazapps.info/en/sitemap.xml</loc>
+    <loc>http://localhost:1313/en/sitemap.xml</loc>
     
-      <lastmod>2022-06-28T22:15:44+09:00</lastmod>
-    
-  </sitemap>
-  
-  <sitemap>
-    <loc>https://blog.kazapps.info/ru/sitemap.xml</loc>
+      <lastmod>2022-11-16T02:44:16+09:00</lastmod>
     
   </sitemap>
   
   <sitemap>
-    <loc>https://blog.kazapps.info/zh/sitemap.xml</loc>
+    <loc>http://localhost:1313/ru/sitemap.xml</loc>
+    
+  </sitemap>
+  
+  <sitemap>
+    <loc>http://localhost:1313/zh/sitemap.xml</loc>
     
   </sitemap>
   

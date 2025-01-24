@@ -2,99 +2,52 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>k-taka</title>
-    <link>https://blog.kazapps.info/posts/</link>
+    <link>http://localhost:1313/posts/</link>
     <description>Recent content on k-taka</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="https://blog.kazapps.info/posts/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Google Domainsで取得したドメインの更新</title>
-      <link>https://blog.kazapps.info/posts/get_gcp_domain/</link>
+      <link>http://localhost:1313/posts/get_gcp_domain/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.kazapps.info/posts/get_gcp_domain/</guid>
-      <description>Google Domainsで取得したドメインの更新 #  2021年にGoogle Domainsで取得したドメインの有効期限が過ぎていたので，自分のブログサイトが閲覧できない状態になっていた． もちろんブログサイト自体は稼働し続けているため，ブラウザのURL欄にIPを打ち込めば閲覧することはできる． しかし，せっかく一度取得したドメインを失効したままにするのは格好が悪いため，ドメイン有効期限の更新を行う．
-Google Domainsでは,年額￥850から独自ドメインを取得することができる．(2022年3月時点)
-今回更新したドメインkazapps.infoでは，年額￥1,400（税別）であった． 独自ドメインの料金については，公式ページから検索することができる． Google Domains
-更新手順 #  更新手順は非常にシンプル.
- Googleからドメイン有効期限のお知らせメールが来ている場合  Googleから通知メールが来ている場合には，リンクをクリックすることで直接クレジットカード決済の画面に行くことができる． 今回は，1年間だけ有効期限を延長したいので，「年を追加」をクリックし，クレジットカード決済の確認を行う．
-  Google Domains管理ページから更新を行う場合  Google Domains管理ページの「マイドメイン&amp;gt;管理」ページにアクセスすると，次のような表示が出ている． 1年間だけ有効期限を延長したいので，「年を追加」からクレジットカード決済の画面に遷移する．
- 「年を追加」をクリックするとクレジットカード決済の画面に移動する． ブログサイトではサブドメイン (blog.kazapps.info) を利用しているため，DNSレコードの登録が必要だが， 今回は既に登録済みなので作業の必要はなかった． Google Domainsでは，有効期限が切れていても一定期間はドメインの設定を残してくれていたため助かった． ただし，一定期間が過ぎるとドメインは削除される．
-以下はGoogle Domainsからのメール通知の内容
- ドメインの更新は28日以内に行なってください．この期間を過ぎると，Googleのシステムからドメインが削除されます．
- 有効期限が過ぎた後の対応は以下のページにまとまっていた．
-  Google Domainsヘルプ: ドメイン登録の有効期限と削除  ざっくり次の様になっている
-   有効期限が切れてからの日数 状態     1-30日目 更新猶予期間．ドメイン登録の更新には追加料金はかからない．   31-60日目 ドメイン名の復元は可能だが，追加の料金がかかる   61日目 Googleに連絡がない場合，ドメインは削除．他の人が購入できる様になる．    </description>
+      <guid>http://localhost:1313/posts/get_gcp_domain/</guid>
+      <description>Google Domainsで取得したドメインの更新 2021年にGoogle Domainsで取得したドメインの有効期限が過ぎていたので，自分のブログサイトが閲覧できない状態になっていた． もちろんブログサイト自体は稼働し続けているため，ブラウザのURL欄にIPを打ち込めば閲覧することはできる． しかし，せっかく一度取得したドメインを失効したままにするのは格好が悪いため，ドメイン有効期限の更新を行う．&#xA;Google Domainsでは,年額￥850から独自ドメインを取得することができる．(2022年3月時点)&#xA;今回更新したドメインkazapps.infoでは，年額￥1,400（税別）であった． 独自ドメインの料金については，公式ページから検索することができる． Google Domains&#xA;更新手順 更新手順は非常にシンプル.&#xA;Googleからドメイン有効期限のお知らせメールが来ている場合 Googleから通知メールが来ている場合には，リンクをクリックすることで直接クレジットカード決済の画面に行くことができる． 今回は，1年間だけ有効期限を延長したいので，「年を追加」をクリックし，クレジットカード決済の確認を行う．&#xA;Google Domains管理ページから更新を行う場合 Google Domains管理ページの「マイドメイン&amp;gt;管理」ページにアクセスすると，次のような表示が出ている． 1年間だけ有効期限を延長したいので，「年を追加」からクレジットカード決済の画面に遷移する．&#xA;「年を追加」をクリックするとクレジットカード決済の画面に移動する． ブログサイトではサブドメイン (blog.kazapps.info) を利用しているため，DNSレコードの登録が必要だが， 今回は既に登録済みなので作業の必要はなかった． Google Domainsでは，有効期限が切れていても一定期間はドメインの設定を残してくれていたため助かった． ただし，一定期間が過ぎるとドメインは削除される．&#xA;以下はGoogle Domainsからのメール通知の内容&#xA;ドメインの更新は28日以内に行なってください．この期間を過ぎると，Googleのシステムからドメインが削除されます．&#xA;有効期限が過ぎた後の対応は以下のページにまとまっていた．&#xA;Google Domainsヘルプ: ドメイン登録の有効期限と削除 ざっくり次の様になっている&#xA;有効期限が切れてからの日数 状態 1-30日目 更新猶予期間．ドメイン登録の更新には追加料金はかからない． 31-60日目 ドメイン名の復元は可能だが，追加の料金がかかる 61日目 Googleに連絡がない場合，ドメインは削除．他の人が購入できる様になる． </description>
     </item>
-    
     <item>
       <title>Linux namespaces&#43;cgroupによる簡易コンテナの自作</title>
-      <link>https://blog.kazapps.info/posts/mini-container/</link>
+      <link>http://localhost:1313/posts/mini-container/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.kazapps.info/posts/mini-container/</guid>
-      <description>Linux namespaces+cgroupによる簡易コンテナの自作 #  最近，仮想化技術 (VMM, NFV, コンテナ等) について勉強をはじめました． 仮想化に関連する技術の中でも，普段から開発，実験でよく利用しているDocker (コンテナ型仮想化) について，理解を深めるために，簡易なコンテナの実装を行いました． 今回実装する上で，参考にした記事がこちらです．
- 「【Go言語】自作コンテナ沼。スクラッチでミニDockerを作ろう - カミナシ開発者ブログ」
-コンテナを実現するために使用される基礎技術のみに絞って実装，解説を行なっており，コンテナ技術の本質部分を理解するための非常に良いチュートリアルだと感じました． これをきっかけに自作コンテナ沼にハマっていきたいと思います．
-Githubリポジトリ #  Golangで実装したコンテナ作成コマンドはこちらのGithubリポジトリで公開しています．
-https://github.com/takashimakazuki/mini-container
-実装した機能 #  簡易コンテナということで，実装した機能は非常に単純です． コンテナを作成し，作成したコンテナ内で指定したコマンドを実行するというものになります． プログラム内でやっていることは以下です．
- Linux namespace機能を用いた実行環境の隔離。つまりコンテナ化を行う。 chrootによってファイルシステムを分離 cgroupを使ってコンテナが使える計算リソースを制限する コンテナプロセス内でのコマンド実行  </description>
+      <guid>http://localhost:1313/posts/mini-container/</guid>
+      <description>Linux namespaces+cgroupによる簡易コンテナの自作 最近，仮想化技術 (VMM, NFV, コンテナ等) について勉強をはじめました． 仮想化に関連する技術の中でも，普段から開発，実験でよく利用しているDocker (コンテナ型仮想化) について，理解を深めるために，簡易なコンテナの実装を行いました． 今回実装する上で，参考にした記事がこちらです．&#xA;「【Go言語】自作コンテナ沼。スクラッチでミニDockerを作ろう - カミナシ開発者ブログ」&#xA;コンテナを実現するために使用される基礎技術のみに絞って実装，解説を行なっており，コンテナ技術の本質部分を理解するための非常に良いチュートリアルだと感じました． これをきっかけに自作コンテナ沼にハマっていきたいと思います．&#xA;Githubリポジトリ Golangで実装したコンテナ作成コマンドはこちらのGithubリポジトリで公開しています．&#xA;https://github.com/takashimakazuki/mini-container&#xA;実装した機能 簡易コンテナということで，実装した機能は非常に単純です． コンテナを作成し，作成したコンテナ内で指定したコマンドを実行するというものになります． プログラム内でやっていることは以下です．&#xA;Linux namespace機能を用いた実行環境の隔離。つまりコンテナ化を行う。 chrootによってファイルシステムを分離 cgroupを使ってコンテナが使える計算リソースを制限する コンテナプロセス内でのコマンド実行 </description>
     </item>
-    
     <item>
       <title>Open vSwitchとDocker でネットワークの勉強</title>
-      <link>https://blog.kazapps.info/posts/ovs/</link>
+      <link>http://localhost:1313/posts/ovs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.kazapps.info/posts/ovs/</guid>
-      <description>Open vSwitch と Docker でネットワークの勉強 #  マスタリングTCP/IPを一通り読んだので，実際にIPv4ネットワークがどのように動作しているのか手を動かしながら確認したいと思いました． 本記事で作成するネットワークでは，仮想ルータ４台に手作業でルーティングテーブルを設定することで，それぞれに対してパケットを送受信できることを目指しました． 今回はルーティングテーブルの手動設定を初めて体験したいという軽い気持ちで始めたため，ルータ+L2スイッチの実機を用意することは考えずに，仮想環境で実行します．
-環境 #   Apple M1 Mac(ホストマシン) UTM: VM(仮想マシン)を立ち上げるソフトウェア  Linux上で動作検証したかったため   Ubuntu 18.04 Server Docker  CentOS7 on dockerのルーティングテーブルを用いてルーティングを行う   Open vSwitch  オープンソースの仮想スイッチソフトウェア    ネットワーク構成図 #  今回作成したいネットワーク構成図
- 静的ルーティングの設定 #  Dockerコンテナ内でルーティングテーブルの設定を行う．
-ip route add [ネットワーク部の指定] via [転送先IPの指定] dev [デバイス名] docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0 # router1-&amp;gt;router4(10.0.3.2) docker exec router2 ip route add 10.</description>
+      <guid>http://localhost:1313/posts/ovs/</guid>
+      <description>Open vSwitch と Docker でネットワークの勉強 マスタリングTCP/IPを一通り読んだので，実際にIPv4ネットワークがどのように動作しているのか手を動かしながら確認したいと思いました． 本記事で作成するネットワークでは，仮想ルータ４台に手作業でルーティングテーブルを設定することで，それぞれに対してパケットを送受信できることを目指しました． 今回はルーティングテーブルの手動設定を初めて体験したいという軽い気持ちで始めたため，ルータ+L2スイッチの実機を用意することは考えずに，仮想環境で実行します．&#xA;環境 Apple M1 Mac(ホストマシン) UTM: VM(仮想マシン)を立ち上げるソフトウェア Linux上で動作検証したかったため Ubuntu 18.04 Server Docker CentOS7 on dockerのルーティングテーブルを用いてルーティングを行う Open vSwitch オープンソースの仮想スイッチソフトウェア ネットワーク構成図 今回作成したいネットワーク構成図&#xA;静的ルーティングの設定 Dockerコンテナ内でルーティングテーブルの設定を行う．&#xA;ip route add [ネットワーク部の指定] via [転送先IPの指定] dev [デバイス名] docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0 # router1-&amp;gt;router4(10.0.3.2) docker exec router2 ip route add 10.0.4.0/24 via 10.0.3.2 dev eth1 # router2-&amp;gt;router3(10.0.4.1) docker exec router3 ip route add 10.0.1.0/24 via 10.</description>
     </item>
-    
     <item>
       <title>OS自作本　進捗0x01</title>
-      <link>https://blog.kazapps.info/posts/kos-01-07/</link>
+      <link>http://localhost:1313/posts/kos-01-07/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.kazapps.info/posts/kos-01-07/</guid>
-      <description>ゼロからのOS自作入門　作業記録 #  内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。
-2/28 第1章 #  開発環境の構築
-自作OSの開発に利用した環境
- ThinkCentre M720s Small Ubuntu 20.04 Focal Fossa  動作確認は、仮想マシンのqemuを使用する。 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。 qemuで「Hello, workd」を表示できた。
- C言語で同じ動作をするEFIファイルを作成する。 Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)
-3/1　第2章 #  EDKⅡを利用してアプリケーション開発ができるようにする。 まずはEDKでのハローワールドから始める。
-EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット
-２章を読んだのみで実装は進まなかった。
-3/4 第2章 #  EDKでハローワールド KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)
-実行結果：edkでハローワールド(めっちゃ誤字している) 今後このアプリケーションをブートローダとして拡張していく
-まずはメモリマップの取得を行う。
-edkで用意されている機能gBS-&amp;gt;GetMemoryMapを使用する。
-EFI_STATUS GetMemoryMap( IN OUT UINTN *MemoryMapSize, IN OUT EFI_MEMORY_DSCRIPTOR *Memorymap, OUT UINTN *MapKey, OUT UINTN *DescriptorSize, OUT UINT32 *DescriptorVersion );  MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ） MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ MapKey：メモリマップを識別するための値を書き込む変数を指定する DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数 DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）  メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。 memorymap</description>
+      <guid>http://localhost:1313/posts/kos-01-07/</guid>
+      <description>ゼロからのOS自作入門　作業記録 内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。&#xA;2/28 第1章 開発環境の構築&#xA;自作OSの開発に利用した環境&#xA;ThinkCentre M720s Small Ubuntu 20.04 Focal Fossa 動作確認は、仮想マシンのqemuを使用する。 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。 qemuで「Hello, workd」を表示できた。&#xA;C言語で同じ動作をするEFIファイルを作成する。 Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)&#xA;3/1　第2章 EDKⅡを利用してアプリケーション開発ができるようにする。 まずはEDKでのハローワールドから始める。&#xA;EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット&#xA;２章を読んだのみで実装は進まなかった。&#xA;3/4 第2章 EDKでハローワールド KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)&#xA;実行結果：edkでハローワールド(めっちゃ誤字している) 今後このアプリケーションをブートローダとして拡張していく&#xA;まずはメモリマップの取得を行う。&#xA;edkで用意されている機能gBS-&amp;gt;GetMemoryMapを使用する。&#xA;EFI_STATUS GetMemoryMap( IN OUT UINTN *MemoryMapSize, IN OUT EFI_MEMORY_DSCRIPTOR *Memorymap, OUT UINTN *MapKey, OUT UINTN *DescriptorSize, OUT UINT32 *DescriptorVersion ); MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ） MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ MapKey：メモリマップを識別するための値を書き込む変数を指定する DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数 DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない） メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。</description>
     </item>
-    
+    <item>
+      <title>SECCON CTF 2022 Writeup &#39;koncha&#39;[pwn]</title>
+      <link>http://localhost:1313/posts/seccon2022/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/seccon2022/</guid>
+      <description>SECCON CTF 2022 Writeup &amp;lsquo;koncha&amp;rsquo;[pwn] 2022年11月に開催されたSECCON2022予選に参加しました． おそらく日本で一番有名かつ大規模なCTF大会ということもあり，非常に面白い問題（そして難しい問題）が多く， 競技時間の24時間は必死に問題に取り組むことができ楽しかったです．&#xA;本記事では，競技時間中にFLAGを見つけることができたpwnの問題についてメモを残します．&#xA;問題 tar.gzファイルを展開すると，問題のC言語ファイル，バイナリ，libc，ローカル実行環境構築用のDockerfileなどがあります．&#xA;解法 C言語ファイルの重要な部分を抜き出すと，以下のようになります．&#xA;name, country変数を定義して，1回目のscanfでnameに入力値を格納，printfでnameを出力． 2回目のscanfでcountryに入力値を格納，printfでcountryを出力するという非常にシンプルなプログラムです．&#xA;int main() { char name[0x30], country[0x20]; scanf(&amp;#34;%[^\n]s&amp;#34;, name); printf(&amp;#34;Nice to meet you, %s!\n&amp;#34;, name); scanf(&amp;#34;%s&amp;#34;, country); printf(&amp;#34;Wow, %s is such a nice country!\n&amp;#34;, country); return 0; } また，各種セキュリティ機構は以下のようになっています．64bitでcanaryなし，PIE (Position Independent Executables) ありです．&#xA;$ checksec ./chall [*] &amp;#39;chall&amp;#39; Arch: amd64-64-little RELRO: Partial RELRO Stack: No canary found NX: NX enabled PIE: PIE enabled このプログラムの脆弱性は，2回行われるscanfに入力文字数の制限がないことです． これにより，スタックオーバーフローを起こすことができます．</description>
+    </item>
     <item>
       <title>Tenable CTF 2022 Writeup &#39;Olden Ring&#39;[pwn]</title>
-      <link>https://blog.kazapps.info/posts/tenable-pwnable/</link>
+      <link>http://localhost:1313/posts/tenable-pwnable/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.kazapps.info/posts/tenable-pwnable/</guid>
-      <description>Tenable CTF 2022 Writeup &amp;lsquo;Olden Ring&amp;rsquo;[pwn] #  この記事では，CTF (Capture the Flag) オンライン大会の Tenable CTF 2022で取り組んだ問題の解説をおこないます．
-Tenable CTFには，研究室のメンバー3名でチームを作って挑戦しました． 私が取り組んだ問題は，pwnの&amp;rsquo;Olden Ring&amp;rsquo;です． ポイントは100ptsと一番低い分類にあたるので，pwn初心者問題だと思われます．
-問題 #  netcatで接続するためのリモートサーバのIP,ポート番号の情報と，oldenというファイルが添付されている．
-fileコマンドでファイルの内容を調べたところ，64bitのELFバイナリファイルであることはわかりました．
-解説 #  ファイルを実行してみる（または，netcatでリモートサーバに接続してみる）と，どうやらコマンドラインのゲームらしいです．（問題名から察するに，ELDEN RING風のゲームなのかも？？） いくつかの説明文とともに，コマンドラインで入力が求められるというものでした．
-バイナリファイルをGhidraを使ってデコンパイルした結果，main関数の他にdefeat_frog_guys関数，boss_fight関数があることがわかります．
-その他の関数として，どの関数からも呼び出されていないzip_to_end関数があり，flag.txtの内容を出力する処理を行なっています． つまり，最終的にこの関数を実行することができれば，フラグを取得できるはず．
-脆弱性を探す上で，ユーザからの入力を受け付けている関数の使い方に誤りがないかをチェックしていきました． すると，fgets関数がバッファサイズを指定して使われていることがわかります．ユーザ入力の格納先はlocal_418 (Ghidraのデコンパイル時に自動生成された変数名) という変数でした．
-fgets((char *)&amp;amp;local_418, 0x400, stdin); 変数local_418はローカル変数なので，BOFできればmain関数のreturnアドレス書き換えが可能です． しかし，どうやらこの変数local_418のバッファサイズは0x400はあるようで，fgetsによってBOFできそうには見えませんでした．
-main関数内で，変数local_418から0x400バイト分0で埋めることによって初期化しているため，バッファサイズが0x400バイトあることは想定されているようです．
-memset(&amp;amp;local_418, 0, 0x400); 変数local_418が利用されている箇所を中心に，他の処理をチェックしてみます．
-defeat_frog_guysという関数の引数として変数local_418 (ユーザ文字列のバッファ) が利用されているため，
-// local_418が利用されている！ defeat_frog_guys(&amp;amp;local_418, local_14); このdefeat_frog_guys関数では，memcpy等を用いて，データのコピーが行われているようでした． コピーの流れが複雑なため，ソースコードから挙動を理解するのに時間がかかると判断したため，ここからはGDBによってプログラムを実行させながら挙動を把握していきました．
-ユーザが入力した文字列は，defeat_frog_guys関数のスタックフレーム内にコピーされているようでした． そこで，ためしに&amp;rsquo;AAAAA&amp;hellip;&amp;lsquo;という長さ0x400の文字列を入力したところ，Segmentation faultが発生し，BOFが発生したことを確認できました！ defeat_frog_guys関数のスタックがBOF可能ということがわかったので，あとはdefeat_frog_guys→mainに戻る際のreturnアドレスを書き換えて，zip_to_end関数の先頭アドレスにすれば完了です．
- zip_to_end関数のアドレス：0x4012b6（ASLR，PIE等のセキュリティ機構はオフになっているのでアドレスは固定でした） returnアドレス書き換えのためのパディングの長さ：0x3f3バイト ２回目のfgetsで入力する数値：199  ２回目のfgetsで入力する数値によって，コピーされる場所が何バイトかずれたりするようで，上記の2と3については， 何度か入力する数値，パディングの長さを変えてGDBを実行しました． GDBではプログラム実行中にブレークポイントを設置して，プログラムのある時点でのスタックの内容を表示することができるため，この機能を使うことでパディングの長さを調整しました． 使用したGDBのコマンドは主に以下のようなものです．</description>
+      <guid>http://localhost:1313/posts/tenable-pwnable/</guid>
+      <description>Tenable CTF 2022 Writeup &amp;lsquo;Olden Ring&amp;rsquo;[pwn] この記事では，CTF (Capture the Flag) オンライン大会のTenable CTF 2022で取り組んだ問題の解説をおこないます．&#xA;Tenable CTFには，研究室のメンバー3名でチームを作って挑戦しました． 私が取り組んだ問題は，pwnの&amp;rsquo;Olden Ring&amp;rsquo;です． ポイントは100ptsと一番低い分類にあたるので，pwn初心者問題だと思われます．&#xA;問題 netcatで接続するためのリモートサーバのIP,ポート番号の情報と，oldenというファイルが添付されている．&#xA;fileコマンドでファイルの内容を調べたところ，64bitのELFバイナリファイルであることはわかりました．&#xA;解説 ファイルを実行してみる（または，netcatでリモートサーバに接続してみる）と，どうやらコマンドラインのゲームらしいです．（問題名から察するに，ELDEN RING風のゲームなのかも？？） いくつかの説明文とともに，コマンドラインで入力が求められるというものでした．&#xA;バイナリファイルをGhidraを使ってデコンパイルした結果，main関数の他にdefeat_frog_guys関数，boss_fight関数があることがわかります．&#xA;その他の関数として，どの関数からも呼び出されていないzip_to_end関数があり，flag.txtの内容を出力する処理を行なっています． つまり，最終的にこの関数を実行することができれば，フラグを取得できるはず．&#xA;脆弱性を探す上で，ユーザからの入力を受け付けている関数の使い方に誤りがないかをチェックしていきました． すると，fgets関数がバッファサイズを指定して使われていることがわかります．ユーザ入力の格納先はlocal_418 (Ghidraのデコンパイル時に自動生成された変数名) という変数でした．&#xA;fgets((char *)&amp;amp;local_418, 0x400, stdin); 変数local_418はローカル変数なので，BOFできればmain関数のreturnアドレス書き換えが可能です． しかし，どうやらこの変数local_418のバッファサイズは0x400はあるようで，fgetsによってBOFできそうには見えませんでした．&#xA;main関数内で，変数local_418から0x400バイト分0で埋めることによって初期化しているため，バッファサイズが0x400バイトあることは想定されているようです．&#xA;memset(&amp;amp;local_418, 0, 0x400); 変数local_418が利用されている箇所を中心に，他の処理をチェックしてみます．&#xA;defeat_frog_guysという関数の引数として変数local_418 (ユーザ文字列のバッファ) が利用されているため，&#xA;// local_418が利用されている！ defeat_frog_guys(&amp;amp;local_418, local_14); このdefeat_frog_guys関数では，memcpy等を用いて，データのコピーが行われているようでした． コピーの流れが複雑なため，ソースコードから挙動を理解するのに時間がかかると判断したため，ここからはGDBによってプログラムを実行させながら挙動を把握していきました．&#xA;ユーザが入力した文字列は，defeat_frog_guys関数のスタックフレーム内にコピーされているようでした． そこで，ためしに&amp;rsquo;AAAAA&amp;hellip;&amp;lsquo;という長さ0x400の文字列を入力したところ，Segmentation faultが発生し，BOFが発生したことを確認できました！ defeat_frog_guys関数のスタックがBOF可能ということがわかったので，あとはdefeat_frog_guys→mainに戻る際のreturnアドレスを書き換えて，zip_to_end関数の先頭アドレスにすれば完了です．&#xA;zip_to_end関数のアドレス：0x4012b6（ASLR，PIE等のセキュリティ機構はオフになっているのでアドレスは固定でした） returnアドレス書き換えのためのパディングの長さ：0x3f3バイト ２回目のfgetsで入力する数値：199 ２回目のfgetsで入力する数値によって，コピーされる場所が何バイトかずれたりするようで，上記の2と3については， 何度か入力する数値，パディングの長さを変えてGDBを実行しました． GDBではプログラム実行中にブレークポイントを設置して，プログラムのある時点でのスタックの内容を表示することができるため，この機能を使うことでパディングの長さを調整しました． 使用したGDBのコマンドは主に以下のようなものです．&#xA;// ブレークポイントを設置する (gdb) break 0x400000 // 現在のスタックtopから40x8バイト分のデータを表示する． (gdb) x/40gx $rsp 最終的に，以下のコマンドを実行することでexploitコードが出力されます． これをリモートサーバのプログラムの入力として与えることでフラグが手に入ります．</description>
     </item>
-    
   </channel>
 </rss>
