@@ -2,7 +2,7 @@
 
 baseURL = 'https://www.kaytaka.com/'
 title = 'k-taka'
-theme = 'book'
+theme = 'hugo-book'
 
 # Github Pagesでデプロイを行うため、/publicではなく、/docs以下にhtmlを生成する
 publishDir = "docs"
@@ -54,6 +54,7 @@ enableGitInfo = true
   weight = 20
 
 [params]
+  transpiler = "libsass"
   # (Optional, default light) Sets color theme: light, dark or auto.
   # Theme 'auto' switches between dark and light modes based on browser/os preferences
   BookTheme = 'light'

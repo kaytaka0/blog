@@ -1,0 +1,51 @@
+<!doctype html><html lang=en dir=ltr><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
+  Linux namespaces+cgroupによる簡易コンテナの自作
+  #
+
+最近，仮想化技術 (VMM, NFV, コンテナ等) について勉強をはじめました．
+仮想化に関連する技術の中でも，普段から開発，実験でよく利用しているDocker (コンテナ型仮想化) について，理解を深めるために，簡易なコンテナの実装を行いました．
+今回実装する上で，参考にした記事がこちらです．
+
+  「【Go言語】自作コンテナ沼。スクラッチでミニDockerを作ろう - カミナシ開発者ブログ」
+コンテナを実現するために使用される基礎技術のみに絞って実装，解説を行なっており，コンテナ技術の本質部分を理解するための非常に良いチュートリアルだと感じました．
+これをきっかけに自作コンテナ沼にハマっていきたいと思います．
+
+  Githubリポジトリ
+  #
+
+Golangで実装したコンテナ作成コマンドはこちらのGithubリポジトリで公開しています．
+
+  https://github.com/takashimakazuki/mini-container
+
+  実装した機能
+  #
+
+簡易コンテナということで，実装した機能は非常に単純です．
+コンテナを作成し，作成したコンテナ内で指定したコマンドを実行するというものになります．
+プログラム内でやっていることは以下です．
+
+Linux namespace機能を用いた実行環境の隔離。つまりコンテナ化を行う。
+chrootによってファイルシステムを分離
+cgroupを使ってコンテナが使える計算リソースを制限する
+コンテナプロセス内でのコマンド実行
+"><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="http://localhost:1313/posts/mini-container/"><meta property="og:site_name" content="k-taka"><meta property="og:title" content="Linux namespaces+cgroupによる簡易コンテナの自作"><meta property="og:description" content="Linux namespaces+cgroupによる簡易コンテナの自作 # 最近，仮想化技術 (VMM, NFV, コンテナ等) について勉強をはじめました． 仮想化に関連する技術の中でも，普段から開発，実験でよく利用しているDocker (コンテナ型仮想化) について，理解を深めるために，簡易なコンテナの実装を行いました． 今回実装する上で，参考にした記事がこちらです．
+「【Go言語】自作コンテナ沼。スクラッチでミニDockerを作ろう - カミナシ開発者ブログ」
+コンテナを実現するために使用される基礎技術のみに絞って実装，解説を行なっており，コンテナ技術の本質部分を理解するための非常に良いチュートリアルだと感じました． これをきっかけに自作コンテナ沼にハマっていきたいと思います．
+Githubリポジトリ # Golangで実装したコンテナ作成コマンドはこちらのGithubリポジトリで公開しています．
+https://github.com/takashimakazuki/mini-container
+実装した機能 # 簡易コンテナということで，実装した機能は非常に単純です． コンテナを作成し，作成したコンテナ内で指定したコマンドを実行するというものになります． プログラム内でやっていることは以下です．
+Linux namespace機能を用いた実行環境の隔離。つまりコンテナ化を行う。 chrootによってファイルシステムを分離 cgroupを使ってコンテナが使える計算リソースを制限する コンテナプロセス内でのコマンド実行"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:modified_time" content="2022-06-28T22:15:44+09:00"><title>Linux namespaces+cgroupによる簡易コンテナの自作 | k-taka</title>
+<link rel=icon href=http://localhost:1313/favicon.png><link rel=manifest href=http://localhost:1313/manifest.json><link rel=canonical href=http://localhost:1313/posts/mini-container/><link rel=stylesheet href=http://localhost:1313/book.min.6c8b9d2a1fc95075ed7da46ca81060b39add8fff6741ac51259f768929281e2c.css integrity="sha256-bIudKh/JUHXtfaRsqBBgs5rdj/9nQaxRJZ92iSkoHiw=" crossorigin=anonymous><script defer src=http://localhost:1313/fuse.min.js></script><script defer src=http://localhost:1313/en.search.min.43ac1410281d6401802182199ac5b7b703523217e77c1b125307dbd3dd0c9bb9.js integrity="sha256-Q6wUECgdZAGAIYIZmsW3twNSMhfnfBsSUwfb090Mm7k=" crossorigin=anonymous></script><script defer src=http://localhost:1313/sw.min.88f1afdaf4798d7d3520420dcfe201f928c3d371fdedfc3ae28cd9b6b79544f8.js integrity="sha256-iPGv2vR5jX01IEINz+IB+SjD03H97fw64ozZtreVRPg=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=http://localhost:1313/><span>k-taka</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul class=book-languages><li><input type=checkbox id=languages class=toggle>
+<label for=languages class="flex justify-between"><a role=button class="flex align-center"><img src=http://localhost:1313/svg/translate.svg class=book-icon alt=Languages>
+English</a></label><ul><li><a href=http://localhost:1313/ru/>Russian</a></li><li><a href=http://localhost:1313/zh/>Chinese</a></li></ul></li></ul><ul><li><a href=https://github.com/alex-shpak/hugo-book target=_blank rel=noopener>Github</a></li><li><a href=https://themes.gohugo.io/hugo-book/ target=_blank rel=noopener>Hugo Themes</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=http://localhost:1313/svg/menu.svg class=book-icon alt=Menu></label><h3>Linux namespaces+cgroupによる簡易コンテナの自作</h3><label for=toc-control><img src=http://localhost:1313/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#linux-namespacescgroupによる簡易コンテナの自作>Linux namespaces+cgroupによる簡易コンテナの自作</a><ul><li><a href=#githubリポジトリ>Githubリポジトリ</a></li><li><a href=#実装した機能>実装した機能</a></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h2>Linux namespaces+cgroupによる簡易コンテナの自作</h2><div class=book-post-content><h1 id=linux-namespacescgroupによる簡易コンテナの自作>Linux namespaces+cgroupによる簡易コンテナの自作
+<a class=anchor href=#linux-namespacescgroup%e3%81%ab%e3%82%88%e3%82%8b%e7%b0%a1%e6%98%93%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e3%81%ae%e8%87%aa%e4%bd%9c>#</a></h1><p>最近，仮想化技術 (VMM, NFV, コンテナ等) について勉強をはじめました．
+仮想化に関連する技術の中でも，普段から開発，実験でよく利用しているDocker (コンテナ型仮想化) について，理解を深めるために，簡易なコンテナの実装を行いました．
+今回実装する上で，参考にした記事がこちらです．</p><p><a href=https://kaminashi-developer.hatenablog.jp/entry/dive-into-swamp-container-scratch>「【Go言語】自作コンテナ沼。スクラッチでミニDockerを作ろう - カミナシ開発者ブログ」</a></p><p>コンテナを実現するために使用される基礎技術のみに絞って実装，解説を行なっており，コンテナ技術の本質部分を理解するための非常に良いチュートリアルだと感じました．
+これをきっかけに自作コンテナ沼にハマっていきたいと思います．</p><h2 id=githubリポジトリ>Githubリポジトリ
+<a class=anchor href=#github%e3%83%aa%e3%83%9d%e3%82%b8%e3%83%88%e3%83%aa>#</a></h2><p>Golangで実装したコンテナ作成コマンドはこちらのGithubリポジトリで公開しています．</p><p><a href=https://github.com/takashimakazuki/mini-container>https://github.com/takashimakazuki/mini-container</a></p><h2 id=実装した機能>実装した機能
+<a class=anchor href=#%e5%ae%9f%e8%a3%85%e3%81%97%e3%81%9f%e6%a9%9f%e8%83%bd>#</a></h2><p>簡易コンテナということで，実装した機能は非常に単純です．
+コンテナを作成し，作成したコンテナ内で指定したコマンドを実行するというものになります．
+プログラム内でやっていることは以下です．</p><ul><li>Linux namespace機能を用いた実行環境の隔離。つまりコンテナ化を行う。</li><li>chrootによってファイルシステムを分離</li><li>cgroupを使ってコンテナが使える計算リソースを制限する</li><li>コンテナプロセス内でのコマンド実行</li></ul></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/alex-shpak/hugo-book/commit/a72887d81a8a6541b23faeeccd888b6da05fd2af title='Last modified by takashimakazuki | June 28, 2022' target=_blank rel=noopener><img src=http://localhost:1313/svg/calendar.svg class=book-icon alt>
+<span>June 28, 2022</span></a></div><div><a class="flex align-center" href=https://github.com/alex-shpak/hugo-book/edit/main/exampleSite/content/posts/mini-container.md target=_blank rel=noopener><img src=http://localhost:1313/svg/edit.svg class=book-icon alt>
+<span>Edit this page</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#linux-namespacescgroupによる簡易コンテナの自作>Linux namespaces+cgroupによる簡易コンテナの自作</a><ul><li><a href=#githubリポジトリ>Githubリポジトリ</a></li><li><a href=#実装した機能>実装した機能</a></li></ul></li></ul></nav></div></aside></main></body></html>

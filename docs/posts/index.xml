@@ -1,54 +1,315 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>k-taka</title><link>https://www.kaytaka.com/posts/</link><description>Recent content on k-taka</description><generator>Hugo -- gohugo.io</generator><language>en</language><atom:link href="https://www.kaytaka.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Domainsで取得したドメインの更新</title><link>https://www.kaytaka.com/posts/get_gcp_domain/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.kaytaka.com/posts/get_gcp_domain/</guid><description>Google Domainsで取得したドメインの更新 2021年にGoogle Domainsで取得したドメインの有効期限が過ぎていたので，自分のブログサイトが閲覧できない状態になっていた． もちろんブログサイト自体は稼働し続けているため，ブラウザのURL欄にIPを打ち込めば閲覧することはできる． しかし，せっかく一度取得したドメインを失効したままにするのは格好が悪いため，ドメイン有効期限の更新を行う．
-Google Domainsでは,年額￥850から独自ドメインを取得することができる．(2022年3月時点)
-今回更新したドメインkazapps.infoでは，年額￥1,400（税別）であった． 独自ドメインの料金については，公式ページから検索することができる． Google Domains
-更新手順 更新手順は非常にシンプル.
-Googleからドメイン有効期限のお知らせメールが来ている場合 Googleから通知メールが来ている場合には，リンクをクリックすることで直接クレジットカード決済の画面に行くことができる． 今回は，1年間だけ有効期限を延長したいので，「年を追加」をクリックし，クレジットカード決済の確認を行う．
-Google Domains管理ページから更新を行う場合 Google Domains管理ページの「マイドメイン&amp;gt;管理」ページにアクセスすると，次のような表示が出ている． 1年間だけ有効期限を延長したいので，「年を追加」からクレジットカード決済の画面に遷移する．
-「年を追加」をクリックするとクレジットカード決済の画面に移動する． ブログサイトではサブドメイン (blog.kazapps.info) を利用しているため，DNSレコードの登録が必要だが， 今回は既に登録済みなので作業の必要はなかった． Google Domainsでは，有効期限が切れていても一定期間はドメインの設定を残してくれていたため助かった． ただし，一定期間が過ぎるとドメインは削除される．
-以下はGoogle Domainsからのメール通知の内容
-ドメインの更新は28日以内に行なってください．この期間を過ぎると，Googleのシステムからドメインが削除されます．
-有効期限が過ぎた後の対応は以下のページにまとまっていた．
-Google Domainsヘルプ: ドメイン登録の有効期限と削除 ざっくり次の様になっている
-有効期限が切れてからの日数 状態 1-30日目 更新猶予期間．ドメイン登録の更新には追加料金はかからない． 31-60日目 ドメイン名の復元は可能だが，追加の料金がかかる 61日目 Googleに連絡がない場合，ドメインは削除．他の人が購入できる様になる．</description></item><item><title>Linux namespaces+cgroupによる簡易コンテナの自作</title><link>https://www.kaytaka.com/posts/mini-container/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.kaytaka.com/posts/mini-container/</guid><description>Linux namespaces+cgroupによる簡易コンテナの自作 最近，仮想化技術 (VMM, NFV, コンテナ等) について勉強をはじめました． 仮想化に関連する技術の中でも，普段から開発，実験でよく利用しているDocker (コンテナ型仮想化) について，理解を深めるために，簡易なコンテナの実装を行いました． 今回実装する上で，参考にした記事がこちらです．
-「【Go言語】自作コンテナ沼。スクラッチでミニDockerを作ろう - カミナシ開発者ブログ」
-コンテナを実現するために使用される基礎技術のみに絞って実装，解説を行なっており，コンテナ技術の本質部分を理解するための非常に良いチュートリアルだと感じました． これをきっかけに自作コンテナ沼にハマっていきたいと思います．
-Githubリポジトリ Golangで実装したコンテナ作成コマンドはこちらのGithubリポジトリで公開しています．
-https://github.com/takashimakazuki/mini-container
-実装した機能 簡易コンテナということで，実装した機能は非常に単純です． コンテナを作成し，作成したコンテナ内で指定したコマンドを実行するというものになります． プログラム内でやっていることは以下です．
-Linux namespace機能を用いた実行環境の隔離。つまりコンテナ化を行う。 chrootによってファイルシステムを分離 cgroupを使ってコンテナが使える計算リソースを制限する コンテナプロセス内でのコマンド実行</description></item><item><title>Open vSwitchとDocker でネットワークの勉強</title><link>https://www.kaytaka.com/posts/ovs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.kaytaka.com/posts/ovs/</guid><description>Open vSwitch と Docker でネットワークの勉強 マスタリングTCP/IPを一通り読んだので，実際にIPv4ネットワークがどのように動作しているのか手を動かしながら確認したいと思いました． 本記事で作成するネットワークでは，仮想ルータ４台に手作業でルーティングテーブルを設定することで，それぞれに対してパケットを送受信できることを目指しました． 今回はルーティングテーブルの手動設定を初めて体験したいという軽い気持ちで始めたため，ルータ+L2スイッチの実機を用意することは考えずに，仮想環境で実行します．
-環境 Apple M1 Mac(ホストマシン) UTM: VM(仮想マシン)を立ち上げるソフトウェア Linux上で動作検証したかったため Ubuntu 18.04 Server Docker CentOS7 on dockerのルーティングテーブルを用いてルーティングを行う Open vSwitch オープンソースの仮想スイッチソフトウェア ネットワーク構成図 今回作成したいネットワーク構成図
-静的ルーティングの設定 Dockerコンテナ内でルーティングテーブルの設定を行う．
-ip route add [ネットワーク部の指定] via [転送先IPの指定] dev [デバイス名] docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0 # router1-&amp;gt;router4(10.0.3.2) docker exec router2 ip route add 10.0.4.0/24 via 10.0.3.2 dev eth1 # router2-&amp;gt;router3(10.0.4.1) docker exec router3 ip route add 10.0.1.0/24 via 10.</description></item><item><title>OS自作本　進捗0x01</title><link>https://www.kaytaka.com/posts/kos-01-07/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.kaytaka.com/posts/kos-01-07/</guid><description>ゼロからのOS自作入門　作業記録 内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。
-2/28 第1章 開発環境の構築
-自作OSの開発に利用した環境
-ThinkCentre M720s Small Ubuntu 20.04 Focal Fossa 動作確認は、仮想マシンのqemuを使用する。 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。 qemuで「Hello, workd」を表示できた。
-C言語で同じ動作をするEFIファイルを作成する。 Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)
-3/1　第2章 EDKⅡを利用してアプリケーション開発ができるようにする。 まずはEDKでのハローワールドから始める。
-EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット
-２章を読んだのみで実装は進まなかった。
-3/4 第2章 EDKでハローワールド KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)
-実行結果：edkでハローワールド(めっちゃ誤字している) 今後このアプリケーションをブートローダとして拡張していく
-まずはメモリマップの取得を行う。
-edkで用意されている機能gBS-&amp;gt;GetMemoryMapを使用する。
-EFI_STATUS GetMemoryMap( IN OUT UINTN *MemoryMapSize, IN OUT EFI_MEMORY_DSCRIPTOR *Memorymap, OUT UINTN *MapKey, OUT UINTN *DescriptorSize, OUT UINT32 *DescriptorVersion ); MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ） MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ MapKey：メモリマップを識別するための値を書き込む変数を指定する DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数 DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない） メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。</description></item><item><title>SECCON CTF 2022 Writeup 'koncha'[pwn]</title><link>https://www.kaytaka.com/posts/seccon2022/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.kaytaka.com/posts/seccon2022/</guid><description>SECCON CTF 2022 Writeup &amp;lsquo;koncha&amp;rsquo;[pwn] 2022年11月に開催されたSECCON2022予選に参加しました． おそらく日本で一番有名かつ大規模なCTF大会ということもあり，非常に面白い問題（そして難しい問題）が多く， 競技時間の24時間は必死に問題に取り組むことができ楽しかったです．
-本記事では，競技時間中にFLAGを見つけることができたpwnの問題についてメモを残します．
-問題 tar.gzファイルを展開すると，問題のC言語ファイル，バイナリ，libc，ローカル実行環境構築用のDockerfileなどがあります．
-解法 C言語ファイルの重要な部分を抜き出すと，以下のようになります．
-name, country変数を定義して，1回目のscanfでnameに入力値を格納，printfでnameを出力． 2回目のscanfでcountryに入力値を格納，printfでcountryを出力するという非常にシンプルなプログラムです．
-int main() { char name[0x30], country[0x20]; scanf(&amp;#34;%[^\n]s&amp;#34;, name); printf(&amp;#34;Nice to meet you, %s!\n&amp;#34;, name); scanf(&amp;#34;%s&amp;#34;, country); printf(&amp;#34;Wow, %s is such a nice country!\n&amp;#34;, country); return 0; } また，各種セキュリティ機構は以下のようになっています．64bitでcanaryなし，PIE (Position Independent Executables) ありです．
-$ checksec ./chall [*] &amp;#39;chall&amp;#39; Arch: amd64-64-little RELRO: Partial RELRO Stack: No canary found NX: NX enabled PIE: PIE enabled このプログラムの脆弱性は，2回行われるscanfに入力文字数の制限がないことです． これにより，スタックオーバーフローを起こすことができます．</description></item><item><title>Tenable CTF 2022 Writeup 'Olden Ring'[pwn]</title><link>https://www.kaytaka.com/posts/tenable-pwnable/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.kaytaka.com/posts/tenable-pwnable/</guid><description>Tenable CTF 2022 Writeup &amp;lsquo;Olden Ring&amp;rsquo;[pwn] この記事では，CTF (Capture the Flag) オンライン大会のTenable CTF 2022で取り組んだ問題の解説をおこないます．
-Tenable CTFには，研究室のメンバー3名でチームを作って挑戦しました． 私が取り組んだ問題は，pwnの&amp;rsquo;Olden Ring&amp;rsquo;です． ポイントは100ptsと一番低い分類にあたるので，pwn初心者問題だと思われます．
-問題 netcatで接続するためのリモートサーバのIP,ポート番号の情報と，oldenというファイルが添付されている．
-fileコマンドでファイルの内容を調べたところ，64bitのELFバイナリファイルであることはわかりました．
-解説 ファイルを実行してみる（または，netcatでリモートサーバに接続してみる）と，どうやらコマンドラインのゲームらしいです．（問題名から察するに，ELDEN RING風のゲームなのかも？？） いくつかの説明文とともに，コマンドラインで入力が求められるというものでした．
-バイナリファイルをGhidraを使ってデコンパイルした結果，main関数の他にdefeat_frog_guys関数，boss_fight関数があることがわかります．
-その他の関数として，どの関数からも呼び出されていないzip_to_end関数があり，flag.txtの内容を出力する処理を行なっています． つまり，最終的にこの関数を実行することができれば，フラグを取得できるはず．
-脆弱性を探す上で，ユーザからの入力を受け付けている関数の使い方に誤りがないかをチェックしていきました． すると，fgets関数がバッファサイズを指定して使われていることがわかります．ユーザ入力の格納先はlocal_418 (Ghidraのデコンパイル時に自動生成された変数名) という変数でした．
-fgets((char *)&amp;amp;local_418, 0x400, stdin); 変数local_418はローカル変数なので，BOFできればmain関数のreturnアドレス書き換えが可能です． しかし，どうやらこの変数local_418のバッファサイズは0x400はあるようで，fgetsによってBOFできそうには見えませんでした．
-main関数内で，変数local_418から0x400バイト分0で埋めることによって初期化しているため，バッファサイズが0x400バイトあることは想定されているようです．
-memset(&amp;amp;local_418, 0, 0x400); 変数local_418が利用されている箇所を中心に，他の処理をチェックしてみます．
-defeat_frog_guysという関数の引数として変数local_418 (ユーザ文字列のバッファ) が利用されているため，
-// local_418が利用されている！ defeat_frog_guys(&amp;amp;local_418, local_14); このdefeat_frog_guys関数では，memcpy等を用いて，データのコピーが行われているようでした． コピーの流れが複雑なため，ソースコードから挙動を理解するのに時間がかかると判断したため，ここからはGDBによってプログラムを実行させながら挙動を把握していきました．
-ユーザが入力した文字列は，defeat_frog_guys関数のスタックフレーム内にコピーされているようでした． そこで，ためしに&amp;rsquo;AAAAA&amp;hellip;&amp;lsquo;という長さ0x400の文字列を入力したところ，Segmentation faultが発生し，BOFが発生したことを確認できました！ defeat_frog_guys関数のスタックがBOF可能ということがわかったので，あとはdefeat_frog_guys→mainに戻る際のreturnアドレスを書き換えて，zip_to_end関数の先頭アドレスにすれば完了です．
-zip_to_end関数のアドレス：0x4012b6（ASLR，PIE等のセキュリティ機構はオフになっているのでアドレスは固定でした） returnアドレス書き換えのためのパディングの長さ：0x3f3バイト ２回目のfgetsで入力する数値：199 ２回目のfgetsで入力する数値によって，コピーされる場所が何バイトかずれたりするようで，上記の2と3については， 何度か入力する数値，パディングの長さを変えてGDBを実行しました． GDBではプログラム実行中にブレークポイントを設置して，プログラムのある時点でのスタックの内容を表示することができるため，この機能を使うことでパディングの長さを調整しました． 使用したGDBのコマンドは主に以下のようなものです．
-// ブレークポイントを設置する (gdb) break 0x400000 // 現在のスタックtopから40x8バイト分のデータを表示する． (gdb) x/40gx $rsp 最終的に，以下のコマンドを実行することでexploitコードが出力されます． これをリモートサーバのプログラムの入力として与えることでフラグが手に入ります．</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>k-taka</title><link>http://localhost:1313/posts/</link><description>Recent content on k-taka</description><generator>Hugo</generator><language>en</language><atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Domainsで取得したドメインの更新</title><link>http://localhost:1313/posts/get_gcp_domain/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/get_gcp_domain/</guid><description>&lt;h1 id="google-domainsで取得したドメインの更新">
+ Google Domainsで取得したドメインの更新
+ &lt;a class="anchor" href="#google-domains%e3%81%a7%e5%8f%96%e5%be%97%e3%81%97%e3%81%9f%e3%83%89%e3%83%a1%e3%82%a4%e3%83%b3%e3%81%ae%e6%9b%b4%e6%96%b0">#&lt;/a>
+&lt;/h1>
+&lt;p>2021年にGoogle Domainsで取得したドメインの有効期限が過ぎていたので，自分のブログサイトが閲覧できない状態になっていた．
+もちろんブログサイト自体は稼働し続けているため，ブラウザのURL欄にIPを打ち込めば閲覧することはできる．
+しかし，せっかく一度取得したドメインを失効したままにするのは格好が悪いため，ドメイン有効期限の更新を行う．&lt;/p>
+&lt;p>Google Domainsでは,年額￥850から独自ドメインを取得することができる．(2022年3月時点)&lt;/p>
+&lt;p>今回更新したドメイン&lt;code>kazapps.info&lt;/code>では，年額￥1,400（税別）であった．
+独自ドメインの料金については，公式ページから検索することができる．
+
+ &lt;a href="https://domains.google/">Google Domains&lt;/a>&lt;/p>
+&lt;h2 id="更新手順">
+ 更新手順
+ &lt;a class="anchor" href="#%e6%9b%b4%e6%96%b0%e6%89%8b%e9%a0%86">#&lt;/a>
+&lt;/h2>
+&lt;p>更新手順は非常にシンプル.&lt;/p>
+&lt;ul>
+&lt;li>Googleからドメイン有効期限のお知らせメールが来ている場合&lt;/li>
+&lt;/ul>
+&lt;p>Googleから通知メールが来ている場合には，リンクをクリックすることで直接クレジットカード決済の画面に行くことができる．
+今回は，1年間だけ有効期限を延長したいので，「年を追加」をクリックし，クレジットカード決済の確認を行う．&lt;/p>
+&lt;p>
+ &lt;img src="http://localhost:1313/img/domain-expired-mail.png" alt="domain-expired-mail" />&lt;/p>
+&lt;ul>
+&lt;li>Google Domains管理ページから更新を行う場合&lt;/li>
+&lt;/ul>
+&lt;p>Google Domains管理ページの「マイドメイン&amp;gt;管理」ページにアクセスすると，次のような表示が出ている．
+1年間だけ有効期限を延長したいので，「年を追加」からクレジットカード決済の画面に遷移する．&lt;/p>
+&lt;p>
+ &lt;img src="http://localhost:1313/img/google-domains.png" alt="google-domains" />&lt;/p>
+&lt;p>「年を追加」をクリックするとクレジットカード決済の画面に移動する．
+
+ &lt;img src="http://localhost:1313/img/domain-update.png" alt="domain-update" />&lt;/p>
+&lt;p>ブログサイトではサブドメイン (blog.kazapps.info) を利用しているため，DNSレコードの登録が必要だが，
+今回は既に登録済みなので作業の必要はなかった．
+Google Domainsでは，有効期限が切れていても一定期間はドメインの設定を残してくれていたため助かった．
+ただし，一定期間が過ぎるとドメインは削除される．&lt;br>
+以下はGoogle Domainsからのメール通知の内容&lt;/p>
+&lt;blockquote>
+&lt;p>ドメインの更新は28日以内に行なってください．この期間を過ぎると，Googleのシステムからドメインが削除されます．&lt;/p>
+&lt;/blockquote>
+&lt;p>有効期限が過ぎた後の対応は以下のページにまとまっていた．&lt;/p>
+&lt;ul>
+&lt;li>
+ &lt;a href="https://support.google.com/domains/answer/3260599?hl=ja">Google Domainsヘルプ: ドメイン登録の有効期限と削除&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>ざっくり次の様になっている&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>有効期限が切れてからの日数&lt;/th>
+ &lt;th>状態&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>1-30日目&lt;/td>
+ &lt;td>更新猶予期間．ドメイン登録の更新には追加料金はかからない．&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>31-60日目&lt;/td>
+ &lt;td>ドメイン名の復元は可能だが，追加の料金がかかる&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>61日目&lt;/td>
+ &lt;td>Googleに連絡がない場合，ドメインは削除．他の人が購入できる様になる．&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>Linux namespaces+cgroupによる簡易コンテナの自作</title><link>http://localhost:1313/posts/mini-container/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/mini-container/</guid><description>&lt;h1 id="linux-namespacescgroupによる簡易コンテナの自作">
+ Linux namespaces+cgroupによる簡易コンテナの自作
+ &lt;a class="anchor" href="#linux-namespacescgroup%e3%81%ab%e3%82%88%e3%82%8b%e7%b0%a1%e6%98%93%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e3%81%ae%e8%87%aa%e4%bd%9c">#&lt;/a>
+&lt;/h1>
+&lt;p>最近，仮想化技術 (VMM, NFV, コンテナ等) について勉強をはじめました．
+仮想化に関連する技術の中でも，普段から開発，実験でよく利用しているDocker (コンテナ型仮想化) について，理解を深めるために，簡易なコンテナの実装を行いました．
+今回実装する上で，参考にした記事がこちらです．&lt;/p>
+&lt;p>
+ &lt;a href="https://kaminashi-developer.hatenablog.jp/entry/dive-into-swamp-container-scratch">「【Go言語】自作コンテナ沼。スクラッチでミニDockerを作ろう - カミナシ開発者ブログ」&lt;/a>&lt;/p>
+&lt;p>コンテナを実現するために使用される基礎技術のみに絞って実装，解説を行なっており，コンテナ技術の本質部分を理解するための非常に良いチュートリアルだと感じました．
+これをきっかけに自作コンテナ沼にハマっていきたいと思います．&lt;/p>
+&lt;h2 id="githubリポジトリ">
+ Githubリポジトリ
+ &lt;a class="anchor" href="#github%e3%83%aa%e3%83%9d%e3%82%b8%e3%83%88%e3%83%aa">#&lt;/a>
+&lt;/h2>
+&lt;p>Golangで実装したコンテナ作成コマンドはこちらのGithubリポジトリで公開しています．&lt;/p>
+&lt;p>
+ &lt;a href="https://github.com/takashimakazuki/mini-container">https://github.com/takashimakazuki/mini-container&lt;/a>&lt;/p>
+&lt;h2 id="実装した機能">
+ 実装した機能
+ &lt;a class="anchor" href="#%e5%ae%9f%e8%a3%85%e3%81%97%e3%81%9f%e6%a9%9f%e8%83%bd">#&lt;/a>
+&lt;/h2>
+&lt;p>簡易コンテナということで，実装した機能は非常に単純です．
+コンテナを作成し，作成したコンテナ内で指定したコマンドを実行するというものになります．
+プログラム内でやっていることは以下です．&lt;/p>
+&lt;ul>
+&lt;li>Linux namespace機能を用いた実行環境の隔離。つまりコンテナ化を行う。&lt;/li>
+&lt;li>chrootによってファイルシステムを分離&lt;/li>
+&lt;li>cgroupを使ってコンテナが使える計算リソースを制限する&lt;/li>
+&lt;li>コンテナプロセス内でのコマンド実行&lt;/li>
+&lt;/ul></description></item><item><title>Open vSwitchとDocker でネットワークの勉強</title><link>http://localhost:1313/posts/ovs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ovs/</guid><description>&lt;h1 id="open-vswitch-と-docker-でネットワークの勉強">
+ Open vSwitch と Docker でネットワークの勉強
+ &lt;a class="anchor" href="#open-vswitch-%e3%81%a8-docker-%e3%81%a7%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e3%81%ae%e5%8b%89%e5%bc%b7">#&lt;/a>
+&lt;/h1>
+&lt;p>マスタリングTCP/IPを一通り読んだので，実際にIPv4ネットワークがどのように動作しているのか手を動かしながら確認したいと思いました．
+本記事で作成するネットワークでは，仮想ルータ４台に手作業でルーティングテーブルを設定することで，それぞれに対してパケットを送受信できることを目指しました．
+今回はルーティングテーブルの手動設定を初めて体験したいという軽い気持ちで始めたため，ルータ+L2スイッチの実機を用意することは考えずに，仮想環境で実行します．&lt;/p>
+&lt;h2 id="環境">
+ 環境
+ &lt;a class="anchor" href="#%e7%92%b0%e5%a2%83">#&lt;/a>
+&lt;/h2>
+&lt;ul>
+&lt;li>Apple M1 Mac(ホストマシン)&lt;/li>
+&lt;li>UTM: VM(仮想マシン)を立ち上げるソフトウェア
+&lt;ul>
+&lt;li>Linux上で動作検証したかったため&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Ubuntu 18.04 Server&lt;/li>
+&lt;li>Docker
+&lt;ul>
+&lt;li>&lt;code>CentOS7 on docker&lt;/code>のルーティングテーブルを用いてルーティングを行う&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Open vSwitch
+&lt;ul>
+&lt;li>オープンソースの仮想スイッチソフトウェア&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="ネットワーク構成図">
+ ネットワーク構成図
+ &lt;a class="anchor" href="#%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e6%a7%8b%e6%88%90%e5%9b%b3">#&lt;/a>
+&lt;/h2>
+&lt;p>今回作成したいネットワーク構成図&lt;/p>
+&lt;p>
+ &lt;img src="http://localhost:1313/img/ovs-network.png" alt="network" />&lt;/p>
+&lt;h2 id="静的ルーティングの設定">
+ 静的ルーティングの設定
+ &lt;a class="anchor" href="#%e9%9d%99%e7%9a%84%e3%83%ab%e3%83%bc%e3%83%86%e3%82%a3%e3%83%b3%e3%82%b0%e3%81%ae%e8%a8%ad%e5%ae%9a">#&lt;/a>
+&lt;/h2>
+&lt;p>Dockerコンテナ内でルーティングテーブルの設定を行う．&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ip route add &lt;span style="color:#f92672">[&lt;/span>ネットワーク部の指定&lt;span style="color:#f92672">]&lt;/span> via &lt;span style="color:#f92672">[&lt;/span>転送先IPの指定&lt;span style="color:#f92672">]&lt;/span> dev &lt;span style="color:#f92672">[&lt;/span>デバイス名&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>docker exec router1 ip route add 10.0.3.0/24 via 10.0.1.2 dev eth0 &lt;span style="color:#75715e"># router1-&amp;gt;router4(10.0.3.2)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>docker exec router2 ip route add 10.0.4.0/24 via 10.0.3.2 dev eth1 &lt;span style="color:#75715e"># router2-&amp;gt;router3(10.0.4.1)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>docker exec router3 ip route add 10.0.1.0/24 via 10.0.2.1 dev eth0 &lt;span style="color:#75715e"># router3-&amp;gt;router2(10.0.1.2)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>docker exec router4 ip route add 10.0.2.0/24 via 10.0.4.1 dev eth1 &lt;span style="color:#75715e"># router4-&amp;gt;router1(10.0.2.1)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>docker exec router1 ip route add 10.0.4.0/24 via 10.0.2.2 dev eth1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>docker exec router2 ip route add 10.0.2.0/24 via 10.0.1.1 dev eth0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>docker exec router3 ip route add 10.0.3.0/24 via 10.0.4.2 dev eth1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>docker exec router4 ip route add 10.0.1.0/24 via 10.0.3.1 dev eth0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="githubリポジトリ">
+ Githubリポジトリ
+ &lt;a class="anchor" href="#github%e3%83%aa%e3%83%9d%e3%82%b8%e3%83%88%e3%83%aa">#&lt;/a>
+&lt;/h2>
+&lt;p>OVSのブリッジ作成スクリプトとDockerfile&lt;/p></description></item><item><title>OS自作本　進捗0x01</title><link>http://localhost:1313/posts/kos-01-07/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/kos-01-07/</guid><description>&lt;h1 id="ゼロからのos自作入門作業記録">
+ ゼロからのOS自作入門　作業記録
+ &lt;a class="anchor" href="#%e3%82%bc%e3%83%ad%e3%81%8b%e3%82%89%e3%81%aeos%e8%87%aa%e4%bd%9c%e5%85%a5%e9%96%80%e4%bd%9c%e6%a5%ad%e8%a8%98%e9%8c%b2">#&lt;/a>
+&lt;/h1>
+&lt;p>内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。&lt;/p>
+&lt;h2 id="228-第1章">
+ 2/28 第1章
+ &lt;a class="anchor" href="#228-%e7%ac%ac1%e7%ab%a0">#&lt;/a>
+&lt;/h2>
+&lt;p>開発環境の構築&lt;/p>
+&lt;p>自作OSの開発に利用した環境&lt;/p>
+&lt;ul>
+&lt;li>ThinkCentre M720s Small&lt;/li>
+&lt;li>Ubuntu 20.04 Focal Fossa&lt;/li>
+&lt;/ul>
+&lt;p>動作確認は、仮想マシンのqemuを使用する。
+BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。
+qemuで「Hello, workd」を表示できた。&lt;/p>
+&lt;p>
+ &lt;img src="http://localhost:1313/img/kos/kos-d1-hello-world.png" alt="hello-world" />&lt;/p>
+&lt;p>C言語で同じ動作をするEFIファイルを作成する。
+Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)&lt;/p>
+&lt;h2 id="31第2章">
+ 3/1　第2章
+ &lt;a class="anchor" href="#31%e7%ac%ac2%e7%ab%a0">#&lt;/a>
+&lt;/h2>
+&lt;p>EDKⅡを利用してアプリケーション開発ができるようにする。
+まずはEDKでのハローワールドから始める。&lt;/p>
+&lt;p>EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット&lt;/p>
+&lt;p>２章を読んだのみで実装は進まなかった。&lt;/p>
+&lt;h2 id="34-第2章">
+ 3/4 第2章
+ &lt;a class="anchor" href="#34-%e7%ac%ac2%e7%ab%a0">#&lt;/a>
+&lt;/h2>
+&lt;p>EDKでハローワールド
+KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う
+→Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)&lt;/p>
+&lt;p>実行結果：edkでハローワールド(めっちゃ誤字している)
+
+ &lt;img src="http://localhost:1313/img/kos/kos-d2-edk-hello.png" alt="edk-hello" />&lt;/p>
+&lt;p>今後このアプリケーションをブートローダとして拡張していく&lt;/p>
+&lt;p>まずはメモリマップの取得を行う。&lt;/p>
+&lt;p>edkで用意されている機能&lt;code>gBS-&amp;gt;GetMemoryMap&lt;/code>を使用する。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>EFI_STATUS &lt;span style="color:#a6e22e">GetMemoryMap&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> IN OUT UINTN &lt;span style="color:#f92672">*&lt;/span>MemoryMapSize,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> IN OUT EFI_MEMORY_DSCRIPTOR &lt;span style="color:#f92672">*&lt;/span>Memorymap,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> OUT UINTN &lt;span style="color:#f92672">*&lt;/span>MapKey,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> OUT UINTN &lt;span style="color:#f92672">*&lt;/span>DescriptorSize,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> OUT UINT32 &lt;span style="color:#f92672">*&lt;/span>DescriptorVersion
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ）&lt;/li>
+&lt;li>MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ&lt;/li>
+&lt;li>MapKey：メモリマップを識別するための値を書き込む変数を指定する&lt;/li>
+&lt;li>DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数&lt;/li>
+&lt;li>DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）&lt;/li>
+&lt;/ul>
+&lt;p>メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。&lt;/p></description></item><item><title>SECCON CTF 2022 Writeup 'koncha'[pwn]</title><link>http://localhost:1313/posts/seccon2022/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/seccon2022/</guid><description>&lt;h1 id="seccon-ctf-2022-writeup-konchapwn">
+ SECCON CTF 2022 Writeup &amp;lsquo;koncha&amp;rsquo;[pwn]
+ &lt;a class="anchor" href="#seccon-ctf-2022-writeup-konchapwn">#&lt;/a>
+&lt;/h1>
+&lt;p>2022年11月に開催されたSECCON2022予選に参加しました．
+おそらく日本で一番有名かつ大規模なCTF大会ということもあり，非常に面白い問題（そして難しい問題）が多く，
+競技時間の24時間は必死に問題に取り組むことができ楽しかったです．&lt;/p>
+&lt;p>本記事では，競技時間中にFLAGを見つけることができたpwnの問題についてメモを残します．&lt;/p>
+&lt;h2 id="問題">
+ 問題
+ &lt;a class="anchor" href="#%e5%95%8f%e9%a1%8c">#&lt;/a>
+&lt;/h2>
+
+
+
+	
+	&lt;a href="http://localhost:1313/posts/seccon2022/seccon2022-koncha.png">
+	&lt;img src="http://localhost:1313/posts/seccon2022/seccon2022-koncha_hu_3d8169b1277747b.png" alt="koncha">
+	&lt;/a>
+
+
+&lt;p>tar.gzファイルを展開すると，問題のC言語ファイル，バイナリ，libc，ローカル実行環境構築用のDockerfileなどがあります．&lt;/p>
+&lt;h2 id="解法">
+ 解法
+ &lt;a class="anchor" href="#%e8%a7%a3%e6%b3%95">#&lt;/a>
+&lt;/h2>
+&lt;p>C言語ファイルの重要な部分を抜き出すと，以下のようになります．&lt;/p>
+&lt;p>&lt;code>name&lt;/code>, &lt;code>country&lt;/code>変数を定義して，1回目のscanfでnameに入力値を格納，printfでnameを出力．
+2回目のscanfでcountryに入力値を格納，printfでcountryを出力するという非常にシンプルなプログラムです．&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">int&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">char&lt;/span> name[&lt;span style="color:#ae81ff">0x30&lt;/span>], country[&lt;span style="color:#ae81ff">0x20&lt;/span>];
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">scanf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;%[^&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">]s&amp;#34;&lt;/span>, name);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">printf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Nice to meet you, %s!&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>, name);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">scanf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;%s&amp;#34;&lt;/span>, country);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">printf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Wow, %s is such a nice country!&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>, country);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>また，各種セキュリティ機構は以下のようになっています．64bitでcanaryなし，PIE (Position Independent Executables) ありです．&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ checksec ./chall
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>*&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#e6db74">&amp;#39;chall&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Arch: amd64-64-little
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> RELRO: Partial RELRO
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Stack: No canary found
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> NX: NX enabled
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> PIE: PIE enabled
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>このプログラムの脆弱性は，2回行われるscanfに入力文字数の制限がないことです．
+これにより，スタックオーバーフローを起こすことができます．&lt;/p></description></item><item><title>Tenable CTF 2022 Writeup 'Olden Ring'[pwn]</title><link>http://localhost:1313/posts/tenable-pwnable/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/tenable-pwnable/</guid><description>&lt;h1 id="tenable-ctf-2022-writeup-olden-ringpwn">
+ Tenable CTF 2022 Writeup &amp;lsquo;Olden Ring&amp;rsquo;[pwn]
+ &lt;a class="anchor" href="#tenable-ctf-2022-writeup-olden-ringpwn">#&lt;/a>
+&lt;/h1>
+&lt;p>この記事では，CTF (Capture the Flag) オンライン大会の
+ &lt;a href="https://tenable.ctfd.io/scoreboard">Tenable CTF 2022&lt;/a>で取り組んだ問題の解説をおこないます．&lt;/p>
+&lt;p>Tenable CTFには，研究室のメンバー3名でチームを作って挑戦しました．
+私が取り組んだ問題は，pwnの&amp;rsquo;Olden Ring&amp;rsquo;です．
+ポイントは100ptsと一番低い分類にあたるので，pwn初心者問題だと思われます．&lt;/p>
+&lt;h2 id="問題">
+ 問題
+ &lt;a class="anchor" href="#%e5%95%8f%e9%a1%8c">#&lt;/a>
+&lt;/h2>
+&lt;p>netcatで接続するためのリモートサーバのIP,ポート番号の情報と，oldenというファイルが添付されている．&lt;/p>
+&lt;p>fileコマンドでファイルの内容を調べたところ，64bitのELFバイナリファイルであることはわかりました．&lt;/p>
+&lt;h2 id="解説">
+ 解説
+ &lt;a class="anchor" href="#%e8%a7%a3%e8%aa%ac">#&lt;/a>
+&lt;/h2>
+&lt;p>ファイルを実行してみる（または，netcatでリモートサーバに接続してみる）と，どうやらコマンドラインのゲームらしいです．（問題名から察するに，ELDEN RING風のゲームなのかも？？）
+いくつかの説明文とともに，コマンドラインで入力が求められるというものでした．&lt;/p>
+&lt;p>バイナリファイルをGhidraを使ってデコンパイルした結果，main関数の他にdefeat_frog_guys関数，boss_fight関数があることがわかります．&lt;/p>
+&lt;p>その他の関数として，どの関数からも呼び出されていない&lt;code>zip_to_end&lt;/code>関数があり，flag.txtの内容を出力する処理を行なっています．
+つまり，最終的にこの関数を実行することができれば，フラグを取得できるはず．&lt;/p>
+&lt;p>脆弱性を探す上で，ユーザからの入力を受け付けている関数の使い方に誤りがないかをチェックしていきました．
+すると，fgets関数がバッファサイズを指定して使われていることがわかります．ユーザ入力の格納先は&lt;code>local_418&lt;/code> (Ghidraのデコンパイル時に自動生成された変数名) という変数でした．&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">fgets&lt;/span>((&lt;span style="color:#66d9ef">char&lt;/span> &lt;span style="color:#f92672">*&lt;/span>)&lt;span style="color:#f92672">&amp;amp;&lt;/span>local_418, &lt;span style="color:#ae81ff">0x400&lt;/span>, stdin);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>変数local_418はローカル変数なので，BOFできればmain関数のreturnアドレス書き換えが可能です．
+しかし，どうやらこの変数local_418のバッファサイズは0x400はあるようで，fgetsによってBOFできそうには見えませんでした．&lt;/p>
+&lt;p>main関数内で，変数local_418から0x400バイト分0で埋めることによって初期化しているため，バッファサイズが0x400バイトあることは想定されているようです．&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">memset&lt;/span>(&lt;span style="color:#f92672">&amp;amp;&lt;/span>local_418, &lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">0x400&lt;/span>);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>変数local_418が利用されている箇所を中心に，他の処理をチェックしてみます．&lt;/p>
+&lt;p>defeat_frog_guysという関数の引数として変数local_418 (ユーザ文字列のバッファ) が利用されているため，&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// local_418が利用されている！
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">defeat_frog_guys&lt;/span>(&lt;span style="color:#f92672">&amp;amp;&lt;/span>local_418, local_14);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>このdefeat_frog_guys関数では，memcpy等を用いて，データのコピーが行われているようでした．
+コピーの流れが複雑なため，ソースコードから挙動を理解するのに時間がかかると判断したため，ここからはGDBによってプログラムを実行させながら挙動を把握していきました．&lt;/p>
+&lt;p>ユーザが入力した文字列は，defeat_frog_guys関数のスタックフレーム内にコピーされているようでした．
+そこで，ためしに&amp;rsquo;AAAAA&amp;hellip;&amp;lsquo;という長さ0x400の文字列を入力したところ，&lt;code>Segmentation fault&lt;/code>が発生し，BOFが発生したことを確認できました！
+defeat_frog_guys関数のスタックがBOF可能ということがわかったので，あとはdefeat_frog_guys→mainに戻る際のreturnアドレスを書き換えて，zip_to_end関数の先頭アドレスにすれば完了です．&lt;/p>
+&lt;ol>
+&lt;li>zip_to_end関数のアドレス：0x4012b6（ASLR，PIE等のセキュリティ機構はオフになっているのでアドレスは固定でした）&lt;/li>
+&lt;li>returnアドレス書き換えのためのパディングの長さ：0x3f3バイト&lt;/li>
+&lt;li>２回目のfgetsで入力する数値：199&lt;/li>
+&lt;/ol>
+&lt;p>２回目のfgetsで入力する数値によって，コピーされる場所が何バイトかずれたりするようで，上記の2と3については，
+何度か入力する数値，パディングの長さを変えてGDBを実行しました．
+GDBではプログラム実行中にブレークポイントを設置して，プログラムのある時点でのスタックの内容を表示することができるため，この機能を使うことでパディングの長さを調整しました．
+使用したGDBのコマンドは主に以下のようなものです．&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>// ブレークポイントを設置する
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">(&lt;/span>gdb&lt;span style="color:#f92672">)&lt;/span> break 0x400000
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>// 現在のスタックtopから40x8バイト分のデータを表示する．
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">(&lt;/span>gdb&lt;span style="color:#f92672">)&lt;/span> x/40gx $rsp 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>最終的に，以下のコマンドを実行することでexploitコードが出力されます．
+これをリモートサーバのプログラムの入力として与えることでフラグが手に入ります．&lt;/p></description></item></channel></rss>
