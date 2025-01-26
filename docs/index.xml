@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>自己紹介 on k-taka</title><link>http://localhost:1313/</link><description>Recent content in 自己紹介 on k-taka</description><generator>Hugo</generator><language>en</language><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Domainsで取得したドメインの更新</title><link>http://localhost:1313/posts/get_gcp_domain/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/get_gcp_domain/</guid><description>&lt;h1 id="google-domainsで取得したドメインの更新">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>自己紹介 on k-taka</title><link>https://www.kaytaka.com/</link><description>Recent content in 自己紹介 on k-taka</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.kaytaka.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Domainsで取得したドメインの更新</title><link>https://www.kaytaka.com/posts/get_gcp_domain/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.kaytaka.com/posts/get_gcp_domain/</guid><description>&lt;h1 id="google-domainsで取得したドメインの更新">
  Google Domainsで取得したドメインの更新
  &lt;a class="anchor" href="#google-domains%e3%81%a7%e5%8f%96%e5%be%97%e3%81%97%e3%81%9f%e3%83%89%e3%83%a1%e3%82%a4%e3%83%b3%e3%81%ae%e6%9b%b4%e6%96%b0">#&lt;/a>
 &lt;/h1>
@@ -21,17 +21,17 @@
 &lt;p>Googleから通知メールが来ている場合には，リンクをクリックすることで直接クレジットカード決済の画面に行くことができる．
 今回は，1年間だけ有効期限を延長したいので，「年を追加」をクリックし，クレジットカード決済の確認を行う．&lt;/p>
 &lt;p>
- &lt;img src="http://localhost:1313/img/domain-expired-mail.png" alt="domain-expired-mail" />&lt;/p>
+ &lt;img src="https://www.kaytaka.com/img/domain-expired-mail.png" alt="domain-expired-mail" />&lt;/p>
 &lt;ul>
 &lt;li>Google Domains管理ページから更新を行う場合&lt;/li>
 &lt;/ul>
 &lt;p>Google Domains管理ページの「マイドメイン&amp;gt;管理」ページにアクセスすると，次のような表示が出ている．
 1年間だけ有効期限を延長したいので，「年を追加」からクレジットカード決済の画面に遷移する．&lt;/p>
 &lt;p>
- &lt;img src="http://localhost:1313/img/google-domains.png" alt="google-domains" />&lt;/p>
+ &lt;img src="https://www.kaytaka.com/img/google-domains.png" alt="google-domains" />&lt;/p>
 &lt;p>「年を追加」をクリックするとクレジットカード決済の画面に移動する．
 
- &lt;img src="http://localhost:1313/img/domain-update.png" alt="domain-update" />&lt;/p>
+ &lt;img src="https://www.kaytaka.com/img/domain-update.png" alt="domain-update" />&lt;/p>
 &lt;p>ブログサイトではサブドメイン (blog.kazapps.info) を利用しているため，DNSレコードの登録が必要だが，
 今回は既に登録済みなので作業の必要はなかった．
 Google Domainsでは，有効期限が切れていても一定期間はドメインの設定を残してくれていたため助かった．
@@ -67,7 +67,7 @@ Google Domainsでは，有効期限が切れていても一定期間はドメイ
  &lt;td>Googleに連絡がない場合，ドメインは削除．他の人が購入できる様になる．&lt;/td>
  &lt;/tr>
  &lt;/tbody>
-&lt;/table></description></item><item><title>Linux namespaces+cgroupによる簡易コンテナの自作</title><link>http://localhost:1313/posts/mini-container/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/mini-container/</guid><description>&lt;h1 id="linux-namespacescgroupによる簡易コンテナの自作">
+&lt;/table></description></item><item><title>Linux namespaces+cgroupによる簡易コンテナの自作</title><link>https://www.kaytaka.com/posts/mini-container/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.kaytaka.com/posts/mini-container/</guid><description>&lt;h1 id="linux-namespacescgroupによる簡易コンテナの自作">
  Linux namespaces+cgroupによる簡易コンテナの自作
  &lt;a class="anchor" href="#linux-namespacescgroup%e3%81%ab%e3%82%88%e3%82%8b%e7%b0%a1%e6%98%93%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e3%81%ae%e8%87%aa%e4%bd%9c">#&lt;/a>
 &lt;/h1>
@@ -97,7 +97,7 @@ Google Domainsでは，有効期限が切れていても一定期間はドメイ
 &lt;li>chrootによってファイルシステムを分離&lt;/li>
 &lt;li>cgroupを使ってコンテナが使える計算リソースを制限する&lt;/li>
 &lt;li>コンテナプロセス内でのコマンド実行&lt;/li>
-&lt;/ul></description></item><item><title>Open vSwitchとDocker でネットワークの勉強</title><link>http://localhost:1313/posts/ovs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ovs/</guid><description>&lt;h1 id="open-vswitch-と-docker-でネットワークの勉強">
+&lt;/ul></description></item><item><title>Open vSwitchとDocker でネットワークの勉強</title><link>https://www.kaytaka.com/posts/ovs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.kaytaka.com/posts/ovs/</guid><description>&lt;h1 id="open-vswitch-と-docker-でネットワークの勉強">
  Open vSwitch と Docker でネットワークの勉強
  &lt;a class="anchor" href="#open-vswitch-%e3%81%a8-docker-%e3%81%a7%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e3%81%ae%e5%8b%89%e5%bc%b7">#&lt;/a>
 &lt;/h1>
@@ -133,7 +133,7 @@ Google Domainsでは，有効期限が切れていても一定期間はドメイ
 &lt;/h2>
 &lt;p>今回作成したいネットワーク構成図&lt;/p>
 &lt;p>
- &lt;img src="http://localhost:1313/img/ovs-network.png" alt="network" />&lt;/p>
+ &lt;img src="https://www.kaytaka.com/img/ovs-network.png" alt="network" />&lt;/p>
 &lt;h2 id="静的ルーティングの設定">
  静的ルーティングの設定
  &lt;a class="anchor" href="#%e9%9d%99%e7%9a%84%e3%83%ab%e3%83%bc%e3%83%86%e3%82%a3%e3%83%b3%e3%82%b0%e3%81%ae%e8%a8%ad%e5%ae%9a">#&lt;/a>
@@ -153,7 +153,7 @@ Google Domainsでは，有効期限が切れていても一定期間はドメイ
  Githubリポジトリ
  &lt;a class="anchor" href="#github%e3%83%aa%e3%83%9d%e3%82%b8%e3%83%88%e3%83%aa">#&lt;/a>
 &lt;/h2>
-&lt;p>OVSのブリッジ作成スクリプトとDockerfile&lt;/p></description></item><item><title>OS自作本　進捗0x01</title><link>http://localhost:1313/posts/kos-01-07/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/kos-01-07/</guid><description>&lt;h1 id="ゼロからのos自作入門作業記録">
+&lt;p>OVSのブリッジ作成スクリプトとDockerfile&lt;/p></description></item><item><title>OS自作本　進捗0x01</title><link>https://www.kaytaka.com/posts/kos-01-07/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.kaytaka.com/posts/kos-01-07/</guid><description>&lt;h1 id="ゼロからのos自作入門作業記録">
  ゼロからのOS自作入門　作業記録
  &lt;a class="anchor" href="#%e3%82%bc%e3%83%ad%e3%81%8b%e3%82%89%e3%81%aeos%e8%87%aa%e4%bd%9c%e5%85%a5%e9%96%80%e4%bd%9c%e6%a5%ad%e8%a8%98%e9%8c%b2">#&lt;/a>
 &lt;/h1>
@@ -172,7 +172,7 @@ Google Domainsでは，有効期限が切れていても一定期間はドメイ
 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。
 qemuで「Hello, workd」を表示できた。&lt;/p>
 &lt;p>
- &lt;img src="http://localhost:1313/img/kos/kos-d1-hello-world.png" alt="hello-world" />&lt;/p>
+ &lt;img src="https://www.kaytaka.com/img/kos/kos-d1-hello-world.png" alt="hello-world" />&lt;/p>
 &lt;p>C言語で同じ動作をするEFIファイルを作成する。
 Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)&lt;/p>
 &lt;h2 id="31第2章">
@@ -192,7 +192,7 @@ KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４
 →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)&lt;/p>
 &lt;p>実行結果：edkでハローワールド(めっちゃ誤字している)
 
- &lt;img src="http://localhost:1313/img/kos/kos-d2-edk-hello.png" alt="edk-hello" />&lt;/p>
+ &lt;img src="https://www.kaytaka.com/img/kos/kos-d2-edk-hello.png" alt="edk-hello" />&lt;/p>
 &lt;p>今後このアプリケーションをブートローダとして拡張していく&lt;/p>
 &lt;p>まずはメモリマップの取得を行う。&lt;/p>
 &lt;p>edkで用意されている機能&lt;code>gBS-&amp;gt;GetMemoryMap&lt;/code>を使用する。&lt;/p>
@@ -210,7 +210,7 @@ KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４
 &lt;li>DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数&lt;/li>
 &lt;li>DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）&lt;/li>
 &lt;/ul>
-&lt;p>メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。&lt;/p></description></item><item><title>SECCON CTF 2022 Writeup 'koncha'[pwn]</title><link>http://localhost:1313/posts/seccon2022/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/seccon2022/</guid><description>&lt;h1 id="seccon-ctf-2022-writeup-konchapwn">
+&lt;p>メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。&lt;/p></description></item><item><title>SECCON CTF 2022 Writeup 'koncha'[pwn]</title><link>https://www.kaytaka.com/posts/seccon2022/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.kaytaka.com/posts/seccon2022/</guid><description>&lt;h1 id="seccon-ctf-2022-writeup-konchapwn">
  SECCON CTF 2022 Writeup &amp;lsquo;koncha&amp;rsquo;[pwn]
  &lt;a class="anchor" href="#seccon-ctf-2022-writeup-konchapwn">#&lt;/a>
 &lt;/h1>
@@ -226,8 +226,8 @@ KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４
 
 
 	
-	&lt;a href="http://localhost:1313/posts/seccon2022/seccon2022-koncha.png">
-	&lt;img src="http://localhost:1313/posts/seccon2022/seccon2022-koncha_hu_3d8169b1277747b.png" alt="koncha">
+	&lt;a href="https://www.kaytaka.com/posts/seccon2022/seccon2022-koncha.png">
+	&lt;img src="https://www.kaytaka.com/posts/seccon2022/seccon2022-koncha_hu_3d8169b1277747b.png" alt="koncha">
 	&lt;/a>
 
 
@@ -257,7 +257,7 @@ KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> NX: NX enabled
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> PIE: PIE enabled
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>このプログラムの脆弱性は，2回行われるscanfに入力文字数の制限がないことです．
-これにより，スタックオーバーフローを起こすことができます．&lt;/p></description></item><item><title>Tenable CTF 2022 Writeup 'Olden Ring'[pwn]</title><link>http://localhost:1313/posts/tenable-pwnable/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/tenable-pwnable/</guid><description>&lt;h1 id="tenable-ctf-2022-writeup-olden-ringpwn">
+これにより，スタックオーバーフローを起こすことができます．&lt;/p></description></item><item><title>Tenable CTF 2022 Writeup 'Olden Ring'[pwn]</title><link>https://www.kaytaka.com/posts/tenable-pwnable/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.kaytaka.com/posts/tenable-pwnable/</guid><description>&lt;h1 id="tenable-ctf-2022-writeup-olden-ringpwn">
  Tenable CTF 2022 Writeup &amp;lsquo;Olden Ring&amp;rsquo;[pwn]
  &lt;a class="anchor" href="#tenable-ctf-2022-writeup-olden-ringpwn">#&lt;/a>
 &lt;/h1>
