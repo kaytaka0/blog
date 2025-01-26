@@ -17,10 +17,17 @@ jobs:
           submodules: true 
           fetch-depth: 0
 
+      - name: Read .env
+        id: hugo-version
+        run: |
+          . ./.env
+          echo "HUGO_VERSION=${HUGO_VERSION}" >> "${GITHUB_OUTPUT}"
+
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.85.0'
+          hugo-version: '${{ steps.hugo-version.outputs.HUGO_VERSION }}'
+          extended: true
 
       - name: Build
         run: hugo --minify
