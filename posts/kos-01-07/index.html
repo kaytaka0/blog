@@ -1,31 +1,77 @@
-<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="ゼロからのOS自作入門　作業記録 #  内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。
-2/28 第1章 #  開発環境の構築
+<!doctype html><html lang=en dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
+  ゼロからのOS自作入門　作業記録
+  #
+
+内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。
+
+  2/28 第1章
+  #
+
+開発環境の構築
 自作OSの開発に利用した環境
- ThinkCentre M720s Small Ubuntu 20.04 Focal Fossa  動作確認は、仮想マシンのqemuを使用する。 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。 qemuで「Hello, workd」を表示できた。
- C言語で同じ動作をするEFIファイルを作成する。 Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)
-3/1　第2章 #  EDKⅡを利用してアプリケーション開発ができるようにする。 まずはEDKでのハローワールドから始める。
+
+ThinkCentre M720s Small
+Ubuntu 20.04 Focal Fossa
+
+動作確認は、仮想マシンのqemuを使用する。
+BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。
+qemuで「Hello, workd」を表示できた。
+
+  
+C言語で同じ動作をするEFIファイルを作成する。
+Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)
+
+  3/1　第2章
+  #
+
+EDKⅡを利用してアプリケーション開発ができるようにする。
+まずはEDKでのハローワールドから始める。
 EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット
 ２章を読んだのみで実装は進まなかった。
-3/4 第2章 #  EDKでハローワールド KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)
+
+  3/4 第2章
+  #
+
+EDKでハローワールド
+KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う
+→Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)
+実行結果：edkでハローワールド(めっちゃ誤字している)
+
+  
+今後このアプリケーションをブートローダとして拡張していく
+まずはメモリマップの取得を行う。
+edkで用意されている機能gBS->GetMemoryMapを使用する。
+EFI_STATUS GetMemoryMap(
+    IN OUT UINTN *MemoryMapSize,
+    IN OUT EFI_MEMORY_DSCRIPTOR *Memorymap,
+    OUT UINTN *MapKey,
+    OUT UINTN *DescriptorSize,
+    OUT UINT32 *DescriptorVersion
+);
+
+MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ）
+MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ
+MapKey：メモリマップを識別するための値を書き込む変数を指定する
+DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数
+DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）
+
+メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。"><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="https://www.kaytaka.com/posts/kos-01-07/"><meta property="og:site_name" content="k-taka"><meta property="og:title" content="OS自作本　進捗0x01"><meta property="og:description" content="ゼロからのOS自作入門　作業記録 # 内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。
+2/28 第1章 # 開発環境の構築
+自作OSの開発に利用した環境
+ThinkCentre M720s Small Ubuntu 20.04 Focal Fossa 動作確認は、仮想マシンのqemuを使用する。 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。 qemuで「Hello, workd」を表示できた。
+C言語で同じ動作をするEFIファイルを作成する。 Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)
+3/1　第2章 # EDKⅡを利用してアプリケーション開発ができるようにする。 まずはEDKでのハローワールドから始める。
+EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット
+２章を読んだのみで実装は進まなかった。
+3/4 第2章 # EDKでハローワールド KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)
 実行結果：edkでハローワールド(めっちゃ誤字している) 今後このアプリケーションをブートローダとして拡張していく
 まずはメモリマップの取得を行う。
 edkで用意されている機能gBS->GetMemoryMapを使用する。
-EFI_STATUS GetMemoryMap( IN OUT UINTN *MemoryMapSize, IN OUT EFI_MEMORY_DSCRIPTOR *Memorymap, OUT UINTN *MapKey, OUT UINTN *DescriptorSize, OUT UINT32 *DescriptorVersion );  MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ） MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ MapKey：メモリマップを識別するための値を書き込む変数を指定する DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数 DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）  メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。"><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="OS自作本　進捗0x01"><meta property="og:description" content="ゼロからのOS自作入門　作業記録 #  内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。
-2/28 第1章 #  開発環境の構築
-自作OSの開発に利用した環境
- ThinkCentre M720s Small Ubuntu 20.04 Focal Fossa  動作確認は、仮想マシンのqemuを使用する。 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。 qemuで「Hello, workd」を表示できた。
- C言語で同じ動作をするEFIファイルを作成する。 Cプログラム→（コンパイラ clang）→オブジェクトファイル→ (リンカ lld-link) → EFIファイル(hello.efi)
-3/1　第2章 #  EDKⅡを利用してアプリケーション開発ができるようにする。 まずはEDKでのハローワールドから始める。
-EDKⅡ：UEFI BIOS上で動作するアプリケーション開発キット
-２章を読んだのみで実装は進まなかった。
-3/4 第2章 #  EDKでハローワールド KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)
-実行結果：edkでハローワールド(めっちゃ誤字している) 今後このアプリケーションをブートローダとして拡張していく
-まずはメモリマップの取得を行う。
-edkで用意されている機能gBS->GetMemoryMapを使用する。
-EFI_STATUS GetMemoryMap( IN OUT UINTN *MemoryMapSize, IN OUT EFI_MEMORY_DSCRIPTOR *Memorymap, OUT UINTN *MapKey, OUT UINTN *DescriptorSize, OUT UINT32 *DescriptorVersion );  MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ） MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ MapKey：メモリマップを識別するための値を書き込む変数を指定する DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数 DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）  メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。"><meta property="og:type" content="article"><meta property="og:url" content="https://www.kaytaka.com/posts/kos-01-07/"><meta property="article:section" content="posts"><meta property="article:modified_time" content="2022-08-08T23:52:57+09:00"><title>OS自作本　進捗0x01 | k-taka</title><link rel=manifest href=https://www.kaytaka.com/manifest.json><link rel=icon href=https://www.kaytaka.com/favicon.png type=image/x-icon><link rel=stylesheet href=https://www.kaytaka.com/book.min.e246e6a45b940b6ff71d8216783f10a80d910290a7c364c8bfd5d305d8545d62.css integrity="sha256-4kbmpFuUC2/3HYIWeD8QqA2RApCnw2TIv9XTBdhUXWI="><script defer src=https://www.kaytaka.com/en.search.min.4c148fe52ce51b0f6f3eafa50849229a2676e32e9187e82481e541fa962d7ebe.js integrity="sha256-TBSP5SzlGw9vPq+lCEkimiZ24y6Rh+gkgeVB+pYtfr4="></script><script defer src=https://www.kaytaka.com/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk="></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a href=https://www.kaytaka.com/><span>k-taka</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=https://github.com/alex-shpak/hugo-book target=_blank rel=noopener>Github</a></li><li><a href=https://themes.gohugo.io/hugo-book/ target=_blank rel=noopener>Hugo Themes</a></li></ul></nav><script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=https://www.kaytaka.com/svg/menu.svg class=book-icon alt=Menu></label>
-<strong>OS自作本　進捗0x01</strong>
-<label for=toc-control><img src=https://www.kaytaka.com/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#ゼロからのos自作入門作業記録>ゼロからのOS自作入門　作業記録</a><ul><li><a href=#228-第1章>2/28 第1章</a></li><li><a href=#31第2章>3/1　第2章</a></li><li><a href=#34-第2章>3/4 第2章</a></li><li><a href=#35-第3章>3/5 第3章</a></li><li><a href=#38-第4章>3/8 第4章</a></li><li><a href=#39-第5章>3/9 第5章</a></li><li><a href=#311-第6章>3/11 第6章</a></li><li><a href=#318-第7章>3/18 第7章</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1><a href=https://www.kaytaka.com/posts/kos-01-07/>OS自作本　進捗0x01</a></h1><h1 id=ゼロからのos自作入門作業記録>ゼロからのOS自作入門　作業記録
+EFI_STATUS GetMemoryMap( IN OUT UINTN *MemoryMapSize, IN OUT EFI_MEMORY_DSCRIPTOR *Memorymap, OUT UINTN *MapKey, OUT UINTN *DescriptorSize, OUT UINT32 *DescriptorVersion ); MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ） MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ MapKey：メモリマップを識別するための値を書き込む変数を指定する DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数 DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない） メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:modified_time" content="2022-08-08T23:52:57+09:00"><title>OS自作本　進捗0x01 | k-taka</title>
+<link rel=icon href=https://www.kaytaka.com/favicon.png><link rel=manifest href=https://www.kaytaka.com/manifest.json><link rel=canonical href=https://www.kaytaka.com/posts/kos-01-07/><link rel=stylesheet href=https://www.kaytaka.com/book.min.6c8b9d2a1fc95075ed7da46ca81060b39add8fff6741ac51259f768929281e2c.css integrity="sha256-bIudKh/JUHXtfaRsqBBgs5rdj/9nQaxRJZ92iSkoHiw=" crossorigin=anonymous><script defer src=https://www.kaytaka.com/fuse.min.js></script><script defer src=https://www.kaytaka.com/en.search.min.43ac1410281d6401802182199ac5b7b703523217e77c1b125307dbd3dd0c9bb9.js integrity="sha256-Q6wUECgdZAGAIYIZmsW3twNSMhfnfBsSUwfb090Mm7k=" crossorigin=anonymous></script><script defer src=https://www.kaytaka.com/sw.min.88f1afdaf4798d7d3520420dcfe201f928c3d371fdedfc3ae28cd9b6b79544f8.js integrity="sha256-iPGv2vR5jX01IEINz+IB+SjD03H97fw64ozZtreVRPg=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=https://www.kaytaka.com/><span>k-taka</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul class=book-languages><li><input type=checkbox id=languages class=toggle>
+<label for=languages class="flex justify-between"><a role=button class="flex align-center"><img src=https://www.kaytaka.com/svg/translate.svg class=book-icon alt=Languages>
+English</a></label><ul><li><a href=https://www.kaytaka.com/ru/>Russian</a></li><li><a href=https://www.kaytaka.com/zh/>Chinese</a></li></ul></li></ul><ul><li><a href=https://github.com/alex-shpak/hugo-book target=_blank rel=noopener>Github</a></li><li><a href=https://themes.gohugo.io/hugo-book/ target=_blank rel=noopener>Hugo Themes</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=https://www.kaytaka.com/svg/menu.svg class=book-icon alt=Menu></label><h3>OS自作本　進捗0x01</h3><label for=toc-control><img src=https://www.kaytaka.com/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#ゼロからのos自作入門作業記録>ゼロからのOS自作入門　作業記録</a><ul><li><a href=#228-第1章>2/28 第1章</a></li><li><a href=#31第2章>3/1　第2章</a></li><li><a href=#34-第2章>3/4 第2章</a></li><li><a href=#35-第3章>3/5 第3章</a></li><li><a href=#38-第4章>3/8 第4章</a></li><li><a href=#39-第5章>3/9 第5章</a></li><li><a href=#311-第6章>3/11 第6章</a></li><li><a href=#318-第7章>3/18 第7章</a></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h2>OS自作本　進捗0x01</h2><div class=book-post-content><h1 id=ゼロからのos自作入門作業記録>ゼロからのOS自作入門　作業記録
 <a class=anchor href=#%e3%82%bc%e3%83%ad%e3%81%8b%e3%82%89%e3%81%aeos%e8%87%aa%e4%bd%9c%e5%85%a5%e9%96%80%e4%bd%9c%e6%a5%ad%e8%a8%98%e9%8c%b2>#</a></h1><p>内田公太氏の「ゼロからのOS自作入門」でのOS作成作業を記録として記す。</p><h2 id=228-第1章>2/28 第1章
 <a class=anchor href=#228-%e7%ac%ac1%e7%ab%a0>#</a></h2><p>開発環境の構築</p><p>自作OSの開発に利用した環境</p><ul><li>ThinkCentre M720s Small</li><li>Ubuntu 20.04 Focal Fossa</li></ul><p>動作確認は、仮想マシンのqemuを使用する。
 BOOTX64.EFIというファイルにバイナリを打ち込んで、起動する。gitに完成済みのEFIファイルがあるが、初めての作業なのでoctetaで一つずつ１６進数を打ち込むことにした。
@@ -36,14 +82,14 @@ Cプログラム→（コンパイラ clang）→オブジェクトファイル�
 <a class=anchor href=#34-%e7%ac%ac2%e7%ab%a0>#</a></h2><p>EDKでハローワールド
 KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４ファイルを作成し、EDKを用いてビルドを行う
 →Loader.efiが生成されるため、これをBOOTX64.EFIとして保存する。(run_qemu.shで実行できる)</p><p>実行結果：edkでハローワールド(めっちゃ誤字している)
-<img src=https://www.kaytaka.com/img/kos/kos-d2-edk-hello.png alt=edk-hello></p><p>今後このアプリケーションをブートローダとして拡張していく</p><p>まずはメモリマップの取得を行う。</p><p>edkで用意されている機能<code>gBS->GetMemoryMap</code>を使用する。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c>EFI_STATUS <span style=color:#a6e22e>GetMemoryMap</span>(
-    IN OUT UINTN <span style=color:#f92672>*</span>MemoryMapSize,
-    IN OUT EFI_MEMORY_DSCRIPTOR <span style=color:#f92672>*</span>Memorymap,
-    OUT UINTN <span style=color:#f92672>*</span>MapKey,
-    OUT UINTN <span style=color:#f92672>*</span>DescriptorSize,
-    OUT UINT32 <span style=color:#f92672>*</span>DescriptorVersion
-);
-</code></pre></div><ul><li>MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ）</li><li>MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ</li><li>MapKey：メモリマップを識別するための値を書き込む変数を指定する</li><li>DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数</li><li>DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）</li></ul><p>メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。</p><pre><code>Index, Type, Type(name), PhysicalStart, NumberOfPages, Attribute
+<img src=https://www.kaytaka.com/img/kos/kos-d2-edk-hello.png alt=edk-hello></p><p>今後このアプリケーションをブートローダとして拡張していく</p><p>まずはメモリマップの取得を行う。</p><p>edkで用意されている機能<code>gBS->GetMemoryMap</code>を使用する。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span>EFI_STATUS <span style=color:#a6e22e>GetMemoryMap</span>(
+</span></span><span style=display:flex><span>    IN OUT UINTN <span style=color:#f92672>*</span>MemoryMapSize,
+</span></span><span style=display:flex><span>    IN OUT EFI_MEMORY_DSCRIPTOR <span style=color:#f92672>*</span>Memorymap,
+</span></span><span style=display:flex><span>    OUT UINTN <span style=color:#f92672>*</span>MapKey,
+</span></span><span style=display:flex><span>    OUT UINTN <span style=color:#f92672>*</span>DescriptorSize,
+</span></span><span style=display:flex><span>    OUT UINT32 <span style=color:#f92672>*</span>DescriptorVersion
+</span></span><span style=display:flex><span>);
+</span></span></code></pre></div><ul><li>MemoryMapSize：MemoryMapのバッファサイズ（出力は実際のメモリサイズ）</li><li>MemoryMap: メモリマップ書き込み先のメモリ領域の先頭ポインタ</li><li>MapKey：メモリマップを識別するための値を書き込む変数を指定する</li><li>DescriptorSize: メモリマップの個々の行を表すメモリディスクリプタのバイト数</li><li>DescriptorVersion: メモリディスクリプタ構造体のバージョン番号（使用しない）</li></ul><p>メモリマップの読み込み成功。下図はメモリディスクリプタの各要素csvファイルとして出力している。</p><pre tabindex=0><code>Index, Type, Type(name), PhysicalStart, NumberOfPages, Attribute
 0, 3, EfiBootServicesCode, 00000000, 1, F
 1, 7, EfiConventionalMemory, 00001000, 9F, F
 2, 7, EfiConventionalMemory, 00100000, 700, F
@@ -55,106 +101,102 @@ KosLoaderPkg/以下にLoad.inf, Main.c, KosLoaderPkg.dec, KosLoaderPkg.decの４
 ...
 </code></pre><p>第二章おわり！</p><h2 id=35-第3章>3/5 第3章
 <a class=anchor href=#35-%e7%ac%ac3%e7%ab%a0>#</a></h2><p>第３章レジスタ</p><p>QEMUモニタの使い方(GDBと同じか？)
-<a href=https://en.wikibooks.org/wiki/QEMU/Monitor>wikibooks</a></p><ul><li><p>info registers</p></li><li><p>x/2i 0x067ae4c4</p></li><li><p>初めてのkernel作成</p></li><li><p>ブートローダとkernelは別ファイルとして開発する</p></li><li><p>カーネルのコンパイル時にエラーが出た</p></li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># kernel/main.cpp のコンパイル</span>
-~/kos/kernel$ clang++ -O2 -Wall --target<span style=color:#f92672>=</span>X86_64-elf -ffreestanding -mno-red-zone -fno-exceptions -fno-rtti -std<span style=color:#f92672>=</span>c++17 -c main.cpp
-clang: warning: argument unused during compilation: <span style=color:#e6db74>&#39;-mno-red-zone&#39;</span> <span style=color:#f92672>[</span>-Wunused-command-line-argument<span style=color:#f92672>]</span>
-error: unknown target triple <span style=color:#e6db74>&#39;X86_64---elf&#39;</span>, please use -triple or -arch
-</code></pre></div><ul><li><code>--target</code>フラグなしでコンパイルを実行して解決</li><li>コンパイラがmain.oを生成する</li><li>次にリンカを実行して、main.oから実行可能ファイル(elf)を作成する</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>~/kos/kernel$ ld.lld --entry KernelMain -z norelro --image-base 0x100000 --static -o kernel.elf main.o
-</code></pre></div><pre><code>main.cpp -&gt; (clang++でコンパイル) -&gt; main.o -&gt; (ld.lldでリンク) -&gt; kernel.elf
-</code></pre><ul><li>次に、ブートローダを拡張してカーネルファイルを読み込む機能を追加する</li><li>謎のオフセット24バイト（下記コード）</li><li>→ ELFの仕様で、64bit用のEFLのエントリポイントアドレスは、オフセット24バイトの位置から8バイト整数で書かれている。</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c>   <span style=color:#75715e>// Boot kernel
-</span><span style=color:#75715e></span>    UINT64 entry_addr <span style=color:#f92672>=</span> <span style=color:#f92672>*</span>(UINT64<span style=color:#f92672>*</span>)(kernel_base_addr <span style=color:#f92672>+</span> <span style=color:#ae81ff>24</span>);
-
-    <span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>EntryPointType</span>(<span style=color:#66d9ef>void</span>);
-    EntryPointType<span style=color:#f92672>*</span> entry_point <span style=color:#f92672>=</span> (EntryPointType<span style=color:#f92672>*</span>)entry_addr;
-    entry_point();
-</code></pre></div><ul><li><p>kernelのロード＋起動成功
-<img src=https://www.kaytaka.com/img/kos/kos-day03-kernel.png alt=kernel-load></p></li><li><p>画面の色をいじっていく</p></li><li><p>まずはブートローダでピクセルを描く(UEFIのGOP機能)</p></li><li><p>openProtocol関数でgopを取得する</p></li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c>gBS<span style=color:#f92672>-&gt;</span>OpenProtocol(
-        gop_handles[<span style=color:#ae81ff>0</span>],
-        <span style=color:#f92672>&amp;</span>gEfiGraphicsOutputProtocolGuid,
-        (VOID<span style=color:#f92672>**</span>)gop,
-        image_handle,
-        NULL,
-        EFI_OPEN_PROTOCOL_BY_HANDLE_PROTOCOL
-    );
-</code></pre></div><p>UEFIでピクセル色指定をした結果
+<a href=https://en.wikibooks.org/wiki/QEMU/Monitor>wikibooks</a></p><ul><li><p>info registers</p></li><li><p>x/2i 0x067ae4c4</p></li><li><p>初めてのkernel作成</p></li><li><p>ブートローダとkernelは別ファイルとして開発する</p></li><li><p>カーネルのコンパイル時にエラーが出た</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># kernel/main.cpp のコンパイル</span>
+</span></span><span style=display:flex><span>~/kos/kernel$ clang++ -O2 -Wall --target<span style=color:#f92672>=</span>X86_64-elf -ffreestanding -mno-red-zone -fno-exceptions -fno-rtti -std<span style=color:#f92672>=</span>c++17 -c main.cpp
+</span></span><span style=display:flex><span>clang: warning: argument unused during compilation: <span style=color:#e6db74>&#39;-mno-red-zone&#39;</span> <span style=color:#f92672>[</span>-Wunused-command-line-argument<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>error: unknown target triple <span style=color:#e6db74>&#39;X86_64---elf&#39;</span>, please use -triple or -arch
+</span></span></code></pre></div><ul><li><code>--target</code>フラグなしでコンパイルを実行して解決</li><li>コンパイラがmain.oを生成する</li><li>次にリンカを実行して、main.oから実行可能ファイル(elf)を作成する</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>~/kos/kernel$ ld.lld --entry KernelMain -z norelro --image-base 0x100000 --static -o kernel.elf main.o
+</span></span></code></pre></div><pre tabindex=0><code>main.cpp -&gt; (clang++でコンパイル) -&gt; main.o -&gt; (ld.lldでリンク) -&gt; kernel.elf
+</code></pre><ul><li>次に、ブートローダを拡張してカーネルファイルを読み込む機能を追加する</li><li>謎のオフセット24バイト（下記コード）</li><li>→ ELFの仕様で、64bit用のEFLのエントリポイントアドレスは、オフセット24バイトの位置から8バイト整数で書かれている。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span>   <span style=color:#75715e>// Boot kernel
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    UINT64 entry_addr <span style=color:#f92672>=</span> <span style=color:#f92672>*</span>(UINT64<span style=color:#f92672>*</span>)(kernel_base_addr <span style=color:#f92672>+</span> <span style=color:#ae81ff>24</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>EntryPointType</span>(<span style=color:#66d9ef>void</span>);
+</span></span><span style=display:flex><span>    EntryPointType<span style=color:#f92672>*</span> entry_point <span style=color:#f92672>=</span> (EntryPointType<span style=color:#f92672>*</span>)entry_addr;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>entry_point</span>();
+</span></span></code></pre></div><ul><li><p>kernelのロード＋起動成功
+<img src=https://www.kaytaka.com/img/kos/kos-day03-kernel.png alt=kernel-load></p></li><li><p>画面の色をいじっていく</p></li><li><p>まずはブートローダでピクセルを描く(UEFIのGOP機能)</p></li><li><p>openProtocol関数でgopを取得する</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span>gBS<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>OpenProtocol</span>(
+</span></span><span style=display:flex><span>        gop_handles[<span style=color:#ae81ff>0</span>],
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&amp;</span>gEfiGraphicsOutputProtocolGuid,
+</span></span><span style=display:flex><span>        (VOID<span style=color:#f92672>**</span>)gop,
+</span></span><span style=display:flex><span>        image_handle,
+</span></span><span style=display:flex><span>        NULL,
+</span></span><span style=display:flex><span>        EFI_OPEN_PROTOCOL_BY_HANDLE_PROTOCOL
+</span></span><span style=display:flex><span>    );
+</span></span></code></pre></div><p>UEFIでピクセル色指定をした結果
 <img src=https://www.kaytaka.com/img/kos/kos-day03-uefi-color.png alt="uefi color"></p><ul><li>次にカーネルでピクセルを描く+エラー処理</li><li>gBSの各関数の戻り値(EFI_STATUS型)をチェックしてエラーの場合には、メッセージ表示＋hltを行う。</li></ul><p><img src=https://www.kaytaka.com/img/kos/kos-day03-uefi-color.png alt="kernel color"></p><h2 id=38-第4章>3/8 第4章
-<a class=anchor href=#38-%e7%ac%ac4%e7%ab%a0>#</a></h2><p>第４章 make入門</p><ul><li>kernelのコード (main.cpp) にピクセルを描画する処理を追加する。</li><li>なぜか黄色が表示される。。。</li></ul><p><img src=https://www.kaytaka.com/img/kos/kos-day04-bug.png alt=bug></p><ul><li>原因はフレームバッファにred要素を書いていなかったことだった。<code>p[2] = c.r</code>の記述がない。</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>// main.cpp WritePixel関数内
-</span><span style=color:#75715e></span>} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (config.pixel_format <span style=color:#f92672>==</span> kPixelBGRResv8BitPerColor) {
-    <span style=color:#66d9ef>uint8_t</span><span style=color:#f92672>*</span> p <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>config.frame_buffer[<span style=color:#ae81ff>4</span> <span style=color:#f92672>*</span> pixel_position];
-    p[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> c.b;
-    p[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> c.g;
-} <span style=color:#66d9ef>else</span> {
-</code></pre></div><ul><li><p>これでピクセルの描画を楽に記述できるようになった。</p></li><li><p>カーネルローダの改良</p><ul><li>カーネルの読み込み処理で、メモリ上に確保するメモリサイズを計算する処理が実は間違っているので修正する必要がある。</li><li>kernel.elfの情報 (ELFプログラムヘッダのLOAD部分) を見て、正しいサイズのメモリを確保するように修正する。</li></ul></li><li><p>上記について書き換えたが、なぜか以下のエラーが出てkernelが実行されない。</p></li></ul><pre><code>failed to allocate pages: Not Found
-</code></pre><ul><li>原因：上記は取得しようとしているページ数が大きすぎたことで発生したエラー<ul><li>num_pagesの計算で、カーネルのサイズに<code>0xfff</code>を乗算しているのがミス（以下のコード部分）</li><li>本来は、カーネルのサイズに<code>0xfff</code>を加算する</li><li>ちなみに、この部分はカーネルをメモリ上に配置するために、カーネルサイズをページ単位(0x1000)で計算している。0xfffを加算する理由は、カーネルサイズを0x1000で割った際に必要なページ数を正しく計算するため。つまり以下を計算するためである。</li><li><code>カーネルの配置に必要なページ数 = ceil(カーネルサイズ(bytes) / 0x1000)</code></li></ul></li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>// 誤→&#34;* 0xfff&#34; 
-</span><span style=color:#75715e>// 正→&#34;+ 0xfff&#34;
-</span><span style=color:#75715e>// 
-</span><span style=color:#75715e></span>UINTN num_pages <span style=color:#f92672>=</span> (kernel_last_addr <span style=color:#f92672>-</span> kernel_first_addr <span style=color:#f92672>*</span> <span style=color:#ae81ff>0xfff</span>) <span style=color:#f92672>/</span> <span style=color:#ae81ff>0x1000</span>; 
-    status <span style=color:#f92672>=</span> gBS<span style=color:#f92672>-&gt;</span>AllocatePages(
-        AllocateAddress,
-        EfiLoaderData,
-        num_pages,
-        <span style=color:#f92672>&amp;</span>kernel_first_addr
-    );
-</code></pre></div><h2 id=39-第5章>3/9 第5章
+<a class=anchor href=#38-%e7%ac%ac4%e7%ab%a0>#</a></h2><p>第４章 make入門</p><ul><li>kernelのコード (main.cpp) にピクセルを描画する処理を追加する。</li><li>なぜか黄色が表示される。。。</li></ul><p><img src=https://www.kaytaka.com/img/kos/kos-day04-bug.png alt=bug></p><ul><li>原因はフレームバッファにred要素を書いていなかったことだった。<code>p[2] = c.r</code>の記述がない。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#75715e>// main.cpp WritePixel関数内
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (config.pixel_format <span style=color:#f92672>==</span> kPixelBGRResv8BitPerColor) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint8_t</span><span style=color:#f92672>*</span> p <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>config.frame_buffer[<span style=color:#ae81ff>4</span> <span style=color:#f92672>*</span> pixel_position];
+</span></span><span style=display:flex><span>    p[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> c.b;
+</span></span><span style=display:flex><span>    p[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> c.g;
+</span></span><span style=display:flex><span>} <span style=color:#66d9ef>else</span> {
+</span></span></code></pre></div><ul><li><p>これでピクセルの描画を楽に記述できるようになった。</p></li><li><p>カーネルローダの改良</p><ul><li>カーネルの読み込み処理で、メモリ上に確保するメモリサイズを計算する処理が実は間違っているので修正する必要がある。</li><li>kernel.elfの情報 (ELFプログラムヘッダのLOAD部分) を見て、正しいサイズのメモリを確保するように修正する。</li></ul></li><li><p>上記について書き換えたが、なぜか以下のエラーが出てkernelが実行されない。</p></li></ul><pre tabindex=0><code>failed to allocate pages: Not Found
+</code></pre><ul><li>原因：上記は取得しようとしているページ数が大きすぎたことで発生したエラー<ul><li>num_pagesの計算で、カーネルのサイズに<code>0xfff</code>を乗算しているのがミス（以下のコード部分）</li><li>本来は、カーネルのサイズに<code>0xfff</code>を加算する</li><li>ちなみに、この部分はカーネルをメモリ上に配置するために、カーネルサイズをページ単位(0x1000)で計算している。0xfffを加算する理由は、カーネルサイズを0x1000で割った際に必要なページ数を正しく計算するため。つまり以下を計算するためである。</li><li><code>カーネルの配置に必要なページ数 = ceil(カーネルサイズ(bytes) / 0x1000)</code></li></ul></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#75715e>// 誤→&#34;* 0xfff&#34; 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 正→&#34;+ 0xfff&#34;
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// 
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>UINTN num_pages <span style=color:#f92672>=</span> (kernel_last_addr <span style=color:#f92672>-</span> kernel_first_addr <span style=color:#f92672>*</span> <span style=color:#ae81ff>0xfff</span>) <span style=color:#f92672>/</span> <span style=color:#ae81ff>0x1000</span>; 
+</span></span><span style=display:flex><span>    status <span style=color:#f92672>=</span> gBS<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>AllocatePages</span>(
+</span></span><span style=display:flex><span>        AllocateAddress,
+</span></span><span style=display:flex><span>        EfiLoaderData,
+</span></span><span style=display:flex><span>        num_pages,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&amp;</span>kernel_first_addr
+</span></span><span style=display:flex><span>    );
+</span></span></code></pre></div><h2 id=39-第5章>3/9 第5章
 <a class=anchor href=#39-%e7%ac%ac5%e7%ab%a0>#</a></h2><p>第５章　文字表示とコンソールクラス</p><ul><li><p>ピクセルの描画はできるようになっているので、それを用いて文字を描画する
-<img src=https://www.kaytaka.com/img/kos/kos-day05-print-font-a.png alt="font A"></p></li><li><p>参照とポインタの使い分け</p><ul><li>ポインタ：C言語からある機能。<code>nullptr</code>とか書くだけで簡単にNULLポインタを作成できる。</li><li>参照：C++で追加された機能。NULL参照が作りにくい。引数で参照を指定することでNULLではないものを渡してほしいという意思表示として使える。</li></ul></li><li><p>フォントのファイルをカーネルファイルに組み込む</p></li><li><p>ELFなどではないバイナリも、実行可能ファイルにリンクしてプログラムから変数として見えるようにすることができる。これは知らなかったためかなり勉強になった。</p></li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>// hankaku.bin<span style=color:#f92672>(</span>フラットバイナリ<span style=color:#f92672>)</span>→hankaku.o<span style=color:#f92672>(</span>ELFオブジェクトファイル<span style=color:#f92672>)</span>
-$ objcopy -I binary -O elf64-x86-64 -B i386:x86-64 hankaku.bin hankaku.o
-$ file hankaku.o 
-hankaku.o: ELF 64-bit LSB relocatable, x86-64, version <span style=color:#ae81ff>1</span> <span style=color:#f92672>(</span>SYSV<span style=color:#f92672>)</span>, not stripped
-</code></pre></div><ul><li><p>ASCII文字列を一通り利用できるようになった。
+<img src=https://www.kaytaka.com/img/kos/kos-day05-print-font-a.png alt="font A"></p></li><li><p>参照とポインタの使い分け</p><ul><li>ポインタ：C言語からある機能。<code>nullptr</code>とか書くだけで簡単にNULLポインタを作成できる。</li><li>参照：C++で追加された機能。NULL参照が作りにくい。引数で参照を指定することでNULLではないものを渡してほしいという意思表示として使える。</li></ul></li><li><p>フォントのファイルをカーネルファイルに組み込む</p></li><li><p>ELFなどではないバイナリも、実行可能ファイルにリンクしてプログラムから変数として見えるようにすることができる。これは知らなかったためかなり勉強になった。</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>// hankaku.bin<span style=color:#f92672>(</span>フラットバイナリ<span style=color:#f92672>)</span>→hankaku.o<span style=color:#f92672>(</span>ELFオブジェクトファイル<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>$ objcopy -I binary -O elf64-x86-64 -B i386:x86-64 hankaku.bin hankaku.o
+</span></span><span style=display:flex><span>$ file hankaku.o 
+</span></span><span style=display:flex><span>hankaku.o: ELF 64-bit LSB relocatable, x86-64, version <span style=color:#ae81ff>1</span> <span style=color:#f92672>(</span>SYSV<span style=color:#f92672>)</span>, not stripped
+</span></span></code></pre></div><ul><li><p>ASCII文字列を一通り利用できるようになった。
 <img src=https://www.kaytaka.com/img/kos/kos-day05-ascii.png alt=ASCII></p></li><li><p>文字の折返し、スクロールなどを行うconsoleクラスの実装　完了
 <img src=https://www.kaytaka.com/img/kos/kos-day05-console.png alt=console></p></li></ul><h2 id=311-第6章>3/11 第6章
-<a class=anchor href=#311-%e7%ac%ac6%e7%ab%a0>#</a></h2><p>第6章 マウス入力とPCIe</p><ul><li>UIのアップデート。背景に色をつけ、画面下にタスクバーを模した長方形を描画することでそれらしい見た目になった。</li><li>ホストマシン (ubuntu) を再起動すると、環境変数がリセットされたことでkernelをビルドするためのmakeコマンドが失敗した。</li><li>起動時に環境変数が自動で設定されるように、$HOME/.bashrcに下記を追記する</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># .bashrc</span>
-source $HOME/osbook/devenv/buildenv.sh
-</code></pre></div><ul><li><p>USBホストドライバを実装する</p></li><li><p>USB (Universal Serial Bus)　←地味に知らなかった</p></li><li><p>ドライバの実装がどんなのものなのか知らなかったので、何よりもこの章が楽しみだった。</p></li><li><p>→ドライバの実装には解説はないらしい。残念。</p></li><li><p>PCIデバイスの読み取り</p></li><li><p>IOアドレス空間：メモリアドレス空間とは別のアドレス空間。周辺機器用のアドレス空間。</p></li><li><p>PCIコンフィグレーション空間（周辺機器にある）にアクセスするためにIOアドレス空間を利用する。</p></li><li><p>ScanAllBus関数では、PCIデバイスをすべて探索している</p></li><li><p>bus=0, device=0, function=0から検索する</p><ul><li>device: 1つのバスに最大32個まで</li><li>function: 1つのデバイスに最大8個まで</li></ul></li><li><p>なぜfunctionで探索している？</p></li><li><p>PCIファンクションがPCI-to-PCIブリッジ（２つのPCIバスをつなぐブリッジ）である場合、ブリッジの下流側のバスに対して、PCIデバイスを探索する。</p></li><li><p>PCI-to-PCIブリッジは、PCIデバイスの最大接続数を増やすために利用される。</p></li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp>Error <span style=color:#a6e22e>ScanAllBus</span>() {
-    ...
-
-    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>uint8_t</span> function <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; function <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>8</span>; <span style=color:#f92672>++</span>function) {
-        <span style=color:#66d9ef>if</span> (ReadVendorId(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, function) <span style=color:#f92672>==</span> <span style=color:#ae81ff>0xffffu</span>) {
-            <span style=color:#66d9ef>continue</span>;
-        }
-        <span style=color:#75715e>// ScanBusの引数はbus番号のはずだが、function番号として1-8を引数に入れている。なぜ？
-</span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>auto</span> err <span style=color:#f92672>=</span> ScanBus(function)) {
-            <span style=color:#66d9ef>return</span> err;
-        }
-    }
-    <span style=color:#66d9ef>return</span> Error<span style=color:#f92672>::</span>kSuccess;
-}
-</code></pre></div><ul><li>PCIデバイスの探索+表示に成功</li></ul><p><img src=https://www.kaytaka.com/img/kos/kos-day06-pci-devices.png alt="pci devices"></p><ul><li><p>ポーリングでマウス入力を読み取る</p></li><li><p>6.4節のコードをビルドする際にエラーが発生した。</p></li><li><p>エラーの要点と思われる箇所はこちら：<code>ld.lld: error: cundefined symbol: _exit</code></p></li><li></li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ make
-ld.lld -L/home/user/osbook/devenv/x86_64-elf/lib --entry KernelMain -z norelro --image-base 0x100000 --static -o kernel.elf main.o graphics.o mouse.o font.o hankaku.o newlib_support.o console.o pci.o asmfunc.o libcxx_support.o logger.o usb/memory.o usb/device.o usb/xhci/ring.o usb/xhci/trb.o usb/xhci/xhci.o usb/xhci/port.o usb/xhci/device.o usb/xhci/devmgr.o usb/xhci/registers.o usb/classdriver/base.o usb/classdriver/hid.o usb/classdriver/keyboard.o usb/classdriver/mouse.o -lc -lc++
-ld.lld: error: cundefined symbol: _exit
-&gt;&gt;&gt; referenced by abort.c
-&gt;&gt;&gt;               lib_a-abort.o:<span style=color:#f92672>(</span>abort<span style=color:#f92672>)</span> in archive /home/user/osbook/devenv/x86_64-elf/lib/libc.a
-
-ld.lld: error: undefined symbol: kill
-&gt;&gt;&gt; referenced by signalr.c
-&gt;&gt;&gt;               lib_a-signalr.o:<span style=color:#f92672>(</span>_kill_r<span style=color:#f92672>)</span> in archive /home/user/osbook/devenv/x86_64-elf/lib/libc.a
-
-ld.lld: error: undefined symbol: getpid
-&gt;&gt;&gt; referenced by signalr.c
-&gt;&gt;&gt;               lib_a-signalr.o:<span style=color:#f92672>(</span>_getpid_r<span style=color:#f92672>)</span> in archive /home/user/osbook/devenv/x86_64-elf/lib/libc.a
-make: *** <span style=color:#f92672>[</span>Makefile:25: kernel.elf<span style=color:#f92672>]</span> Error <span style=color:#ae81ff>1</span>
-</code></pre></div><ul><li><p>newlib_support.cにライブラリ関数を追加するのを忘れていた。みかん本に挑戦している別の方の
+<a class=anchor href=#311-%e7%ac%ac6%e7%ab%a0>#</a></h2><p>第6章 マウス入力とPCIe</p><ul><li>UIのアップデート。背景に色をつけ、画面下にタスクバーを模した長方形を描画することでそれらしい見た目になった。</li><li>ホストマシン (ubuntu) を再起動すると、環境変数がリセットされたことでkernelをビルドするためのmakeコマンドが失敗した。</li><li>起動時に環境変数が自動で設定されるように、$HOME/.bashrcに下記を追記する</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># .bashrc</span>
+</span></span><span style=display:flex><span>source $HOME/osbook/devenv/buildenv.sh
+</span></span></code></pre></div><ul><li><p>USBホストドライバを実装する</p></li><li><p>USB (Universal Serial Bus)　←地味に知らなかった</p></li><li><p>ドライバの実装がどんなのものなのか知らなかったので、何よりもこの章が楽しみだった。</p></li><li><p>→ドライバの実装には解説はないらしい。残念。</p></li><li><p>PCIデバイスの読み取り</p></li><li><p>IOアドレス空間：メモリアドレス空間とは別のアドレス空間。周辺機器用のアドレス空間。</p></li><li><p>PCIコンフィグレーション空間（周辺機器にある）にアクセスするためにIOアドレス空間を利用する。</p></li><li><p>ScanAllBus関数では、PCIデバイスをすべて探索している</p></li><li><p>bus=0, device=0, function=0から検索する</p><ul><li>device: 1つのバスに最大32個まで</li><li>function: 1つのデバイスに最大8個まで</li></ul></li><li><p>なぜfunctionで探索している？</p></li><li><p>PCIファンクションがPCI-to-PCIブリッジ（２つのPCIバスをつなぐブリッジ）である場合、ブリッジの下流側のバスに対して、PCIデバイスを探索する。</p></li><li><p>PCI-to-PCIブリッジは、PCIデバイスの最大接続数を増やすために利用される。</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span>Error <span style=color:#a6e22e>ScanAllBus</span>() {
+</span></span><span style=display:flex><span>    ...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>uint8_t</span> function <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; function <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>8</span>; <span style=color:#f92672>++</span>function) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (ReadVendorId(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, function) <span style=color:#f92672>==</span> <span style=color:#ae81ff>0xffffu</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>continue</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// ScanBusの引数はbus番号のはずだが、function番号として1-8を引数に入れている。なぜ？
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>auto</span> err <span style=color:#f92672>=</span> ScanBus(function)) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> err;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> Error<span style=color:#f92672>::</span>kSuccess;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ul><li>PCIデバイスの探索+表示に成功</li></ul><p><img src=https://www.kaytaka.com/img/kos/kos-day06-pci-devices.png alt="pci devices"></p><ul><li><p>ポーリングでマウス入力を読み取る</p></li><li><p>6.4節のコードをビルドする際にエラーが発生した。</p></li><li><p>エラーの要点と思われる箇所はこちら：<code>ld.lld: error: cundefined symbol: _exit</code></p></li><li></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ make
+</span></span><span style=display:flex><span>ld.lld -L/home/user/osbook/devenv/x86_64-elf/lib --entry KernelMain -z norelro --image-base 0x100000 --static -o kernel.elf main.o graphics.o mouse.o font.o hankaku.o newlib_support.o console.o pci.o asmfunc.o libcxx_support.o logger.o usb/memory.o usb/device.o usb/xhci/ring.o usb/xhci/trb.o usb/xhci/xhci.o usb/xhci/port.o usb/xhci/device.o usb/xhci/devmgr.o usb/xhci/registers.o usb/classdriver/base.o usb/classdriver/hid.o usb/classdriver/keyboard.o usb/classdriver/mouse.o -lc -lc++
+</span></span><span style=display:flex><span>ld.lld: error: cundefined symbol: _exit
+</span></span><span style=display:flex><span>&gt;&gt;&gt; referenced by abort.c
+</span></span><span style=display:flex><span>&gt;&gt;&gt;               lib_a-abort.o:<span style=color:#f92672>(</span>abort<span style=color:#f92672>)</span> in archive /home/user/osbook/devenv/x86_64-elf/lib/libc.a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ld.lld: error: undefined symbol: kill
+</span></span><span style=display:flex><span>&gt;&gt;&gt; referenced by signalr.c
+</span></span><span style=display:flex><span>&gt;&gt;&gt;               lib_a-signalr.o:<span style=color:#f92672>(</span>_kill_r<span style=color:#f92672>)</span> in archive /home/user/osbook/devenv/x86_64-elf/lib/libc.a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ld.lld: error: undefined symbol: getpid
+</span></span><span style=display:flex><span>&gt;&gt;&gt; referenced by signalr.c
+</span></span><span style=display:flex><span>&gt;&gt;&gt;               lib_a-signalr.o:<span style=color:#f92672>(</span>_getpid_r<span style=color:#f92672>)</span> in archive /home/user/osbook/devenv/x86_64-elf/lib/libc.a
+</span></span><span style=display:flex><span>make: *** <span style=color:#f92672>[</span>Makefile:25: kernel.elf<span style=color:#f92672>]</span> Error <span style=color:#ae81ff>1</span>
+</span></span></code></pre></div><ul><li><p>newlib_support.cにライブラリ関数を追加するのを忘れていた。みかん本に挑戦している別の方の
 <a href=https://zenn.dev/link/comments/74146f544f98f3>ページ</a>の記述から気づくことができた。</p></li><li><p>カーソルを動かすことに成功した。デバッグにかなり長い時間(4時間ほど)かかってしまった。。
 <img src=https://www.kaytaka.com/img/kos/kos-day06-cursor.png alt=cursor></p></li></ul><h2 id=318-第7章>3/18 第7章
 <a class=anchor href=#318-%e7%ac%ac7%e7%ab%a0>#</a></h2><p>第7章 割り込みハンドラ</p><ul><li>特殊なアドレス空間<ul><li>アドレス空間の中には、メインメモリに配置されている領域だけではなく、CPUレジスタに領域が配置されている範囲もある。</li><li>0xfee00000から0xfee00400までのアドレス (1024バイト) は、メインメモリではなくCPUのレジスタに配置されている。　</li><li>特に0xfee000b0番地への書き込みを行うことで、割り込み処理の終了をCPUに伝えることができる。</li></ul></li><li>C++の記法<ul><li><code>__attribute__((interrupt))</code>修飾子：割り込みハンドラであることを伝える。これがついている関数には、コンパイル時にコンテキストの保存と復帰処理が挿入される。</li><li><code>__attribute__((packed))</code>修飾子：コンパイラは本来自動で変数のアラインメントを行うが、これがついている変数に対しては、変数のアラインメントを行わない。</li><li><code>reinterpret_cast&lt;型></code>：ポインタ型もしくは整数型(int, longなど)を、任意の型のポインタに変換する。
-<a href=https://www.yunabe.jp/docs/cpp_casts.html>参考</a>あくまでコンパイラに型情報を伝えるためなので、生成されるコードは普通変わらない。</li></ul></li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=color:#66d9ef>union</span> <span style=color:#a6e22e>InterruptDescriptorAttribute</span> {
-  <span style=color:#75715e>// このdata変数は、bits変数のサイズ(16bit)をコンパイラに伝えるためだけに宣言している
-</span><span style=color:#75715e></span>  <span style=color:#75715e>// 実際には使用しない
-</span><span style=color:#75715e></span>  <span style=color:#66d9ef>uint16_t</span> data;  
-  <span style=color:#66d9ef>struct</span> {
-    <span style=color:#66d9ef>uint16_t</span> interrupt_stack_table : <span style=color:#ae81ff>3</span>;
-    <span style=color:#66d9ef>uint16_t</span> <span style=color:#f92672>:</span> <span style=color:#ae81ff>5</span>;
-    DescriptorType type : <span style=color:#ae81ff>4</span>;
-    <span style=color:#66d9ef>uint16_t</span> <span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>;
-    <span style=color:#66d9ef>uint16_t</span> descriptor_privilege_level : <span style=color:#ae81ff>2</span>;
-    <span style=color:#66d9ef>uint16_t</span> present : <span style=color:#ae81ff>1</span>;
-  } __attribute__((packed)) bits;  <span style=color:#75715e>// 16bitのメモリ領域を[3bit, 5bit, 4bit, 1bit, 2bit, 1bit]に分けてアクセスすることができる
-</span><span style=color:#75715e></span>} __attribute__((packed));  <span style=color:#75715e>// アラインメントを行わない
-</span></code></pre></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div class=book-languages tabindex=0 aria-haspopup=true><ul><li class="flex align-center"><img src=https://www.kaytaka.com/svg/translate.svg class=book-icon alt=Languages>
-English</li></ul><ul class=book-languages-list><li class=active><a href=https://www.kaytaka.com/ class="flex align-center"><img src=https://www.kaytaka.com/svg/translate.svg class=book-icon alt=Languages>
-English</a></li><li><a href=https://www.kaytaka.com/ru/ class="flex align-center"><img src=https://www.kaytaka.com/svg/translate.svg class=book-icon alt=Languages>
-Russian</a></li><li><a href=https://www.kaytaka.com/zh/ class="flex align-center"><img src=https://www.kaytaka.com/svg/translate.svg class=book-icon alt=Languages>
-Chinese</a></li></ul></div><div><a class="flex align-center" href=https://github.com/alex-shpak/hugo-book/commit/b7f4abb0661e611e49d41dbe2fc52e4a7637430c title="Last modified by takashimakazuki | August 8, 2022" target=_blank rel=noopener><img src=https://www.kaytaka.com/svg/calendar.svg class=book-icon alt=Calendar>
-<span>August 8, 2022</span></a></div><div><a class="flex align-center" href=https://github.com/alex-shpak/hugo-book/edit/main/exampleSite/content/posts/kos-01-07.md target=_blank rel=noopener><img src=https://www.kaytaka.com/svg/edit.svg class=book-icon alt=Edit>
-<span>Edit this page</span></a></div></div><script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#ゼロからのos自作入門作業記録>ゼロからのOS自作入門　作業記録</a><ul><li><a href=#228-第1章>2/28 第1章</a></li><li><a href=#31第2章>3/1　第2章</a></li><li><a href=#34-第2章>3/4 第2章</a></li><li><a href=#35-第3章>3/5 第3章</a></li><li><a href=#38-第4章>3/8 第4章</a></li><li><a href=#39-第5章>3/9 第5章</a></li><li><a href=#311-第6章>3/11 第6章</a></li><li><a href=#318-第7章>3/18 第7章</a></li></ul></li></ul></nav></div></aside></main></body></html>
+<a href=https://www.yunabe.jp/docs/cpp_casts.html>参考</a>あくまでコンパイラに型情報を伝えるためなので、生成されるコードは普通変わらない。</li></ul></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>union</span> <span style=color:#a6e22e>InterruptDescriptorAttribute</span> {
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// このdata変数は、bits変数のサイズ(16bit)をコンパイラに伝えるためだけに宣言している
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>// 実際には使用しない
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>uint16_t</span> data;  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>struct</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint16_t</span> interrupt_stack_table : <span style=color:#ae81ff>3</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint16_t</span> <span style=color:#f92672>:</span> <span style=color:#ae81ff>5</span>;
+</span></span><span style=display:flex><span>    DescriptorType type : <span style=color:#ae81ff>4</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint16_t</span> <span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint16_t</span> descriptor_privilege_level : <span style=color:#ae81ff>2</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint16_t</span> present : <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>  } __attribute__((packed)) bits;  <span style=color:#75715e>// 16bitのメモリ領域を[3bit, 5bit, 4bit, 1bit, 2bit, 1bit]に分けてアクセスすることができる
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>} __attribute__((packed));  <span style=color:#75715e>// アラインメントを行わない
+</span></span></span></code></pre></div></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/alex-shpak/hugo-book/commit/b7f4abb0661e611e49d41dbe2fc52e4a7637430c title='Last modified by takashimakazuki | August 8, 2022' target=_blank rel=noopener><img src=https://www.kaytaka.com/svg/calendar.svg class=book-icon alt>
+<span>August 8, 2022</span></a></div><div><a class="flex align-center" href=https://github.com/alex-shpak/hugo-book/edit/main/exampleSite/content/posts/kos-01-07.md target=_blank rel=noopener><img src=https://www.kaytaka.com/svg/edit.svg class=book-icon alt>
+<span>Edit this page</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#ゼロからのos自作入門作業記録>ゼロからのOS自作入門　作業記録</a><ul><li><a href=#228-第1章>2/28 第1章</a></li><li><a href=#31第2章>3/1　第2章</a></li><li><a href=#34-第2章>3/4 第2章</a></li><li><a href=#35-第3章>3/5 第3章</a></li><li><a href=#38-第4章>3/8 第4章</a></li><li><a href=#39-第5章>3/9 第5章</a></li><li><a href=#311-第6章>3/11 第6章</a></li><li><a href=#318-第7章>3/18 第7章</a></li></ul></li></ul></nav></div></aside></main></body></html>
